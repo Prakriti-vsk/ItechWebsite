@@ -1,23 +1,59 @@
-import pyodbc
+try:
+    import pyodbc
+    _has_pyodbc = True
+except Exception:
+    pyodbc = None
+    _has_pyodbc = False
+
+import sqlite3
+import os
 from config import Config
 from datetime import datetime
 import hashlib
 
 class Database:
     def __init__(self):
-        try:
-            # Connect to database
-            self.connection = pyodbc.connect(Config.SQL_CONNECTION_STRING)
-            self.cursor = self.connection.cursor()
-            print("Database connection successful!")
-            
-            # Create tables and indexes
-            self.create_tables()
-            self.create_indexes()
-        except Exception as e:
-            print("Database connection failed:", e)
-            self.connection = None
-            self.cursor = None
+        self.connection = None
+        self.cursor = None
+
+        # Try to use pyodbc (SQL Server) when configured and available
+        if Config.SQL_CONNECTION_STRING and _has_pyodbc:
+            try:
+                self.connection = pyodbc.connect(Config.SQL_CONNECTION_STRING)
+                self.cursor = self.connection.cursor()
+                print("Database connection (pyodbc) successful!")
+            except Exception as e:
+                print("pyodbc connection failed:", e)
+                self.connection = None
+                self.cursor = None
+
+        # Fallback to local SQLite file if pyodbc is not available or connection failed
+        if not self.connection:
+            try:
+                # Use existing SQLite DB file if present, else create one
+                sqlite_db = os.path.join(os.path.dirname(__file__), '..', 'itech_institute.db')
+                # Normalize path
+                sqlite_db = os.path.abspath(sqlite_db)
+                self.connection = sqlite3.connect(sqlite_db, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
+                # Return rows as tuples (compatible with existing code that uses indexes)
+                self.connection.row_factory = None
+                self.cursor = self.connection.cursor()
+                print(f"SQLite fallback database connected: {sqlite_db}")
+            except Exception as e:
+                print("SQLite fallback connection failed:", e)
+                self.connection = None
+                self.cursor = None
+
+        # If we have a connection, try to create necessary tables/indexes where appropriate
+        if self.connection:
+            try:
+                self.create_tables()
+            except Exception as e:
+                print(f"Error creating tables: {e}")
+            try:
+                self.create_indexes()
+            except Exception as e:
+                print(f"Error creating indexes: {e}")
             
     def create_indexes(self):
         """Create indexes for better performance if they don't exist"""
