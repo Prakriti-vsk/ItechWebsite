@@ -1,0 +1,909 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {% if project %}{{ project[3] }} - Student Projects{% else %}Project Not Found{% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .project-detail-hero {
+        background: var(--gradient);
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .project-detail-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(52, 152, 219, 0.9), rgba(142, 68, 173, 0.9));
+        z-index: 1;
+    }
+
+    .project-detail-hero .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .project-detail-hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .project-detail-hero p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+    }
+
+    .project-detail-content {
+        padding: 4rem 0;
+        background: var(--background-color);
+    }
+
+    .project-info-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 3rem;
+        align-items: start;
+    }
+
+    .project-meta {
+        background: var(--glass-bg);
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        margin-top: 2rem;
+    }
+
+    .project-meta h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+    }
+
+    .project-meta p {
+        margin-bottom: 0.8rem;
+        color: var(--text-color);
+    }
+
+    .project-stats-card {
+        background: var(--glass-bg);
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow);
+        backdrop-filter: var(--glass-blur);
+        border: 1px solid rgba(44,62,80,0.06);
+    }
+
+    .project-stats-card h3 {
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+        font-size: 1.3rem;
+    }
+
+    .stat-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(44,62,80,0.1);
+    }
+
+    .stat-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+
+    .stat-item span {
+        color: var(--text-color);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .stat-item i {
+        color: var(--primary-color);
+    }
+
+    .project-actions button,
+    .project-actions a {
+        width: 100%;
+        margin-bottom: 1rem;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    .project-actions button:hover,
+    .project-actions a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(44,62,80,0.2);
+    }
+
+    .error-section {
+        padding: 4rem 0;
+        text-align: center;
+        background: var(--background-color);
+    }
+
+    .error-section h1 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-size: 2.5rem;
+    }
+
+    .error-section p {
+        color: var(--text-color);
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+    }
+
+    @media (max-width: 768px) {
+        .project-info-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .project-detail-hero h1 {
+            font-size: 2rem;
+        }
+        
+        .project-detail-content {
+            padding: 2rem 0;
+        }
+    }
+
+    /* Modal styles for password protection */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+        background-color: var(--glass-bg);
+        margin: 15% auto;
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        width: 90%;
+        max-width: 500px;
+        backdrop-filter: var(--glass-blur);
+        border: 1px solid rgba(44,62,80,0.1);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        text-align: center;
+    }
+
+    .modal-content h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .modal-content p {
+        color: var(--text-color);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .modal-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .modal-btn {
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .modal-btn.cancel {
+        background: var(--glass-bg);
+        color: var(--text-color);
+        border: 1px solid rgba(44,62,80,0.2);
+    }
+
+    .modal-btn.cancel:hover {
+        background: rgba(44,62,80,0.1);
+    }
+
+    .modal-btn.confirm {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        color: white;
+    }
+
+    .modal-btn.confirm:hover {
+        background: linear-gradient(135deg, #c0392b, #a93226);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+    }
+
+    .modal-content input[type="password"] {
+        padding: 0.8rem;
+        border: 2px solid rgba(44,62,80,0.2);
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 1rem 0;
+    }
+
+    .modal-content input[type="password"]:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+
+    .form-group {
+        margin: 1.5rem 0;
+        text-align: left;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+    /* Share Modal Styles */
+    .share-modal-content {
+        background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,249,250,0.95));
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(52, 152, 219, 0.2);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+    }
+
+    .share-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .share-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        border-radius: 12px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        background: rgba(255,255,255,0.7);
+        cursor: pointer;
+    }
+
+    .share-option:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        border-color: var(--primary-color);
+    }
+
+    .share-option i {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .share-option span {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-color);
+    }
+
+    .share-option.whatsapp { color: #25D366; }
+    .share-option.whatsapp:hover { background: rgba(37, 211, 102, 0.1); }
+
+    .share-option.facebook { color: #1877F2; }
+    .share-option.facebook:hover { background: rgba(24, 119, 242, 0.1); }
+
+    .share-option.twitter { color: #1DA1F2; }
+    .share-option.twitter:hover { background: rgba(29, 161, 242, 0.1); }
+
+    .share-option.linkedin { color: #0A66C2; }
+    .share-option.linkedin:hover { background: rgba(10, 102, 194, 0.1); }
+
+    .share-option.telegram { color: #0088CC; }
+    .share-option.telegram:hover { background: rgba(0, 136, 204, 0.1); }
+
+    .share-option.copy { color: var(--primary-color); }
+    .share-option.copy:hover { background: rgba(52, 152, 219, 0.1); }
+
+    .share-url-container {
+        background: rgba(248,249,250,0.8);
+        border: 2px solid rgba(52, 152, 219, 0.2);
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .share-url-container input {
+        flex: 1;
+        border: none;
+        background: transparent;
+        font-size: 0.9rem;
+        color: var(--text-color);
+        outline: none;
+    }
+
+    .copy-btn {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .copy-btn:hover {
+        background: var(--accent-color);
+        transform: scale(1.05);
+    }
+
+    .copy-btn.copied {
+        background: #27ae60;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if project %}
+<div class="project-detail-hero">
+    <div class="container">
+        <h1>{{ project[3] }} 
+        {% if project|length > 11 and project[11] %}
+            <span style="background: linear-gradient(135deg, #27ae60, #2ecc71); color: white; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.5em; margin-left: 1rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem;">
+                <i class="fas fa-shield-alt"></i> Protected
+            </span>
+        {% endif %}
+        </h1>
+        <p>by {{ project[1] }} • {{ project[2] }}</p>
+    </div>
+</div>
+
+<div class="project-detail-content">
+    <div class="container">
+        <div class="project-info-grid">
+            <div>
+                <h2 style="color: var(--primary-color); margin-bottom: 1.5rem; font-size: 2rem;">Project Description</h2>
+                <p style="line-height: 1.8; margin-bottom: 2rem; color: var(--text-color); font-size: 1.1rem;">{{ project[5] }}</p>
+                
+                <div class="project-meta">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h3 style="margin: 0;">Project Details</h3>
+                        
+                        <!-- Add View Project Button Here -->
+                        {% if project[6] %}
+                            {% if project[6].startswith('/static/uploads/projects/') %}
+                                <a href="/view-uploaded-project/{{ project[0] }}" target="_blank" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; text-decoration: none;">
+                                    <i class="fas fa-external-link-alt"></i> View Project
+                                </a>
+                            {% elif project[6] and (project[6].startswith('http://') or project[6].startswith('https://')) %}
+                                <a href="{{ project[6] }}" target="_blank" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; text-decoration: none;">
+                                    <i class="fas fa-external-link-alt"></i> View Project
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    
+                    <p><strong>Category:</strong> 
+                        <span class="tag" style="background: var(--primary-color); color: white; padding: 0.2rem 0.6rem; border-radius: 15px; font-size: 0.8rem; margin-left: 0.5rem;">
+                            {{ project[4].title() }}
+                        </span>
+                    </p>
+                    <p><strong>Course:</strong> {{ project[2] }}</p>
+                    <p><strong>Student:</strong> {{ project[1] }}</p>
+                    <p><strong>Upload Date:</strong> 
+                        {% if project[7] %}
+                            {{ project[7].strftime('%B %d, %Y') if project[7].__class__.__name__ == 'datetime' else project[7] }}
+                        {% else %}
+                            Recently
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            
+            <div class="project-sidebar">
+                <div class="project-stats-card">
+                    <h3><i class="fas fa-chart-bar"></i> Project Stats</h3>
+                    <div class="stats-list">
+                        <div class="stat-item">
+                            <span><i class="fas fa-eye"></i> Views</span>
+                            <strong>{{ project[8] or 0 }}</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span><i class="fas fa-heart"></i> Likes</span>
+                            <strong id="like-count">{{ project[9] or 0 }}</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span><i class="fas fa-share-alt"></i> Shares</span>
+                            <strong>{{ project[10] or 0 }}</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-actions">
+                    <button id="like-project-btn" class="btn btn-secondary" data-project-id="{{ project[0] }}">
+                        <i class="fas fa-heart"></i> Like Project
+                    </button>
+                    
+                    <!-- Add Share Button -->
+                    <button id="share-project-btn" class="btn btn-success" data-project-id="{{ project[0] }}" data-project-title="{{ project[3] }}" data-project-author="{{ project[1] }}" data-project-description="{{ project[5][:100] }}...">
+                        <i class="fas fa-share-alt"></i> Share Project
+                    </button>
+                    
+                    <button id="delete-project-btn" class="btn" style="background: linear-gradient(135deg, #e74c3c, #c0392b); margin-bottom: 1rem;" data-project-id="{{ project[0] }}" data-project-title="{{ project[3] }}" data-has-password="{{ 'true' if project|length > 11 and project[11] else 'false' }}">
+                        <i class="fas fa-{% if project|length > 11 and project[11] %}lock{% else %}trash{% endif %}"></i> Delete Project
+                    </button>
+                    <a href="{{ url_for('student_projects') }}" class="btn">
+                        <i class="fas fa-arrow-left"></i> Back to Projects
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function likeProject(projectId) {
+    const likeBtn = document.getElementById('like-project-btn');
+    const likeCount = document.getElementById('like-count');
+    
+    // Disable button to prevent multiple clicks
+    likeBtn.disabled = true;
+    likeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Liking...';
+    
+    fetch(`/like-project/${projectId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Update like count
+            const currentCount = parseInt(likeCount.textContent);
+            likeCount.textContent = currentCount + 1;
+            
+            // Update button
+            likeBtn.innerHTML = '<i class="fas fa-heart"></i> Liked!';
+            likeBtn.classList.add('btn-success');
+            
+            // Show success message
+            showNotification('Thank you for liking this project!', 'success');
+        } else {
+            // Reset button
+            likeBtn.disabled = false;
+            likeBtn.innerHTML = '<i class="fas fa-heart"></i> Like Project';
+            showNotification('Error liking project. Please try again.', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Reset button
+        likeBtn.disabled = false;
+        likeBtn.innerHTML = '<i class="fas fa-heart"></i> Like Project';
+        showNotification('Error liking project. Please try again.', 'error');
+    });
+}
+
+function shareProject(projectId, projectTitle, projectAuthor, projectDescription) {
+    const shareBtn = document.getElementById('share-project-btn');
+    
+    // Get the project URL
+    const projectUrl = `${window.location.origin}/project/${projectId}`;
+    
+    // Show share modal
+    showShareModal(projectId, projectTitle, projectAuthor, projectDescription, projectUrl);
+}
+
+function showShareModal(projectId, projectTitle, projectAuthor, projectDescription, projectUrl) {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    
+    const shareText = `Check out this amazing project: "${projectTitle}" by ${projectAuthor} - ${projectDescription}`;
+    
+    modal.innerHTML = `
+        <div class="modal-content share-modal-content">
+            <h3><i class="fas fa-share-alt"></i> Share Project</h3>
+            <p>Share "${projectTitle}" with your friends and colleagues!</p>
+            
+            <div class="share-url-container">
+                <input type="text" id="shareUrl" value="${projectUrl}" readonly>
+                <button class="copy-btn" onclick="copyToClipboard()">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+            </div>
+            
+            <div class="share-options">
+                <a href="https://wa.me/?text=${encodeURIComponent(shareText + ' ' + projectUrl)}" 
+                   target="_blank" class="share-option whatsapp" onclick="incrementShareCount(${projectId})">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+                
+                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(projectUrl)}&quote=${encodeURIComponent(shareText)}" 
+                   target="_blank" class="share-option facebook" onclick="incrementShareCount(${projectId})">
+                    <i class="fab fa-facebook-f"></i>
+                    <span>Facebook</span>
+                </a>
+                
+                <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(projectUrl)}" 
+                   target="_blank" class="share-option twitter" onclick="incrementShareCount(${projectId})">
+                    <i class="fab fa-twitter"></i>
+                    <span>Twitter</span>
+                </a>
+                
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(projectUrl)}" 
+                   target="_blank" class="share-option linkedin" onclick="incrementShareCount(${projectId})">
+                    <i class="fab fa-linkedin-in"></i>
+                    <span>LinkedIn</span>
+                </a>
+                
+                <a href="https://t.me/share/url?url=${encodeURIComponent(projectUrl)}&text=${encodeURIComponent(shareText)}" 
+                   target="_blank" class="share-option telegram" onclick="incrementShareCount(${projectId})">
+                    <i class="fab fa-telegram-plane"></i>
+                    <span>Telegram</span>
+                </a>
+                
+                <div class="share-option copy" onclick="copyToClipboard()">
+                    <i class="fas fa-link"></i>
+                    <span>Copy Link</span>
+                </div>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" onclick="closeModal()">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    modal.style.display = 'block';
+    
+    // Close modal when clicking outside
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+}
+
+function copyToClipboard() {
+    const shareUrl = document.getElementById('shareUrl');
+    shareUrl.select();
+    shareUrl.setSelectionRange(0, 99999);
+    
+    navigator.clipboard.writeText(shareUrl.value).then(function() {
+        const copyBtns = document.querySelectorAll('.copy-btn');
+        copyBtns.forEach(btn => {
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            btn.classList.add('copied');
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.remove('copied');
+            }, 2000);
+        });
+        
+        showNotification('Project link copied to clipboard!', 'success');
+    }).catch(function(err) {
+        // Fallback for older browsers
+        try {
+            document.execCommand('copy');
+            showNotification('Project link copied to clipboard!', 'success');
+        } catch (e) {
+            showNotification('Unable to copy link. Please copy manually.', 'error');
+        }
+    });
+}
+
+function incrementShareCount(projectId) {
+    fetch(`/share-project/${projectId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Update share count in the UI
+            const shareCount = document.querySelector('.stat-item:nth-child(3) strong');
+            if (shareCount) {
+                const currentCount = parseInt(shareCount.textContent);
+                shareCount.textContent = currentCount + 1;
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Error incrementing share count:', error);
+    });
+}
+
+function downloadProject(projectId, projectUrl) {
+    const downloadBtn = document.getElementById('download-project-btn');
+    const downloadCount = document.querySelector('.stat-item:nth-child(3) strong');
+    
+    // Disable button to prevent multiple clicks
+    downloadBtn.disabled = true;
+    downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+    
+    // First, increment download count
+    fetch(`/download-project/${projectId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Update download count
+            const currentCount = parseInt(downloadCount.textContent);
+            downloadCount.textContent = currentCount + 1;
+            
+            // Start download
+            const link = document.createElement('a');
+            link.href = projectUrl;
+            link.download = `project_${projectId}.html`;
+            link.click();
+            
+            // Reset button
+            downloadBtn.disabled = false;
+            downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download Project';
+            
+            // Show success message
+            showNotification('Download started successfully!', 'success');
+        } else {
+            // Reset button
+            downloadBtn.disabled = false;
+            downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download Project';
+            showNotification('Error downloading project. Please try again.', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Reset button
+        downloadBtn.disabled = false;
+        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download Project';
+        showNotification('Error downloading project. Please try again.', 'error');
+    });
+}
+
+function showNotification(message, type) {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 1rem 1.5rem;
+        border-radius: 5px;
+        color: white;
+        font-weight: 600;
+        z-index: 1000;
+        animation: slideIn 0.3s ease-out;
+        ${type === 'success' ? 'background: #27ae60;' : 'background: #e74c3c;'}
+    `;
+    notification.textContent = message;
+    
+    // Add animation styles
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.remove();
+        style.remove();
+    }, 3000);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const likeBtn = document.getElementById('like-project-btn');
+    if (likeBtn) {
+        likeBtn.addEventListener('click', function() {
+            const projectId = this.getAttribute('data-project-id');
+            if (projectId) {
+                likeProject(projectId);
+            }
+        });
+    }
+    
+    // Share project functionality
+    const shareBtn = document.getElementById('share-project-btn');
+    if (shareBtn) {
+        shareBtn.addEventListener('click', function() {
+            const projectId = this.getAttribute('data-project-id');
+            const projectTitle = this.getAttribute('data-project-title');
+            const projectAuthor = this.getAttribute('data-project-author');
+            const projectDescription = this.getAttribute('data-project-description');
+            
+            if (projectId && projectTitle && projectAuthor) {
+                shareProject(projectId, projectTitle, projectAuthor, projectDescription);
+            }
+        });
+    }
+    // Make functions global for onclick handlers
+    window.incrementShareCount = incrementShareCount;
+    window.copyToClipboard = copyToClipboard;
+    
+    // Delete project functionality
+    const deleteBtn = document.getElementById('delete-project-btn');
+    if (deleteBtn) {
+        deleteBtn.addEventListener('click', function() {
+            const projectId = this.getAttribute('data-project-id');
+            const projectTitle = this.getAttribute('data-project-title');
+            const hasPassword = this.getAttribute('data-has-password') === 'true';
+            
+            showDeleteConfirmation(projectId, projectTitle, hasPassword);
+        });
+    }
+
+    function showDeleteConfirmation(projectId, projectTitle, hasPassword) {
+        // Create modal
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        
+        const passwordInput = hasPassword ? `
+            <div class="form-group" style="margin: 1.5rem 0;">
+                <label for="deletePassword" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--primary-color);">
+                    <i class="fas fa-lock"></i> Enter Project Password:
+                </label>
+                <input type="password" id="deletePassword" placeholder="Enter your project password" 
+                       style="width: 100%; padding: 0.8rem; border: 2px solid rgba(44,62,80,0.2); border-radius: 8px; font-size: 1rem;"
+                       required>
+            </div>
+        ` : '';
+        
+        modal.innerHTML = `
+            <div class="modal-content">
+                <h3><i class="fas fa-exclamation-triangle"></i> Delete Project</h3>
+                <p>Are you sure you want to delete the project "<strong>${projectTitle}</strong>"?</p>
+                ${hasPassword ? '<p style="font-size: 0.9rem; color: var(--primary-color);"><i class="fas fa-shield-alt"></i> This project is password protected.</p>' : ''}
+                <p style="font-size: 0.9rem; opacity: 0.8;">This action cannot be undone and will permanently delete all project files.</p>
+                ${passwordInput}
+                <div class="modal-buttons">
+                    <button class="modal-btn cancel" onclick="closeModal()">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button class="modal-btn confirm" onclick="confirmDelete(${projectId}, ${hasPassword})">
+                        <i class="fas fa-trash"></i> Delete Project
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        modal.style.display = 'block';
+        
+        // Focus on password input if password is required
+        if (hasPassword) {
+            const passwordInput = modal.querySelector('#deletePassword');
+            setTimeout(() => passwordInput.focus(), 100);
+        }
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    }
+
+    // Make functions global
+    window.closeModal = function() {
+        const modal = document.querySelector('.modal');
+        if (modal) {
+            modal.remove();
+        }
+    };
+
+    window.confirmDelete = function(projectId, hasPassword) {
+        const confirmBtn = document.querySelector('.modal-btn.confirm');
+        const passwordInput = document.querySelector('#deletePassword');
+        
+        // Get password if required
+        let password = '';
+        if (hasPassword) {
+            password = passwordInput ? passwordInput.value.trim() : '';
+            if (!password) {
+                showNotification('Please enter the project password', 'error');
+                return;
+            }
+        }
+        
+        confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
+        confirmBtn.disabled = true;
+        
+        // Prepare request data
+        const requestData = hasPassword && password ? { password: password } : {};
+        
+        fetch(`/delete-project/${projectId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            closeModal();
+            
+            if (data.success) {
+                showNotification('Project deleted successfully!', 'success');
+                setTimeout(() => {
+                    window.location.href = '/student-projects';
+                }, 2000);
+            } else {
+                showNotification('Error: ' + data.error, 'error');
+            }
+        })
+        .catch(error => {
+            closeModal();
+            showNotification('Error deleting project. Please try again.', 'error');
+            console.error('Error:', error);
+        });
+    };
+});
+</script>
+
+{% else %}
+<div class="error-section">
+    <div class="container">
+        <div style="max-width: 600px; margin: 0 auto;">
+            <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: var(--accent-color); margin-bottom: 2rem;"></i>
+            <h1>Project Not Found</h1>
+            <p>The project you're looking for doesn't exist or has been removed.</p>
+            <a href="{{ url_for('student_projects') }}" class="btn">
+                <i class="fas fa-arrow-left"></i> Back to Projects
+            </a>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ITech Computer Institute{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="/static/images/logo.png" alt="ITech Computer Institute">
+                <h1>ITech Computer Institute</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/courses">Courses</a></li>
+                    <li><a href="/enroll">Enroll Now</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">
+                            About Us <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <div class="dropdown-content">
+                            <div class="dropdown-header">About Us</div>
+                            <a href="/about">About Institute</a>
+                            <a href="/student-projects">Student Projects</a>
+                            <a href="/events">Events</a>
+                            <a href="/branches">Branches</a>
+                            <a href="/staff-login">Staff Login</a>
+                        </div>
+                    </li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <button id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        <span>{{ message }}</span>
+                        <button class="close-flash" onclick="this.parentElement.style.display='none'">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/courses">Courses</a></li>
+                        <li><a href="/enroll">Enroll</a></li>
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Tech Street, Innovation City</p>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                    <p><i class="fas fa-envelope"></i> info@itechinstitute.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/itechcomputeredu/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://x.com/itecheducations"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/itecheducation.official/?hl=en"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://wa.me/919876543210" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 ITech Computer Institute. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-widget">
+        <div class="chatbot-header">
+            <h3>ITech Assistant</h3>
+            <button class="close-chatbot"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-body">
+            <div class="chat-messages">
+                <div class="bot-message">
+                    <p>Hello! I'm ITech Assistant. How can I help you today?</p>
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" placeholder="Type your message..." id="chatInput">
+                <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+    <button class="chatbot-toggle">
+        <i class="fas fa-robot"></i>
+    </button>
+
+    <script src="/static/js/script.js"></script>
+    <script src="/static/js/chatbot.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

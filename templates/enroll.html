@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <h2 class="section-title">Enroll in a Course</h2>
+        
+        {% if success %}
+        <div class="success-message">
+            <p>Thank you for your enrollment request! We'll contact you shortly with further details.</p>
+        </div>
+        {% endif %}
+        
+        <div class="enroll-form">
+            <form method="POST" action="/enroll">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="course_id">Select Course</label>
+                    <select id="course_id" name="course_id" required>
+                        <option value="">-- Select a Course --</option>
+                        {% set courses = [
+                            {'id': 1, 'title': 'Basic Computer Skills'},
+                            {'id': 2, 'title': 'Web Development'},
+                            {'id': 3, 'title': 'Python Programming'},
+                            {'id': 4, 'title': 'Data Science'},
+                            {'id': 5, 'title': 'Cloud Computing'},
+                            {'id': 6, 'title': 'Digital Marketing'},
+                            {'id': 7, 'title': 'Graphic Designing'},
+                            {'id': 8, 'title': 'Mobile App Development'},
+                            {'id': 9, 'title': 'Cyber Security Fundamentals'},
+                            {'id': 10, 'title': 'C++ Programming'},
+                            {'id': 11, 'title': 'Java Programming'},
+                            {'id': 12, 'title': 'Android '},
+                            {'id': 13, 'title': 'AutoCAD'},
+                            {'id': 14, 'title': 'Spoken English'},
+                            {'id': 15, 'title': 'Personality Development'},
+                            {'id': 16, 'title': 'Advance Excel'},
+                            {'id': 17, 'title': 'Tally'},
+                            {'id': 18, 'title': 'GST'},
+                            {'id': 19, 'title': '4 Module'},
+                            {'id': 20, 'title': 'Basic+ Advance Excel'},
+                            {'id': 21, 'title': 'Tally + GST'},
+                            {'id': 22, 'title': 'Tally Prime'},
+                            {'id': 23, 'title': 'ICSE (Software)'},
+                            {'id': 24, 'title': 'ICAP (Animation)'},
+                            {'id': 25, 'title': 'ICHNE (Hardware & Networking)'},
+                            {'id': 26, 'title': 'ICCA (Company Accountant)'},
+                            {'id': 27, 'title': 'Advance Software Engineering'},
+                            {'id': 28, 'title': 'Full Stack Web Development'},
+                            {'id': 29, 'title': 'Ethical Hacking'},
+                            {'id': 30, 'title': 'English Typing'},
+                            {'id': 31, 'title': 'Marathi Typing'},
+                            {'id': 32, 'title': 'Diploma in 2D/3D Animation'},
+                            {'id': 36, 'title': 'Diploma in Graphics & Motion Graphics'},
+                            {'id': 33, 'title': 'Diploma in Mechanical Designing'},
+                            {'id': 34, 'title': 'Diploma in Construction & Interior Designing'},
+                            {'id': 35, 'title': 'Diploma in VFX Compositing'}
+                            
+
+                        ] %}
+                        {% for course in courses %}
+                        <option value="{{ course.id }}" {% if request.args.get('course_id') == course.id|string %}selected{% endif %}>{{ course.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Additional Information (Optional)</label>
+                    <textarea id="message" name="message"></textarea>
+                </div>
+                
+                <button type="submit" class="btn" style="width: 100%;">Submit Enrollment</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="enrollment-info">
+    <div class="container">
+        <h2 class="section-title">Enrollment Process</h2>
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Submit Enrollment Form</h3>
+                <p>Fill out the form with your details and preferred course.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Receive Confirmation</h3>
+                <p>We'll contact you within 24 hours to confirm your enrollment.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Complete Payment</h3>
+                <p>Pay the course fee through our secure payment methods.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Start Learning</h3>
+                <p>Attend orientation and begin your learning journey with us.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

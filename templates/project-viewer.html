@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project[3] }} - Project Viewer</title>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+        .project-header {
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .project-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .project-frame {
+            width: 100%;
+            height: calc(100vh - 100px);
+            border: none;
+            background: white;
+        }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            text-decoration: none;
+            z-index: 1000;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .back-button:hover {
+            background: rgba(0,0,0,0.9);
+            transform: translateY(-2px);
+        }
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('student_projects') }}" class="back-button">← Back to Projects</a>
+    <div class="project-header">
+        <h2>{{ project[3] }} by {{ project[1] }}</h2>
+        <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">{{ project[2] }}</p>
+    </div>
+    
+    <div class="loading" id="loading">
+        <i class="fas fa-spinner fa-spin"></i> Loading project...
+    </div>
+    
+    <iframe src="{{ project_url }}" class="project-frame" id="projectFrame" onload="hideLoading()"></iframe>
+    
+    <script>
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+        
+        // Handle iframe load errors
+        document.getElementById('projectFrame').onerror = function() {
+            document.getElementById('loading').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error loading project';
+        };
+    </script>
+</body>
+</html>

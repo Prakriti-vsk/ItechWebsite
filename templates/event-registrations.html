@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registrations - iTech Computer Institute</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Keep your existing styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-card h3 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .table-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .table th {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            font-weight: 600;
+        }
+
+        .table tr:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .status-approved {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .action-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin: 0 0.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-approve {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-reject {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-approve:hover,
+        .btn-reject:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .table-container {
+                overflow-x: auto;
+            }
+
+            .table {
+                min-width: 800px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Add Clear Table Button with better styling and confirmations -->
+        <div style="margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+            <a href="/staff-dashboard" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Dashboard
+            </a>
+            
+            <button onclick="clearAllRegistrations()" class="action-btn" 
+                    style="background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; padding: 0.8rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                <i class="fas fa-trash-alt"></i> Clear All Registrations
+            </button>
+        </div>
+
+        <div class="header">
+            <h1>Event Registrations</h1>
+            <p>Manage and track all event registrations</p>
+        </div>
+
+        {% if registrations %}
+            <div class="stats">
+                {% set total = registrations|length %}
+                {% set pending_count = 0 %}
+                {% set approved_count = 0 %}
+                {% set rejected_count = 0 %}
+                
+                {% for registration in registrations %}
+                    {% if registration[8] == 'pending' %}
+                        {% set pending_count = pending_count + 1 %}
+                    {% elif registration[8] == 'approved' %}
+                        {% set approved_count = approved_count + 1 %}
+                    {% elif registration[8] == 'rejected' %}
+                        {% set rejected_count = rejected_count + 1 %}
+                    {% endif %}
+                {% endfor %}
+                
+                <div class="stat-card">
+                    <h3 id="total-count">{{ total }}</h3>
+                    <p>Total Registrations</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="pending-count">{{ pending_count }}</h3>
+                    <p>Pending</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="approved-count">{{ approved_count }}</h3>
+                    <p>Approved</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="rejected-count">{{ rejected_count }}</h3>
+                    <p>Rejected</p>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Event</th>
+                            <th>Experience</th>
+                            <th>Registration Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for registration in registrations %}
+                            <tr data-registration-id="{{ registration[0] }}">
+                                <td>{{ registration[0] }}</td>
+                                <td>{{ registration[2] }}</td>
+                                <td>{{ registration[3] }}</td>
+                                <td>{{ registration[4] }}</td>
+                                <td>{{ registration[1] }}</td>
+                                <td>{{ registration[5] or 'Not specified' }}</td>
+                                <td>{{ registration[7].strftime('%Y-%m-%d %H:%M') if registration[7] else 'N/A' }}</td>
+                                <td>
+                                    {% if registration[8] == 'pending' %}
+                                        <span class="status-pending">PENDING</span>
+                                    {% elif registration[8] == 'approved' %}
+                                        <span class="status-approved">APPROVED</span>
+                                    {% elif registration[8] == 'rejected' %}
+                                        <span class="status-rejected">REJECTED</span>
+                                    {% else %}
+                                        <span style="color: #666;">{{ registration[8].title() }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if registration[8] == 'pending' %}
+                                        <button class="action-btn btn-approve" onclick="updateStatus('{{ registration[0] }}', 'approved')">
+                                            <i class="fas fa-check"></i> Approve
+                                        </button>
+                                        <button class="action-btn btn-reject" onclick="updateStatus('{{ registration[0] }}', 'rejected')">
+                                            <i class="fas fa-times"></i> Reject
+                                        </button>
+                                    {% else %}
+                                        <span style="color: #666;">No actions available</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="no-data">
+                <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; color: rgba(255,255,255,0.5);"></i>
+                <h3 style="color: white; margin-bottom: 1rem;">No Registrations Yet</h3>
+                <p style="color: rgba(255,255,255,0.7);">Event registrations will appear here once students start registering.</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Update the JavaScript function -->
+    <script>
+function updateStatus(id, status) {
+    if (confirm(`Are you sure you want to ${status} this registration?`)) {
+        fetch('/update-registration-status', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: id,
+                status: status
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Get the row
+                const row = document.querySelector(`tr[data-registration-id="${id}"]`);
+                
+                // Update the status in the table
+                const statusCell = row.querySelector('td:nth-child(8)');
+                if (statusCell) {
+                    statusCell.innerHTML = `<span class="status-badge status-${status}">${status.toUpperCase()}</span>`;
+                }
+                
+                // Update the action column
+                const actionCell = row.querySelector('td:last-child');
+                if (actionCell) {
+                    actionCell.innerHTML = `<span style="color: #666;">No actions available</span>`;
+                }
+                
+                // Refresh the stats from server
+                refreshStats();
+                
+                // Show success message
+                showNotification(`Registration ${status} successfully!`, 'success');
+            } else {
+                alert('Error updating status: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error updating status');
+        });
+    }
+}
+
+function refreshStats() {
+    fetch('/get-registration-stats')
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('total-count').textContent = data.stats.total;
+            document.getElementById('pending-count').textContent = data.stats.pending;
+            document.getElementById('approved-count').textContent = data.stats.approved;
+            document.getElementById('rejected-count').textContent = data.stats.rejected;
+            
+            // Add animation effect
+            ['total-count', 'pending-count', 'approved-count', 'rejected-count'].forEach(id => {
+                const element = document.getElementById(id);
+                element.style.transform = 'scale(1.1)';
+                element.style.color = '#e74c3c';
+                setTimeout(() => {
+                    element.style.transform = 'scale(1)';
+                    element.style.color = '';
+                }, 300);
+            });
+        }
+    })
+    .catch(error => console.error('Error refreshing stats:', error));
+}
+
+function clearAllRegistrations() {
+    // Create custom confirmation modal
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+    `;
+    
+    const modalContent = document.createElement('div');
+    modalContent.style.cssText = `
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        max-width: 500px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    `;
+    
+    modalContent.innerHTML = `
+        <div style="color: #e74c3c; margin-bottom: 1rem;">
+            <i class="fas fa-exclamation-triangle" style="font-size: 3rem;"></i>
+        </div>
+        <h3 style="color: #2c3e50; margin-bottom: 1rem;">⚠️ DANGER ZONE ⚠️</h3>
+        <p style="margin-bottom: 1.5rem; color: #666;">
+            You are about to <strong>permanently delete ALL event registrations</strong>.<br>
+            This action <strong>CANNOT BE UNDONE</strong>.
+        </p>
+        <p style="margin-bottom: 2rem; color: #e74c3c; font-weight: bold;">
+            Are you absolutely sure you want to proceed?
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+            <button onclick="document.body.removeChild(this.closest('[style*=\"position: fixed\"]'))" 
+                    style="background: #95a5a6; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer;">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+            <button onclick="confirmClearRegistrations()" 
+                    style="background: #e74c3c; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer;">
+                <i class="fas fa-trash"></i> Yes, Delete All
+            </button>
+        </div>
+    `;
+    
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+}
+
+function confirmClearRegistrations() {
+    // Close the modal
+    const modal = document.querySelector('[style*="position: fixed"]');
+    if (modal) {
+        document.body.removeChild(modal);
+    }
+    
+    // Show loading
+    showNotification('Clearing all registrations...', 'info');
+    
+    fetch('/clear-all-registrations', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification('All registrations cleared successfully!', 'success');
+            // Reload the page after 2 seconds
+            setTimeout(() => {
+                location.reload();
+            }, 2000);
+        } else {
+            showNotification('Error clearing registrations: ' + data.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Error clearing registrations', 'error');
+    });
+}
+
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    
+    const bgColor = type === 'success' ? '#27ae60' : 
+                   type === 'error' ? '#e74c3c' : 
+                   type === 'info' ? '#3498db' : '#f39c12';
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${bgColor};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        animation: slideIn 0.3s ease-out;
+        max-width: 300px;
+    `;
+    
+    const icon = type === 'success' ? 'check-circle' : 
+                type === 'error' ? 'exclamation-triangle' : 
+                type === 'info' ? 'info-circle' : 'exclamation';
+    
+    notification.innerHTML = `
+        <i class="fas fa-${icon}"></i>
+        ${message}
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 4000);
+}
+
+// Add CSS for animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// Auto-refresh stats every 30 seconds
+setInterval(refreshStats, 30000);
+    </script>
+</body>
+</html>

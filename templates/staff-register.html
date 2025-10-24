@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Registration - iTech Computer Institute</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: rgb(22, 22, 22);
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+            padding-top: 120px; /* Adequate space for fixed header */
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Header Navigation with Dropdown */
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0.8rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 0.4rem;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-menu li a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-menu li a.active {
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            min-width: 200px;
+            z-index: 1001;
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+        }
+
+        .dropdown-content a {
+            color: white !important;
+            padding: 0.8rem 1.5rem !important;
+            text-decoration: none;
+            display: block;
+            font-weight: 500;
+            border-radius: 0 !important;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(255, 255, 255, 0.2) !important;
+            transform: translateX(5px);
+            box-shadow: none !important;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: fadeInDown 0.3s ease;
+        }
+
+        .dropdown > a .fa-chevron-down {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown:hover > a .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Background overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/cubes.png');
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Floating Shapes Animation */
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .shape:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 40px;
+            height: 40px;
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        .shape:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            right: 30%;
+            animation-delay: 1s;
+        }
+
+        .shape:nth-child(5) {
+            width: 70px;
+            height: 70px;
+            top: 70%;
+            left: 70%;
+            animation-delay: 3s;
+        }
+
+        .shape:nth-child(6) {
+            width: 50px;
+            height: 50px;
+            bottom: 20%;
+            right: 40%;
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.7;
+            }
+            25% {
+                transform: translateY(-15px) rotate(90deg);
+                opacity: 0.9;
+            }
+            50% { 
+                transform: translateY(-30px) rotate(180deg);
+                opacity: 0.5;
+            }
+            75% {
+                transform: translateY(-15px) rotate(270deg);
+                opacity: 0.8;
+            }
+        }
+
+        .register-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            max-height: calc(100vh - 140px); /* Limit height to viewport minus header space */
+            padding: 2.5rem;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto; /* Enable vertical scrolling */
+            margin: 20px auto 40px; /* Reduced top margin since body has adequate padding */
+            z-index: 1; /* Ensure form stays below navigation */
+            /* Custom scrollbar styling */
+            scrollbar-width: thin;
+            scrollbar-color: rgba(102, 126, 234, 0.5) rgba(255, 255, 255, 0.1);
+        }
+
+        /* Webkit scrollbar styling for Chrome/Safari */
+        .register-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .register-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .register-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .register-container::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #5a67d8, #6b46c1);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Form Progress Indicator */
+        .form-progress {
+            position: relative;
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #e1e8ed 0%, #f8f9fa 100%);
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 3px;
+            transition: width 0.4s ease;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            position: relative;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            flex: 1;
+        }
+
+        .step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e1e8ed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #7f8c8d;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-circle.completed {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        .step-circle.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: scale(1.15);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4); }
+            50% { box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6); }
+        }
+
+        .step-label {
+            font-size: 0.7rem;
+            margin-top: 0.5rem;
+            color: #7f8c8d;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .step-circle.completed + .step-label,
+        .step-circle.active + .step-label {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        /* Form Steps */
+        .form-step {
+            display: none;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.4s ease;
+        }
+
+        .form-step.active {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Navigation Buttons */
+        .form-navigation {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .nav-btn.prev {
+            background: #f8f9fa;
+            color: #6c757d;
+            border: 2px solid #e9ecef;
+        }
+
+        .nav-btn.prev:hover {
+            background: #e9ecef;
+            color: #495057;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn.next, .nav-btn.submit {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+        }
+
+        .nav-btn.next:hover, .nav-btn.submit:hover {
+            background: linear-gradient(135deg, #5a67d8, #6b46c1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .register-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .register-header .logo-icon {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.8rem;
+            color: white;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .register-header .logo-icon:hover {
+            transform: scale(1.05);
+        }
+
+        .register-header h1 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .register-header p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Main field icons (left side) */
+        .input-wrapper i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea !important;
+            font-size: 1.1rem !important;
+            z-index: 2;
+            pointer-events: none;
+            display: block !important;
+            visibility: visible !important;
+        }
+
+        /* Password toggle button (right side) */
+        .password-toggle {
+            position: absolute !important;
+            right: 1rem !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            color: #667eea !important;
+            cursor: pointer !important;
+            font-size: 1.1rem !important;
+            z-index: 3 !important;
+            padding: 0.5rem !important;
+            border-radius: 50% !important;
+            transition: all 0.3s ease !important;
+            background: transparent !important;
+            border: none !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 2rem !important;
+            height: 2rem !important;
+        }
+
+        .password-toggle:hover {
+            color: #764ba2 !important;
+            background: rgba(102, 126, 234, 0.1) !important;
+            transform: translateY(-50%) scale(1.1) !important;
+        }
+
+        /* Form control with proper padding */
+        .form-control {
+            width: 100%;
+            padding: 1rem 3.5rem 1rem 3rem !important; /* Increased right padding for eye button */
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #2c3e50;
+            font-size: 0.95rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-control::placeholder {
+            color: #bdc3c7;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .input-wrapper:focus-within i {
+            color: #667eea !important;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .register-btn:active {
+            transform: translateY(0);
+        }
+
+        .register-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e1e8ed;
+        }
+
+        .login-link p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .login-link a:hover {
+            color: #764ba2;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .password-strength {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .strength-weak { 
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        
+        .strength-medium { 
+            color: #f39c12;
+            font-weight: 600;
+        }
+        
+        .strength-strong { 
+            color: #27ae60;
+            font-weight: 600;
+        }
+
+        /* Enhanced input wrapper states */
+        .input-wrapper.focused i {
+            color: #667eea !important;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .input-wrapper.focused {
+            transform: scale(1.02);
+        }
+
+        /* Success and error states for password confirmation */
+        .form-control.success {
+            border-color: #27ae60 !important;
+            box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.2) !important;
+        }
+
+        .form-control.error {
+            border-color: #e74c3c !important;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2) !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 1rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 0 0 20px 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .dropdown-content {
+                position: static;
+                display: none;
+                background: rgba(255, 255, 255, 0.05);
+                border: none;
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .register-container {
+                padding: 2rem;
+                margin: 20px 1rem 20px; /* Consistent spacing on mobile */
+                max-width: 90%;
+                max-height: calc(100vh - 150px); /* Adjust for mobile header */
+            }
+            
+            .register-header h1 {
+                font-size: 1.6rem;
+            }
+            
+            body {
+                padding-top: 130px; /* Adequate padding for mobile header */
+            }
+            
+            /* Progress bar adjustments for mobile */
+            .progress-steps {
+                gap: 0.5rem;
+            }
+            
+            .step-circle {
+                width: 28px;
+                height: 28px;
+                font-size: 0.7rem;
+            }
+            
+            .step-label {
+                font-size: 0.65rem;
+            }
+            
+            /* Navigation buttons mobile layout */
+            .form-navigation {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .register-container {
+                padding: 1.5rem;
+                margin: 20px 0.5rem 20px; /* Consistent spacing for small screens */
+                max-height: calc(100vh - 160px); /* Adjust for smaller screens */
+            }
+            
+            .form-control {
+                padding: 0.9rem 3rem 0.9rem 2.5rem !important;
+                font-size: 0.9rem;
+            }
+            
+            body {
+                padding-top: 140px; /* Extra padding for very small screens */
+            }
+            
+            /* Progress steps for very small screens */
+            .step-circle {
+                width: 24px;
+                height: 24px;
+                font-size: 0.65rem;
+            }
+            
+            .step-label {
+                font-size: 0.6rem;
+                margin-top: 0.3rem;
+            }
+            
+            .progress-bar {
+                height: 4px;
+            }
+            
+            .nav-btn {
+                padding: 0.9rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Loading animation */
+        .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Shapes Background Animation -->
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Header Navigation with Dropdown -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>iTech Computer Institute</span>
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/courses">Courses</a></li>
+                    <li><a href="/enroll">Enroll Now</a></li>
+                    <li class="dropdown">
+                        <a href="/about">
+                            About Us
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="/about">About Institute</a>
+                            <a href="/student-projects">Student Projects</a>
+                            <a href="/events">Events</a>
+                            <a href="/branches">Branches</a>
+                            <a href="/staff-login">Staff Login</a>
+                        </div>
+                    </li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="register-container">
+        <div class="register-header">
+            <div class="logo-icon">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <h1>Staff Registration</h1>
+            <p>Create your administrative account to access the iTech management system</p>
+            <div style="background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 0.8rem; border-radius: 8px; margin-top: 1rem; font-size: 0.85rem;">
+                <i class="fas fa-shield-alt"></i> <strong>Protected Registration:</strong> Only authorized personnel can create staff accounts. Contact your administrator for the authorization code.
+            </div>
+        </div>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-triangle' }}"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Progress Indicator -->
+        <div class="form-progress">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 25%"></div>
+            </div>
+            <div class="progress-steps">
+                <div class="progress-step">
+                    <div class="step-circle active" id="step1Circle">1</div>
+                    <div class="step-label">Authorization</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-circle" id="step2Circle">2</div>
+                    <div class="step-label">User Info</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-circle" id="step3Circle">3</div>
+                    <div class="step-label">Account Setup</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-circle" id="step4Circle">4</div>
+                    <div class="step-label">Password</div>
+                </div>
+            </div>
+        </div>
+
+        <form method="POST" id="registerForm">
+            <!-- Step 1: Admin Authorization -->
+            <div class="form-step active" id="step1">
+                <div class="form-group">
+                    <label for="admin_password">
+                        <i class="fas fa-key"></i> Admin Authorization Code
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-key"></i>
+                        <input type="password" id="admin_password" name="admin_password" class="form-control" placeholder="Enter admin authorization code" required>
+                        <button type="button" class="password-toggle" id="toggleAdminPassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <small style="color: #7f8c8d; font-size: 0.8rem; margin-top: 0.3rem; display: block;">
+                        <i class="fas fa-info-circle"></i> Contact your administrator for the authorization code
+                    </small>
+                </div>
+            </div>
+
+            <!-- Step 2: Basic User Information -->
+            <div class="form-step" id="step2">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i> Username
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Choose a unique username" required value="{{ request.form.username or '' }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">
+                        <i class="fas fa-id-card"></i> Full Name
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name" required value="{{ request.form.name or '' }}">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Contact & Role -->
+            <div class="form-step" id="step3">
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> Email Address
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" value="{{ request.form.email or '' }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="role">
+                        <i class="fas fa-user-tag"></i> Role
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user-tag"></i>
+                        <select id="role" name="role" class="form-control" required>
+                            <option value="">Select your role</option>
+                            <option value="admin" {{ 'selected' if request.form.role == 'admin' else '' }}>Administrator</option>
+                            <option value="teacher" {{ 'selected' if request.form.role == 'teacher' else '' }}>Teacher</option>
+                            <option value="coordinator" {{ 'selected' if request.form.role == 'coordinator' else '' }}>Coordinator</option>
+                            <option value="manager" {{ 'selected' if request.form.role == 'manager' else '' }}>Manager</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Password Setup -->
+            <div class="form-step" id="step4">
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Create a strong password" required>
+                        <button type="button" class="password-toggle" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="password-strength" id="passwordStrength"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm_password">
+                        <i class="fas fa-lock"></i> Confirm Password
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Confirm your password" required>
+                        <button type="button" class="password-toggle" id="toggleConfirmPassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="form-navigation">
+                <button type="button" class="nav-btn prev" id="prevBtn" style="display: none;">
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button type="button" class="nav-btn next" id="nextBtn">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+                <button type="submit" class="nav-btn submit" id="submitBtn" style="display: none;">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </div>
+        </form>
+
+        <div class="login-link">
+            <p>Already have an account?</p>
+            <a href="{{ url_for('staff_login') }}">
+                <i class="fas fa-sign-in-alt"></i> Login Here
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing multi-step form...');
+            
+            // Multi-step form variables
+            let currentStep = 1;
+            const totalSteps = 4;
+            const steps = ['step1', 'step2', 'step3', 'step4'];
+            const circles = ['step1Circle', 'step2Circle', 'step3Circle', 'step4Circle'];
+            
+            // Navigation buttons
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const progressFill = document.getElementById('progressFill');
+
+            // Multi-step form functions
+            function updateProgress() {
+                const progressPercentage = (currentStep / totalSteps) * 100;
+                progressFill.style.width = progressPercentage + '%';
+                
+                // Update step circles
+                circles.forEach((circleId, index) => {
+                    const circle = document.getElementById(circleId);
+                    const stepNumber = index + 1;
+                    
+                    circle.classList.remove('active', 'completed');
+                    
+                    if (stepNumber < currentStep) {
+                        circle.classList.add('completed');
+                        circle.innerHTML = '<i class="fas fa-check"></i>';
+                    } else if (stepNumber === currentStep) {
+                        circle.classList.add('active');
+                        circle.innerHTML = stepNumber;
+                    } else {
+                        circle.innerHTML = stepNumber;
+                    }
+                });
+                
+                // Update navigation buttons
+                prevBtn.style.display = currentStep === 1 ? 'none' : 'flex';
+                nextBtn.style.display = currentStep === totalSteps ? 'none' : 'flex';
+                submitBtn.style.display = currentStep === totalSteps ? 'flex' : 'none';
+            }
+
+            function showStep(stepNumber) {
+                // Hide all steps
+                steps.forEach((stepId, index) => {
+                    const step = document.getElementById(stepId);
+                    if (step) {
+                        step.classList.remove('active');
+                    }
+                });
+                
+                // Show current step with animation
+                const currentStepEl = document.getElementById('step' + stepNumber);
+                if (currentStepEl) {
+                    setTimeout(() => {
+                        currentStepEl.classList.add('active');
+                    }, 150);
+                }
+                
+                updateProgress();
+            }
+
+            function validateCurrentStep() {
+                const currentStepEl = document.getElementById('step' + currentStep);
+                const inputs = currentStepEl.querySelectorAll('input[required], select[required]');
+                
+                for (let input of inputs) {
+                    if (!input.value.trim()) {
+                        input.focus();
+                        input.style.borderColor = '#e74c3c';
+                        setTimeout(() => {
+                            input.style.borderColor = '#e1e8ed';
+                        }, 2000);
+                        return false;
+                    }
+                }
+                
+                // Special validations for each step
+                if (currentStep === 1) {
+                    const adminPassword = document.getElementById('admin_password');
+                    if (!adminPassword.value.trim()) {
+                        alert('❌ Admin authorization code is required!');
+                        adminPassword.focus();
+                        return false;
+                    }
+                }
+                
+                if (currentStep === 2) {
+                    const username = document.getElementById('username');
+                    if (username.value.length < 3) {
+                        alert('❌ Username must be at least 3 characters long!');
+                        username.focus();
+                        return false;
+                    }
+                }
+                
+                if (currentStep === 4) {
+                    const password = document.getElementById('password');
+                    const confirmPassword = document.getElementById('confirm_password');
+                    
+                    if (password.value.length < 6) {
+                        alert('❌ Password must be at least 6 characters long!');
+                        password.focus();
+                        return false;
+                    }
+                    
+                    if (password.value !== confirmPassword.value) {
+                        alert('❌ Passwords do not match!');
+                        confirmPassword.focus();
+                        return false;
+                    }
+                }
+                
+                return true;
+            }
+
+            // Navigation event listeners
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function() {
+                    if (validateCurrentStep()) {
+                        if (currentStep < totalSteps) {
+                            currentStep++;
+                            showStep(currentStep);
+                            
+                            // Auto-focus first input of next step
+                            setTimeout(() => {
+                                const nextStepEl = document.getElementById('step' + currentStep);
+                                const firstInput = nextStepEl.querySelector('input, select');
+                                if (firstInput) {
+                                    firstInput.focus();
+                                }
+                            }, 300);
+                        }
+                    }
+                });
+            }
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function() {
+                    if (currentStep > 1) {
+                        currentStep--;
+                        showStep(currentStep);
+                        
+                        // Auto-focus first input of previous step
+                        setTimeout(() => {
+                            const prevStepEl = document.getElementById('step' + currentStep);
+                            const firstInput = prevStepEl.querySelector('input, select');
+                            if (firstInput) {
+                                firstInput.focus();
+                            }
+                        }, 300);
+                    }
+                });
+            }
+
+            // Password toggle functionality with better error handling
+            function setupPasswordToggle(toggleBtn, passwordField) {
+                if (toggleBtn && passwordField) {
+                    console.log('Setting up password toggle for:', passwordField.id);
+                    
+                    toggleBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        console.log('Toggle clicked for:', passwordField.id);
+                        
+                        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                        passwordField.setAttribute('type', type);
+                        
+                        const icon = this.querySelector('i');
+                        if (icon) {
+                            icon.classList.toggle('fa-eye');
+                            icon.classList.toggle('fa-eye-slash');
+                            console.log('Icon toggled:', icon.className);
+                        }
+                    });
+                } else {
+                    console.error('Failed to setup toggle - missing elements:', { toggleBtn, passwordField });
+                }
+            }
+
+            // Setup password toggles
+            const togglePassword = document.getElementById('togglePassword');
+            const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+            const toggleAdminPassword = document.getElementById('toggleAdminPassword');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirm_password');
+            const adminPassword = document.getElementById('admin_password');
+
+            console.log('Elements found:', {
+                togglePassword: !!togglePassword,
+                toggleConfirmPassword: !!toggleConfirmPassword,
+                toggleAdminPassword: !!toggleAdminPassword,
+                password: !!password,
+                confirmPassword: !!confirmPassword,
+                adminPassword: !!adminPassword
+            });
+
+            setupPasswordToggle(togglePassword, password);
+            setupPasswordToggle(toggleConfirmPassword, confirmPassword);
+            setupPasswordToggle(toggleAdminPassword, adminPassword);
+
+            // Enhanced password strength checker
+            if (password) {
+                password.addEventListener('input', function() {
+                    const pwd = this.value;
+                    let strength = 0;
+                    let message = '';
+
+                    // Check various criteria
+                    if (pwd.length >= 8) strength++;
+                    if (pwd.match(/[a-z]/)) strength++;
+                    if (pwd.match(/[A-Z]/)) strength++;
+                    if (pwd.match(/[0-9]/)) strength++;
+                    if (pwd.match(/[^a-zA-Z0-9]/)) strength++;
+
+                    switch (strength) {
+                        case 0:
+                        case 1:
+                            message = '<span class="strength-weak">🔴 Weak - Use 8+ characters with mixed case</span>';
+                            break;
+                        case 2:
+                        case 3:
+                            message = '<span class="strength-medium">🟡 Medium - Add numbers and symbols</span>';
+                            break;
+                        case 4:
+                        case 5:
+                            message = '<span class="strength-strong">🟢 Strong - Excellent password!</span>';
+                            break;
+                    }
+
+                    const passwordStrength = document.getElementById('passwordStrength');
+                    if (passwordStrength) {
+                        passwordStrength.innerHTML = message;
+                    }
+                });
+            }
+
+            // Real-time password matching validation
+            if (confirmPassword) {
+                confirmPassword.addEventListener('input', function() {
+                    const pwd = password.value;
+                    const confirmPwd = this.value;
+                    
+                    if (confirmPwd && pwd !== confirmPwd) {
+                        this.style.borderColor = '#e74c3c';
+                        this.style.boxShadow = '0 0 0 3px rgba(231, 76, 60, 0.2)';
+                    } else if (confirmPwd && pwd === confirmPwd) {
+                        this.style.borderColor = '#27ae60';
+                        this.style.boxShadow = '0 0 0 3px rgba(39, 174, 96, 0.2)';
+                    } else {
+                        this.style.borderColor = '#e1e8ed';
+                        this.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.05)';
+                    }
+                });
+            }
+
+            // Enhanced form validation
+            const registerForm = document.getElementById('registerForm');
+
+            if (registerForm) {
+                registerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Final validation
+                    if (!validateCurrentStep()) {
+                        return;
+                    }
+                    
+                    // Show loading state
+                    if (submitBtn) {
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+                        submitBtn.disabled = true;
+                    }
+                    
+                    // Submit the form
+                    this.submit();
+                });
+            }
+
+            // Add input focus animations
+            document.querySelectorAll('.form-control').forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('focused');
+                });
+                
+                // Allow Enter key to move to next step
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        if (currentStep < totalSteps) {
+                            nextBtn.click();
+                        } else {
+                            submitBtn.click();
+                        }
+                    }
+                });
+            });
+
+            // Initialize form
+            showStep(currentStep);
+            
+            // Auto-focus first input
+            const firstInput = document.querySelector('#step1 input');
+            if (firstInput) {
+                firstInput.focus();
+            }
+
+            console.log('Multi-step form initialization complete!');
+        });
+    </script>
+</body>
+</html>

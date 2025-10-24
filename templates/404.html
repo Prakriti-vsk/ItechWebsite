@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found{% endblock %}
+
+{% block content %}
+<div class="error-section" style="padding: 6rem 0; text-align: center; background: var(--background-color);">
+    <div class="container">
+        <div style="max-width: 600px; margin: 0 auto;">
+            <i class="fas fa-exclamation-triangle" style="font-size: 5rem; color: var(--accent-color); margin-bottom: 2rem;"></i>
+            <h1 style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;">404</h1>
+            <h2 style="color: var(--text-color); margin-bottom: 2rem;">{{ message if message else "Page Not Found" }}</h2>
+            <p style="color: var(--text-color); opacity: 0.8; margin-bottom: 3rem; font-size: 1.1rem;">
+                The page you're looking for doesn't exist or has been moved.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="{{ url_for('index') }}" class="btn">
+                    <i class="fas fa-home"></i> Go Home
+                </a>
+                <a href="{{ url_for('student_projects') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Projects
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

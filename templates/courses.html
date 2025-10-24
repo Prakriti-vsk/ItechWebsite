@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="courses-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h2 class="section-title" style="margin: 0;">Our Courses</h2>
+            <form method="get" action="{{ url_for('courses_route') }}" class="course-search-form">
+                <input type="text" name="q" placeholder="Search courses..." value="{{ request.args.get('q', '') }}" style="padding: 0.7rem 1rem; border-radius: 20px; border: 1px solid #ccc; width: 220px;">
+                <button type="submit" class="btn">Search</button>
+            </form>
+        </div>
+
+        <p class="text-center" style="max-width: 800px; margin: 0 auto 3rem; text-align: center;">
+            We offer a comprehensive range of computer courses designed to equip you with in-demand skills. 
+            Whether you're a beginner or looking to advance your career, we have the right program for you.
+        </p>
+
+        <div class="courses-grid">
+            {% for course in courses %}
+            <div class="course-card">
+                <div class="course-img">
+                    <img src="{{ course.image_url }}" alt="{{ course.title }}">
+                </div>
+                <div class="course-info">
+                    <h3>{{ course.title }}</h3>
+                    <p>{{ course.description }}</p>
+                    <div class="course-meta">
+                        <span>{{ course.duration }}</span>
+                        <span>Rs. {{ course.fee }}</span>
+                    </div>
+                    <a href="/enroll?course_id={{ course.id }}" class="btn" style="display: block; text-align: center; margin-top: 1rem;">Enroll Now</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="course-benefits">
+    <div class="container">
+        <h2 class="section-title">Why Our Courses Stand Out</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <i class="fas fa-certificate fa-2x"></i>
+                <h3>Industry-Recognized Certification</h3>
+                <p>Receive a certificate upon completion that's valued by employers.</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-project-diagram fa-2x"></i>
+                <h3>Practical Projects</h3>
+                <p>Work on real-world projects to build your portfolio.</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-user-tie fa-2x"></i>
+                <h3>Career Guidance</h3>
+                <p>Get personalized advice on career paths and job opportunities.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,929 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Settings - iTech Computer Institute{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Use main site styling with custom admin enhancements */
+    .admin-container {
+        padding: 2rem 0;
+        margin-top: 20px; /* Reduced since header is sticky */
+    }
+
+    .admin-header {
+        background: var(--gradient);
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 3rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        text-align: center;
+        position: relative;
+    }
+
+    .admin-header::after {
+        content: "";
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        height: 20px;
+        background: linear-gradient(to top, var(--background-color), transparent);
+        z-index: 1;
+    }
+
+    .admin-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 12px rgba(44,62,80,0.18);
+    }
+
+    .admin-header p {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        text-shadow: 0 1px 6px rgba(44,62,80,0.12);
+    }
+
+    .admin-card {
+        background: var(--glass-bg);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        backdrop-filter: var(--glass-blur);
+        border: 1px solid rgba(44,62,80,0.06);
+        margin-bottom: 2.5rem;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .admin-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 32px rgba(44,62,80,0.18);
+    }
+
+    .card-header-custom {
+        background: var(--gradient);
+        color: white;
+        padding: 1.5rem 2rem;
+        font-size: 1.3rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    .card-header-custom i {
+        margin-right: 0.8rem;
+        font-size: 1.4rem;
+    }
+
+    .card-body-custom {
+        padding: 2rem;
+        background: var(--card-bg);
+        color: var(--text-color);
+    }
+
+    .password-display {
+        background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(142, 68, 173, 0.1));
+        border: 2px solid rgba(52, 152, 219, 0.3);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    .password-display::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient);
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+
+    .password-code {
+        background: rgba(0, 0, 0, 0.1);
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: var(--primary-color);
+        display: inline-block;
+        margin: 0.5rem 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        text-align: center;
+    }
+
+    .password-code-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        justify-content: flex-start;
+    }
+
+    .password-toggle-btn {
+        background: var(--primary-color);
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .password-toggle-btn:hover {
+        background: var(--accent-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .password-hidden {
+        letter-spacing: 2px;
+        font-family: monospace;
+    }
+
+    .form-group-custom {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-section {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        border: 1px solid rgba(52, 152, 219, 0.2);
+    }
+
+    .form-section-title {
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+    }
+
+    .form-section-title i {
+        margin-right: 0.5rem;
+        color: var(--accent-color);
+    }
+
+    .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .input-icon {
+        position: absolute;
+        left: 1rem;
+        color: var(--primary-color);
+        z-index: 10;
+        opacity: 0.7;
+    }
+
+    .form-control-custom {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid rgba(52, 152, 219, 0.2);
+        border-radius: var(--border-radius);
+        font-family: inherit;
+        background: var(--background-color);
+        color: var(--text-color);
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        padding-right: 3.5rem;
+    }
+
+    .form-control-custom:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .input-toggle-btn {
+        position: absolute;
+        right: 1rem;
+        background: none;
+        border: none;
+        color: var(--primary-color);
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 10;
+    }
+
+    .input-toggle-btn:hover {
+        background: rgba(52, 152, 219, 0.1);
+        color: var(--accent-color);
+        transform: scale(1.1);
+    }
+
+    .password-strength {
+        margin-top: 0.5rem;
+        height: 4px;
+        background: #ecf0f1;
+        border-radius: 2px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .password-strength.weak {
+        background: linear-gradient(90deg, #e74c3c 30%, #ecf0f1 30%);
+    }
+
+    .password-strength.medium {
+        background: linear-gradient(90deg, #f39c12 60%, #ecf0f1 60%);
+    }
+
+    .password-strength.strong {
+        background: linear-gradient(90deg, #27ae60 100%, #ecf0f1 100%);
+    }
+
+    .form-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2rem;
+        gap: 1rem;
+    }
+
+    .btn-update {
+        background: linear-gradient(135deg, #27ae60, #2ecc71) !important;
+        box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        min-width: 200px;
+        justify-content: center;
+    }
+
+    .btn-update:hover {
+        background: linear-gradient(135deg, #229954, #27ae60) !important;
+        box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+    }
+
+    .form-help {
+        color: var(--text-color);
+        opacity: 0.7;
+        font-size: 0.85rem;
+        text-align: center;
+    }
+
+    .form-help i {
+        color: var(--primary-color);
+        margin-right: 0.3rem;
+    }
+
+    .form-label-custom {
+        display: block;
+        margin-bottom: 0.6rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        font-size: 1rem;
+    }
+
+    .form-control-custom {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid #dbeafe;
+        border-radius: var(--border-radius);
+        font-family: inherit;
+        background: var(--background-color);
+        color: var(--text-color);
+        font-size: 1rem;
+        transition: border 0.2s, box-shadow 0.3s;
+    }
+
+    .form-control-custom:focus {
+        border: 1.5px solid var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+
+    .btn-custom {
+        display: inline-block;
+        background: var(--gradient);
+        color: white;
+        padding: 1rem 2.2rem;
+        border-radius: 32px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.1rem;
+        box-shadow: 0 2px 12px rgba(44,62,80,0.10);
+        transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+        border: none;
+        cursor: pointer;
+        margin: 0.25rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .btn-custom:hover {
+        background: var(--accent-color);
+        transform: translateY(-3px) scale(1.04);
+        box-shadow: 0 6px 24px rgba(44,62,80,0.16);
+        text-decoration: none;
+        color: white;
+    }
+
+    .btn-outline-custom {
+        background: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+    }
+
+    .btn-outline-custom:hover {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(44,62,80,0.06);
+    }
+
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+    }
+
+    .stat-card.total::before {
+        background: linear-gradient(90deg, var(--primary-color), #8e44ad);
+    }
+
+    .stat-card.admin::before {
+        background: linear-gradient(90deg, var(--accent-color), #e91e63);
+    }
+
+    .stat-card.staff::before {
+        background: linear-gradient(90deg, #27ae60, #1abc9c);
+    }
+
+    .stat-card.manager::before {
+        background: linear-gradient(90deg, #f39c12, #e67e22);
+    }
+
+    .stat-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 12px 32px rgba(44,62,80,0.18);
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-label {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-color);
+        opacity: 0.8;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .staff-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .staff-card {
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(44,62,80,0.06);
+        transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .staff-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient);
+    }
+
+    .staff-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 12px 32px rgba(44,62,80,0.18);
+    }
+
+    .staff-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: var(--gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 16px rgba(44,62,80,0.13);
+    }
+
+    .staff-name {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.5px;
+    }
+
+    .staff-role {
+        display: inline-block;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 1rem;
+    }
+
+    .role-admin {
+        background: linear-gradient(135deg, var(--accent-color), #e91e63);
+        color: white;
+    }
+
+    .role-staff {
+        background: linear-gradient(135deg, #27ae60, #1abc9c);
+        color: white;
+    }
+
+    .role-manager {
+        background: linear-gradient(135deg, #f39c12, #e67e22);
+        color: white;
+    }
+
+    .staff-details {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: var(--text-color);
+        opacity: 0.8;
+    }
+
+    .staff-details i {
+        width: 18px;
+        margin-right: 0.5rem;
+        color: var(--primary-color);
+    }
+
+    .info-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem 0;
+        border-bottom: 1px solid rgba(44,62,80,0.1);
+        font-size: 1rem;
+    }
+
+    .info-item:last-child {
+        border-bottom: none;
+    }
+
+    .info-item strong {
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .badge {
+        padding: 0.3rem 0.8rem;
+        border-radius: 16px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .bg-success { 
+        background: linear-gradient(135deg, #27ae60, #2ecc71); 
+        color: white; 
+    }
+    
+    .bg-info { 
+        background: linear-gradient(135deg, var(--primary-color), #8e44ad); 
+        color: white; 
+    }
+
+    .bg-secondary {
+        background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+        color: white;
+    }
+
+    .alert-custom {
+        padding: 1.2rem 1.5rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        font-size: 1rem;
+        box-shadow: var(--shadow);
+    }
+
+    .alert-success-custom {
+        background: linear-gradient(135deg, rgba(39, 174, 96, 0.1), rgba(46, 204, 113, 0.1));
+        border-left: 4px solid #27ae60;
+        color: #27ae60;
+    }
+
+    .alert-error-custom {
+        background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(192, 57, 43, 0.1));
+        border-left: 4px solid var(--accent-color);
+        color: var(--accent-color);
+    }
+
+    @media (max-width: 768px) {
+        .admin-container {
+            padding: 1rem 0;
+        }
+        
+        .admin-header h1 {
+            font-size: 2rem;
+        }
+        
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        .staff-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .card-body-custom {
+            padding: 1.5rem;
+        }
+
+        .btn-custom {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .admin-header {
+            padding: 2rem 0;
+        }
+        
+        .admin-header h1 {
+            font-size: 1.8rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container admin-container">
+    <!-- Admin Header -->
+    <div class="admin-header">
+        <h1><i class="fas fa-crown"></i> Admin Control Panel</h1>
+        <p>Streamlined system management and oversight</p>
+    </div>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert-custom alert-{{ 'success' if category == 'success' else 'error' }}-custom">
+                    <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-triangle' }}"></i>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="row">
+        <!-- Staff Overview Cards -->
+        <div class="col-12 mb-4">
+            <div class="stats-grid">
+                {% set total_staff = data.all_staff|length if data.all_staff else 0 %}
+                {% set admin_count = data.all_staff|selectattr("3", "equalto", "admin")|list|length if data.all_staff else 0 %}
+                {% set staff_count = data.all_staff|selectattr("3", "equalto", "staff")|list|length if data.all_staff else 0 %}
+                {% set manager_count = data.all_staff|selectattr("3", "equalto", "manager")|list|length if data.all_staff else 0 %}
+                
+                <div class="stat-card total">
+                    <div class="stat-number">{{ total_staff }}</div>
+                    <div class="stat-label">Total Staff</div>
+                </div>
+                <div class="stat-card admin">
+                    <div class="stat-number">{{ admin_count }}</div>
+                    <div class="stat-label">Administrators</div>
+                </div>
+                <div class="stat-card staff">
+                    <div class="stat-number">{{ staff_count }}</div>
+                    <div class="stat-label">Staff Members</div>
+                </div>
+                <div class="stat-card manager">
+                    <div class="stat-number">{{ manager_count }}</div>
+                    <div class="stat-label">Managers</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Password Management Section -->
+        <div class="col-lg-6">
+            <div class="admin-card">
+                <div class="card-header-custom">
+                    <i class="fas fa-key"></i> Admin Security
+                </div>
+                <div class="card-body-custom">
+                    <div class="password-display">
+                        <h6><i class="fas fa-lock"></i> Current Registration Password:</h6>
+                        <div class="password-code-container">
+                            <div class="password-code" id="password-display">{{ current_admin_password }}</div>
+                            <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility()">
+                                <i class="fas fa-eye" id="toggle-icon"></i>
+                            </button>
+                        </div>
+                        <small class="text-muted"><i class="fas fa-info-circle"></i> Required for staff registration</small>
+                    </div>
+                    
+                    <form method="POST" action="{{ url_for('change_admin_password') }}" class="mt-3">
+                        <div class="form-section">
+                            <h6 class="form-section-title">Update Password</h6>
+                            
+                            <div class="form-group-custom">
+                                <div class="input-wrapper">
+                                    <input type="password" name="current_password" class="form-control-custom" placeholder="Current Password" required>
+                                    <button type="button" class="input-toggle-btn" onclick="toggleInputPassword(this)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group-custom">
+                                        <div class="input-wrapper">
+                                            <input type="password" name="new_password" class="form-control-custom" placeholder="New Password" required minlength="8">
+                                            <button type="button" class="input-toggle-btn" onclick="toggleInputPassword(this)">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                        <div class="password-strength" id="password-strength"></div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group-custom">
+                                        <div class="input-wrapper">
+                                            <input type="password" name="confirm_password" class="form-control-custom" placeholder="Confirm Password" required>
+                                            <button type="button" class="input-toggle-btn" onclick="toggleInputPassword(this)">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn-custom btn-update">
+                                    <i class="fas fa-save"></i> Update Password
+                                </button>
+                                <small class="form-help">
+                                    <i class="fas fa-info-circle"></i> Password must be at least 8 characters long
+                                </small>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Status -->
+        <div class="col-lg-6">
+            <div class="admin-card">
+                <div class="card-header-custom">
+                    <i class="fas fa-dashboard"></i> System Status
+                </div>
+                <div class="card-body-custom">
+                    <div class="info-item">
+                        <strong>Current Admin:</strong>
+                        <span>{{ data.staff_info.name }}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Role:</strong>
+                        <span class="badge bg-success">{{ data.staff_info.role|title }}</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>System:</strong>
+                        <span class="badge bg-success">Online</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Access Level:</strong>
+                        <span class="badge bg-info">Full Control</span>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="mt-3">
+                        <a href="{{ url_for('staff_register') }}" class="btn-custom btn-outline-custom me-2">
+                            <i class="fas fa-user-plus"></i> Add Staff
+                        </a>
+                        <a href="{{ url_for('view_event_registrations') }}" class="btn-custom btn-outline-custom">
+                            <i class="fas fa-calendar-check"></i> Events
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Staff Directory (Compact View) -->
+        <div class="col-12">
+            <div class="admin-card">
+                <div class="card-header-custom">
+                    <i class="fas fa-users"></i> Staff Directory
+                    <span class="badge bg-light ms-2" style="color: #333;">{{ total_staff or 0 }} Active</span>
+                </div>
+                <div class="card-body-custom">
+                    {% if data.all_staff %}
+                        <div class="staff-grid">
+                            {% for staff in data.all_staff %}
+                                <div class="staff-card">
+                                    <div class="staff-avatar">
+                                        {{ (staff[2] or 'U')[0].upper() if staff[2] else 'U' }}
+                                    </div>
+                                    <div class="staff-name">{{ staff[2] or 'Unknown' }}</div>
+                                    <div class="staff-role role-{{ staff[3] or 'staff' }}">{{ (staff[3] or 'staff')|title }}</div>
+                                    <div class="staff-details">
+                                        <div><i class="fas fa-user"></i> {{ staff[1] or 'No username' }}</div>
+                                        {% if staff[4] %}
+                                            <div><i class="fas fa-envelope"></i> {{ staff[4][:25] }}{% if staff[4]|length > 25 %}...{% endif %}</div>
+                                        {% endif %}
+                                        {% if staff[5] %}
+                                            <div><i class="fas fa-calendar"></i> {{ staff[5].strftime('%b %Y') if staff[5] else 'N/A' }}</div>
+                                        {% endif %}
+                                        <div><i class="fas fa-circle"></i> 
+                                            <span class="badge {{ 'bg-success' if staff[7] else 'bg-secondary' }}">
+                                                {{ 'Active' if staff[7] else 'Inactive' }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-3">
+                            <i class="fas fa-users fa-2x mb-2" style="opacity: 0.3;"></i>
+                            <p class="mb-0">No staff members found.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="text-center mt-4">
+        <a href="{{ url_for('staff_dashboard') }}" class="btn-custom btn-outline-custom">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<script>
+let isPasswordVisible = false;
+const originalPassword = "{{ current_admin_password }}";
+
+function togglePasswordVisibility() {
+    const passwordDisplay = document.getElementById('password-display');
+    const toggleIcon = document.getElementById('toggle-icon');
+    
+    if (isPasswordVisible) {
+        // Hide password
+        passwordDisplay.textContent = '•'.repeat(originalPassword.length);
+        passwordDisplay.classList.add('password-hidden');
+        toggleIcon.className = 'fas fa-eye';
+        isPasswordVisible = false;
+    } else {
+        // Show password
+        passwordDisplay.textContent = originalPassword;
+        passwordDisplay.classList.remove('password-hidden');
+        toggleIcon.className = 'fas fa-eye-slash';
+        isPasswordVisible = true;
+    }
+}
+
+function toggleInputPassword(button) {
+    const input = button.parentNode.querySelector('input');
+    const icon = button.querySelector('i');
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fas fa-eye-slash';
+    } else {
+        input.type = 'password';
+        icon.className = 'fas fa-eye';
+    }
+}
+
+function checkPasswordStrength(password) {
+    const strengthBar = document.getElementById('password-strength');
+    if (!strengthBar) return;
+    
+    let strength = 0;
+    if (password.length >= 8) strength++;
+    if (/[A-Z]/.test(password)) strength++;
+    if (/[a-z]/.test(password)) strength++;
+    if (/[0-9]/.test(password)) strength++;
+    if (/[^A-Za-z0-9]/.test(password)) strength++;
+    
+    strengthBar.className = 'password-strength';
+    
+    if (strength < 3) {
+        strengthBar.classList.add('weak');
+    } else if (strength < 4) {
+        strengthBar.classList.add('medium');
+    } else {
+        strengthBar.classList.add('strong');
+    }
+}
+
+function validatePasswordMatch() {
+    const newPassword = document.querySelector('input[name="new_password"]');
+    const confirmPassword = document.querySelector('input[name="confirm_password"]');
+    
+    if (newPassword.value && confirmPassword.value) {
+        if (newPassword.value !== confirmPassword.value) {
+            confirmPassword.setCustomValidity('Passwords do not match');
+            confirmPassword.style.borderColor = '#e74c3c';
+        } else {
+            confirmPassword.setCustomValidity('');
+            confirmPassword.style.borderColor = '#27ae60';
+        }
+    }
+}
+
+// Initialize with hidden password and add event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    togglePasswordVisibility(); // This will hide the password initially
+    
+    // Add password strength checking
+    const newPasswordInput = document.querySelector('input[name="new_password"]');
+    if (newPasswordInput) {
+        newPasswordInput.addEventListener('input', function() {
+            checkPasswordStrength(this.value);
+            validatePasswordMatch();
+        });
+    }
+    
+    // Add password match validation
+    const confirmPasswordInput = document.querySelector('input[name="confirm_password"]');
+    if (confirmPasswordInput) {
+        confirmPasswordInput.addEventListener('input', validatePasswordMatch);
+    }
+    
+    // Add focus effects to inputs
+    document.querySelectorAll('.form-control-custom').forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentNode.style.transform = 'translateY(-2px)';
+        });
+        
+        input.addEventListener('blur', function() {
+            this.parentNode.style.transform = 'translateY(0)';
+        });
+    });
+});
+</script>
+{% endblock %}

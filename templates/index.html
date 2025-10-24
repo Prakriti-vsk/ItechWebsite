@@ -1,0 +1,467 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+<section class="hero">
+    <div class="container">
+        <h2>Empowering Your Digital Future</h2>
+        <p>ITech Computer Institute offers cutting-edge computer education with industry-experienced instructors and hands-on training to prepare you for the tech-driven world.</p>
+       <!-- Old: -->
+<!-- <a href="/courses" class="btn btn-secondary">Explore Courses</a> -->
+
+<!-- New: -->
+<a href="https://wa.me/919999999999?text=Hello%20I%20want%20to%20know%20more%20about%20your%20courses" 
+   class="btn btn-success" 
+   target="_blank">
+   WhatsApp Now
+</a>
+        <a href="/enroll" class="btn btn-secondary">Enroll Now</a>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <h2 class="section-title">Why Choose ITech?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-laptop-code fa-3x"></i>
+                <h3>Modern Curriculum</h3>
+                <p>Our courses are regularly updated to match industry standards and technological advancements.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chalkboard-teacher fa-3x"></i>
+                <h3>Expert Instructors</h3>
+                <p>Learn from professionals with real-world experience in their respective fields.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-briefcase fa-3x"></i>
+                <h3>Career Support</h3>
+                <p>Get assistance with resume building, interview preparation, and job placement.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="highlight-courses">
+    <div class="container">
+        <h2 class="section-title">Popular Courses</h2>
+        <div class="courses-grid">
+            {% for course in [
+                {'title': 'Web Development', 'description': 'Master front-end and back-end web technologies', 'duration': '12 weeks', 'image': 'web-dev.jpg'},
+                {'title': 'Python Programming', 'description': 'Learn Python from basics to advanced concepts', 'duration': '8 weeks', 'image': 'python.jpg'},
+                {'title': 'Data Science', 'description': 'Explore data analysis, visualization, and machine learning', 'duration': '16 weeks', 'image': 'data-science.jpg'}
+            ] %}
+            <div class="course-card">
+                <div class="course-img">
+                    <img src="/static/images/{{ course.image }}" alt="{{ course.title }}">
+                </div>
+                <div class="course-info">
+                    <h3>{{ course.title }}</h3>
+                    <p>{{ course.description }}</p>
+                    <div class="course-meta">
+                        <span>{{ course.duration }}</span>
+                        <a href="/enroll" class="btn">Enroll</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center" style="margin-top: 2rem;">
+            <a href="/courses" class="btn">View All Courses</a>
+        </div>
+    </div>
+</section>
+
+<style>/* Testimonials Section */
+
+.testimonials-slider .section-title {
+  text-align: center;
+  margin-bottom: 3.2rem;
+  font-size: 2.3rem;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+.testimonial-container {
+  max-width: 520px;
+  margin: 0 auto;
+  position: relative;
+  min-height: 185px;
+}
+.testimonial-slide {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.98) translateY(18px);
+  transition: all 0.7s cubic-bezier(.4,1.3,.6,1);
+  z-index: 0;
+  background: var(--glass-bg, rgba(255,255,255,0.85));
+  border-radius: var(--border-radius, 14px);
+  box-shadow: 0 8px 32px 0 rgba(44,62,80,0.09), 0 2px 8px rgba(44,62,80,0.04);
+  padding: 2.3rem 2rem 2rem 2rem;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(44,62,80,0.06);
+  pointer-events: none;
+}
+.testimonial-slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1) translateY(0);
+  z-index: 10;
+  pointer-events: auto;
+}
+.testimonial-quote {
+  font-size: 1.12rem;
+  color: var(--text-color, #222);
+  font-style: italic;
+  position: relative;
+  padding: 0 1rem;
+}
+.testimonial-quote::before, .testimonial-quote::after {
+  color: var(--primary-color, #3498db);
+  font-size: 2.3rem;
+  opacity: 0.20;
+  font-family: serif;
+  vertical-align: middle;
+}
+.testimonial-quote::before {
+  content: "“";
+  margin-right: 0.15em;
+  line-height: 1;
+}
+.testimonial-quote::after {
+  content: "”";
+  margin-left: 0.15em;
+}
+.testimonial-name {
+  font-weight: bold;
+  color: var(--primary-color, #3498db);
+  font-size: 1.08rem;
+  margin-bottom: 0.15rem;
+}
+.testimonial-role {
+  font-size: 0.95rem;
+  color: var(--text-color, #555);
+  opacity: 0.7;
+  letter-spacing: 0.2px;
+}
+@media (max-width: 600px) {
+  .testimonial-container {
+    padding: 0 0.5rem;
+  }
+  .testimonial-slide {
+    padding: 1.5rem 0.7rem 1.2rem 0.7rem;
+    font-size: 0.97rem;
+  }
+}
+</style>
+<section class="testimonials-slider">
+  <h2 class="section-title">What Our Students Say</h2>
+  <div class="testimonial-container">
+    <div class="testimonial-slide active">
+      <div class="testimonial-quote">
+        “This platform made learning so enjoyable! The mentors were supportive and the community kept me motivated.”
+      </div>
+      <div class="testimonial-name">Jane Doe</div>
+      <div class="testimonial-role">Full Stack Developer</div>
+    </div>
+    <div class="testimonial-slide">
+      <div class="testimonial-quote">
+        “The interactive projects solidified my understanding. I landed my first tech job thanks to these courses!”
+      </div>
+      <div class="testimonial-name">John Smith</div>
+      <div class="testimonial-role">Frontend Engineer</div>
+    </div>
+    <div class="testimonial-slide">
+      <div class="testimonial-quote">
+        “Excellent content and a friendly support team. I highly recommend it to anyone looking to advance their skills.”
+      </div>
+      <div class="testimonial-name">Alex Kim</div>
+      <div class="testimonial-role">UI/UX Designer</div>
+    </div>
+  </div>
+</section>
+<script>
+  // Simple Auto-Slider
+  let idx = 0;
+  const slides = document.querySelectorAll('.testimonial-slide');
+  setInterval(() => {
+    slides[idx].classList.remove('active');
+    idx = (idx + 1) % slides.length;
+    slides[idx].classList.add('active');
+  }, 3500); // Change slide every 3.5 seconds
+</script>
+
+  
+<style>
+/* About Section */
+.about {
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.about::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.02) 0%, rgba(142, 68, 173, 0.02) 100%);
+    pointer-events: none;
+}
+
+.about .container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.about .section-title {
+    color: var(--primary-color);
+    margin-bottom: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.about .section-title::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--primary-color);
+    margin: 1.5rem auto 0;
+    border-radius: 2px;
+    transition: background 0.3s ease;
+}
+
+.about p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.9;
+    transition: color 0.3s ease;
+}
+
+.about .btn-secondary {
+    background: var(--secondary-color);
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 32px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: inline-block;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 16px rgba(44, 62, 80, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.about .btn-secondary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.about .btn-secondary:hover {
+    background: var(--dark-color);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 24px rgba(44, 62, 80, 0.3);
+}
+
+.about .btn-secondary:hover::before {
+    left: 100%;
+}
+
+/* Contact CTA Section */
+.contact-cta {
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-cta::before {
+    content: "";
+    position: absolute;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: float 6s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+.contact-cta .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.contact-cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.8rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.contact-cta p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--text-color);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.contact-cta .btn {
+    background: white;
+    color: var(--primary-color);
+    padding: 1.2rem 3rem;
+    border-radius: 32px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.contact-cta .btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.contact-cta .btn:hover {
+    background: var(--light-color);
+    color: var(--secondary-color);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.contact-cta .btn:hover::before {
+    left: 100%;
+}
+
+/* Responsive Design for About and Contact CTA */
+@media (max-width: 768px) {
+    .about .section-title {
+        font-size: 2.2rem;
+    }
+    
+    .about p {
+        font-size: 1.1rem;
+        margin-bottom: 2.5rem;
+    }
+    
+    .about .btn-secondary {
+        padding: 0.9rem 2rem;
+        font-size: 1rem;
+    }
+    
+    .contact-cta {
+        padding: 4rem 0;
+    }
+    
+    .contact-cta h2 {
+        font-size: 2rem;
+    }
+    
+    .contact-cta p {
+        font-size: 1.1rem;
+        margin-bottom: 2.5rem;
+    }
+    
+    .contact-cta .btn {
+        padding: 1rem 2.5rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about {
+        padding: 3.5rem 0;
+    }
+    
+    .about .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .about p {
+        font-size: 1.2rem;
+        padding: 0 1rem;
+    }
+    
+    .contact-cta {
+        padding: 6rem 0;
+    }
+    
+    .contact-cta h2 {
+        font-size: 1.7rem;
+    }
+    
+    .contact-cta p {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .contact-cta .btn {
+        padding: 0.9rem 2rem;
+        font-size: 0.95rem;
+    }
+        }
+    </style>
+<section class="about" >
+  <div class="container" style="text-align: center;">
+    <h2 class="section-title">About ITech Computer Institute</h2>
+    <p style="text-align:center;">
+      ITech Computer Institute is dedicated to providing high-quality computer education and training. Our mission is to empower students with the skills and knowledge required to excel in the ever-evolving tech industry. With state-of-the-art facilities, experienced faculty, and a focus on practical learning, we help you achieve your career goals.
+    </p>
+    <a href="/about" class="btn btn-secondary">Learn More</a>
+  </div>
+</section>
+
+<section class="contact-cta">
+    <div class="container text-center" style="text-align: center;">
+        <h2  style="text-align:center ;">Ready to Start Your Journey?</h2>
+        <p  style="text-align:center ;">Contact us today to learn more about our courses and how we can help you achieve your goals.</p>
+        <a href="/contact" class="btn" >Contact Us</a>
+        
+    </div>
+</section>
+{% endblock %}

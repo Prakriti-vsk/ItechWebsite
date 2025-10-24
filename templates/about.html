@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="about-hero">
+    <div class="container">
+        <h1>About ITech Computer Institute</h1>
+        <p>Empowering individuals with technology education since 2010</p>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="about-content">
+            <div class="about-text">
+                <h2 class="section-title">Our Story</h2>
+                <p>Founded in 2010, ITech Computer Institute began with a simple mission: to make quality computer education accessible to everyone. What started as a small training center with just two instructors has now grown into a premier institute with multiple locations and thousands of successful graduates.</p>
+                
+                <p>Our founder, Rajesh Kumar, recognized the growing need for digital skills in the job market and set out to create programs that would give students practical, job-ready skills. Today, we continue that tradition by constantly updating our curriculum to match industry needs.</p>
+                
+                <h3>Our Mission</h3>
+                <p>To provide high-quality, affordable computer education that empowers individuals to succeed in the digital economy.</p>
+                
+                <h3>Our Vision</h3>
+                <p>To be the leading computer education provider, recognized for our innovative teaching methods and exceptional student outcomes.</p>
+            </div>
+            <div class="about-image">
+                <img src="/static/images/about-us.jpg" alt="ITech Computer Institute">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="team-section">
+    <div class="container">
+        <h2 class="section-title">Meet Our Team</h2>
+        <div class="team-grid">
+            {% for member in [
+                {'name': 'Rajesh Kumar', 'role': 'Founder & Director', 'bio': 'With over 20 years in the IT industry, Rajesh is passionate about technology education.', 'image': 'team1.jpg'},
+                {'name': 'Priya Sharma', 'role': 'Head of Academics', 'bio': 'Priya oversees curriculum development and ensures our programs meet industry standards.', 'image': 'team2.jpg'},
+                {'name': 'Amit Patel', 'role': 'Senior Instructor', 'bio': 'Amit specializes in web development and has trained hundreds of students.', 'image': 'team3.jpg'},
+                {'name': 'Neha Gupta', 'role': 'Career Counselor', 'bio': 'Neha helps students identify career paths and prepare for job interviews.', 'image': 'team4.jpg'}
+            ] %}
+            <div class="team-card">
+                <div class="team-img">
+                    <img src="/static/images/{{ member.image }}" alt="{{ member.name }}">
+                </div>
+                <div class="team-info">
+                    <h3>{{ member.name }}</h3>
+                    <p class="role">{{ member.role }}</p>
+                    <p>{{ member.bio }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="achievements">
+    <div class="container">
+        <h2 class="section-title">Our Achievements</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">5000+</div>
+                <div class="stat-label">Students Trained</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Satisfaction Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Years of Experience</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">80%</div>
+                <div class="stat-label">Placement Rate</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

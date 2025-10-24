@@ -1,0 +1,876 @@
+{% extends "base.html" %}
+
+{% block title %}Events - iTech Computer Institute{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Events page specific styles using main theme variables */
+    .events-container {
+        padding: 2rem 0;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 3rem 0;
+        background: var(--gradient);
+        color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        position: relative;
+    }
+
+    .page-header::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 20px;
+        background: linear-gradient(to top, var(--background-color), transparent);
+        z-index: 1;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 12px rgba(44, 62, 80, 0.18);
+    }
+
+    .page-subtitle {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        text-shadow: 0 1px 6px rgba(44, 62, 80, 0.12);
+        margin-bottom: 1.5rem;
+    }
+
+    .add-event-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+    }
+
+    .add-event-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .events-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .event-card {
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        padding: 2rem;
+        position: relative;
+        transition: transform 0.3s, box-shadow 0.3s;
+        border: 1px solid rgba(44, 62, 80, 0.06);
+        overflow: hidden;
+    }
+
+    .event-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient);
+    }
+
+    .event-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 12px 32px rgba(44, 62, 80, 0.18);
+    }
+
+    .delete-event-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: var(--accent-color);
+        border: none;
+        color: white;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .delete-event-btn:hover {
+        background: #c0392b;
+        transform: scale(1.1);
+    }
+
+    .event-date {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--primary-color), #8e44ad);
+        color: white;
+    }
+
+    .event-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        letter-spacing: 0.5px;
+    }
+
+    .event-description {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: var(--text-color);
+        opacity: 0.8;
+        margin-bottom: 1.5rem;
+    }
+
+    .event-details {
+        margin-bottom: 1.5rem;
+    }
+
+    .event-detail-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--text-color);
+        opacity: 0.8;
+    }
+
+    .event-detail-item i {
+        width: 20px;
+        color: var(--primary-color);
+    }
+
+    .event-actions {
+        display: flex;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 0.8rem 1.2rem;
+        border: none;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex: 1;
+        justify-content: center;
+        text-decoration: none;
+    }
+
+    .btn-primary {
+        background: var(--gradient);
+        color: white;
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    }
+
+    .btn-primary:hover {
+        background: var(--accent-color);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+    }
+
+    .btn-secondary {
+        background: rgba(52, 152, 219, 0.1);
+        color: var(--primary-color);
+        border: 2px solid rgba(52, 152, 219, 0.2);
+    }
+
+    .btn-secondary:hover {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+    }
+
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        backdrop-filter: blur(5px);
+    }
+
+    .modal.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-content {
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        max-width: 500px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid rgba(52, 152, 219, 0.1);
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--text-color);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+        color: var(--accent-color);
+        transform: rotate(90deg);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid rgba(52, 152, 219, 0.2);
+        border-radius: var(--border-radius);
+        background: var(--background-color);
+        color: var(--text-color);
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+
+    .btn-submit {
+        background: var(--gradient);
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+
+    .btn-submit:hover {
+        background: var(--accent-color);
+        transform: translateY(-2px);
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .success-message {
+        background: linear-gradient(135deg, rgba(39, 174, 96, 0.1), rgba(46, 204, 113, 0.1));
+        border-left: 4px solid #27ae60;
+        color: #27ae60;
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 1rem;
+        display: none;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+        .page-title {
+            font-size: 2rem;
+        }
+
+        .events-grid {
+            grid-template-columns: 1fr;
+            padding: 0 0.5rem;
+        }
+
+        .event-actions {
+            flex-direction: column;
+        }
+
+        .modal-content {
+            margin: 1rem;
+            padding: 1.5rem;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .page-header {
+            padding: 2rem 0;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+        }
+
+        .event-card {
+            padding: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container events-container">
+    <div class="page-header">
+        <h1 class="page-title">🎉 Upcoming Events</h1>
+        <p class="page-subtitle">Stay updated with the latest workshops, seminars, and tech events at iTech Computer
+            Institute</p>
+        <button class="add-event-btn" id="addEventBtn">
+            <i class="fas fa-plus"></i>
+            Add New Event
+        </button>
+    </div>
+
+    <div class="events-grid" id="eventsGrid">
+        <!-- Event 1 -->
+        <div class="event-card" data-event-id="1">
+            <button class="delete-event-btn" onclick="deleteEvent(1)">
+                <i class="fas fa-trash"></i>
+            </button>
+            <div class="event-date">
+                <i class="fas fa-calendar-alt"></i>
+                January 15, 2025
+            </div>
+            <h3 class="event-title">Web Development Bootcamp</h3>
+            <p class="event-description">
+                Intensive 3-day workshop covering HTML, CSS, JavaScript, and modern frameworks. Perfect for beginners
+                and intermediate developers.
+            </p>
+            <div class="event-details">
+                <div class="event-detail-item">
+                    <i class="fas fa-clock"></i>
+                    <span>9:00 AM - 5:00 PM</span>
+                </div>
+                <div class="event-detail-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Main Hall</span>
+                </div>
+                <div class="event-detail-item">
+                    <i class="fas fa-users"></i>
+                    <span>30 Seats</span>
+                </div>
+            </div>
+            <div class="event-actions">
+                <button class="btn btn-primary register-btn" data-event="Web Development Bootcamp"
+                    data-date="January 15, 2025" data-time="9:00 AM - 5:00 PM" data-location="Main Hall"
+                    data-seats="30">
+                    <i class="fas fa-ticket-alt"></i>
+                    Register Now
+                </button>
+                <button class="btn btn-secondary learn-more-btn" data-event="Web Development Bootcamp">
+                    <i class="fas fa-info-circle"></i>
+                    Learn More
+                </button>
+            </div>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="event-card" data-event-id="2">
+            <button class="delete-event-btn" onclick="deleteEvent(2)">
+                <i class="fas fa-trash"></i>
+            </button>
+            <div class="event-date">
+                <i class="fas fa-calendar-alt"></i>
+                February 10, 2025
+            </div>
+            <h3 class="event-title">Digital Marketing Seminar</h3>
+            <p class="event-description">
+                Learn the latest digital marketing strategies, SEO techniques, social media marketing, and Google Ads
+                management from industry experts.
+            </p>
+            <div class="event-details">
+                <div class="event-detail-item">
+                    <i class="fas fa-clock"></i>
+                    <span>2:00 PM - 6:00 PM</span>
+                </div>
+                <div class="event-detail-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Conference Room</span>
+                </div>
+                <div class="event-detail-item">
+                    <i class="fas fa-users"></i>
+                    <span>25 Seats</span>
+                </div>
+            </div>
+            <div class="event-actions">
+                <button class="btn btn-primary register-btn" data-event="Digital Marketing Seminar"
+                    data-date="February 10, 2025" data-time="2:00 PM - 6:00 PM" data-location="Conference Room"
+                    data-seats="25">
+                    <i class="fas fa-ticket-alt"></i>
+                    Register Now
+                </button>
+                <button class="btn btn-secondary learn-more-btn" data-event="Digital Marketing Seminar">
+                    <i class="fas fa-info-circle"></i>
+                    Learn More
+                </button>
+            </div>
+        </div>
+
+        <!-- Event 3 -->
+        <div class="event-card" data-event-id="3">
+            <button class="delete-event-btn" onclick="deleteEvent(3)">
+                <i class="fas fa-trash"></i>
+            </button>
+            <div class="event-date">
+                <i class="fas fa-calendar-alt"></i>
+                March 5, 2025
+            </div>
+            <h3 class="event-title">Python Programming Workshop</h3>
+            <p class="event-description">
+                Comprehensive workshop covering Python fundamentals, data structures, object-oriented programming, and
+                web development with Django.
+            </p>
+            <div class="event-details">
+                <div class="event-detail-item">
+                    <i class="fas fa-clock"></i>
+                    <span>10:00 AM - 4:00 PM</span>
+                </div>
+                <div class="event-detail-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Lab 2</span>
+                </div>
+                <div class="event-detail-item">
+                    <i class="fas fa-users"></i>
+                    <span>20 Seats</span>
+                </div>
+            </div>
+            <div class="event-actions">
+                <button class="btn btn-primary register-btn" data-event="Python Programming Workshop"
+                    data-date="March 5, 2025" data-time="10:00 AM - 4:00 PM" data-location="Lab 2" data-seats="20">
+                    <i class="fas fa-ticket-alt"></i>
+                    Register Now
+                </button>
+                <button class="btn btn-secondary learn-more-btn" data-event="Python Programming Workshop">
+                    <i class="fas fa-info-circle"></i>
+                    Learn More
+                </button>
+            </div>
+        </div>
+
+        <!-- Event 4 -->
+        <div class="event-card" data-event-id="4">
+            <button class="delete-event-btn" onclick="deleteEvent(4)">
+                <i class="fas fa-trash"></i>
+            </button>
+            <div class="event-date">
+                <i class="fas fa-calendar-alt"></i>
+                March 20, 2025
+            </div>
+            <h3 class="event-title">Cybersecurity Awareness</h3>
+            <p class="event-description">
+                Essential cybersecurity training covering threat awareness, password security, phishing prevention, and
+                safe computing practices.
+            </p>
+            <div class="event-details">
+                <div class="event-detail-item">
+                    <i class="fas fa-clock"></i>
+                    <span>11:00 AM - 3:00 PM</span>
+                </div>
+                <div class="event-detail-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Auditorium</span>
+                </div>
+                <div class="event-detail-item">
+                    <i class="fas fa-users"></i>
+                    <span>50 Seats</span>
+                </div>
+            </div>
+            <div class="event-actions">
+                <button class="btn btn-primary register-btn" data-event="Cybersecurity Awareness"
+                    data-date="March 20, 2025" data-time="11:00 AM - 3:00 PM" data-location="Auditorium"
+                    data-seats="50">
+                    <i class="fas fa-ticket-alt"></i>
+                    Register Now
+                </button>
+                <button class="btn btn-secondary learn-more-btn" data-event="Cybersecurity Awareness">
+                    <i class="fas fa-info-circle"></i>
+                    Learn More
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="registrationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Event Registration</h2>
+                <button class="close-btn" onclick="closeModal('registrationModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="success-message" id="registrationSuccess">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Registration successful! You will receive a confirmation email shortly.</span>
+                </div>
+
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="eventName">Event Name</label>
+                        <input type="text" id="eventName" name="eventName" class="form-control" readonly>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventDate">Date</label>
+                            <input type="text" id="eventDate" name="eventDate" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventTime">Time</label>
+                            <input type="text" id="eventTime" name="eventTime" class="form-control" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" class="form-control"
+                                placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-control"
+                                placeholder="Enter your email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="+91 98765 43210"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="experience">Experience Level</label>
+                            <select id="experience" name="experience" class="form-control">
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="requirements">Special Requirements (Optional)</label>
+                        <textarea id="requirements" name="requirements" class="form-control"
+                            placeholder="Any special requirements or accommodations needed?"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-check-circle"></i>
+                        Complete Registration
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Event Modal -->
+    <div id="addEventModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add New Event</h2>
+                <button class="close-btn" onclick="closeModal('addEventModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="success-message" id="addEventSuccess">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Event added successfully!</span>
+                </div>
+
+                <form id="addEventForm">
+                    <div class="form-group">
+                        <label for="newEventTitle">Event Title *</label>
+                        <input type="text" id="newEventTitle" name="newEventTitle" class="form-control"
+                            placeholder="Enter event title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="newEventDescription">Description *</label>
+                        <textarea id="newEventDescription" name="newEventDescription" class="form-control" rows="3"
+                            placeholder="Enter event description" required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newEventDate">Date *</label>
+                            <input type="date" id="newEventDate" name="newEventDate" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newEventTime">Time *</label>
+                            <input type="text" id="newEventTime" name="newEventTime" class="form-control"
+                                placeholder="e.g., 9:00 AM - 5:00 PM" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newEventLocation">Location *</label>
+                            <input type="text" id="newEventLocation" name="newEventLocation" class="form-control"
+                                placeholder="e.g., Main Hall" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newEventSeats">Available Seats</label>
+                            <input type="number" id="newEventSeats" name="newEventSeats" class="form-control"
+                                placeholder="e.g., 30" min="1">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-plus-circle"></i>
+                        Add Event
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add Event button event
+        document.getElementById('addEventBtn').addEventListener('click', function () {
+            document.getElementById('addEventModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Registration button events
+        document.querySelectorAll('.register-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const eventName = this.getAttribute('data-event');
+                const eventDate = this.getAttribute('data-date');
+                const eventTime = this.getAttribute('data-time');
+
+                document.getElementById('eventName').value = eventName;
+                document.getElementById('eventDate').value = eventDate;
+                document.getElementById('eventTime').value = eventTime;
+
+                document.getElementById('registrationModal').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Learn more button events
+        document.querySelectorAll('.learn-more-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const eventName = this.getAttribute('data-event');
+                alert(`More information about "${eventName}" will be available soon. Please contact us for details.`);
+            });
+        });
+
+        // Form submissions
+        document.getElementById('registrationForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Get form data
+            const formData = {
+                eventName: document.getElementById('eventName').value,
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                experience: document.getElementById('experience').value,
+                requirements: document.getElementById('requirements')?.value || ''
+            };
+
+            console.log('Submitting registration:', formData); // Debug log
+
+            // Validate required fields
+            if (!formData.fullName || !formData.email || !formData.phone || !formData.eventName) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Disable submit button
+            const submitButton = this.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Registering...';
+
+            // Submit to backend
+            console.log('Sending request to server...'); // Debug log
+            fetch('/save-event-registration', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(response => {
+                    console.log('Server response status:', response.status); // Debug log
+                    return response.json().then(data => {
+                        if (!response.ok) {
+                            throw new Error(data.message || `HTTP error! status: ${response.status}`);
+                        }
+                        return data;
+                    });
+                })
+                .then(data => {
+                    console.log('Registration response:', data); // Debug log
+
+                    // Re-enable submit button
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = '<i class="fas fa-check-circle"></i> Complete Registration';
+
+                    if (data.success) {
+                        console.log('Registration successful!'); // Debug log
+                        // Show success message
+                        const successDiv = document.getElementById('registrationSuccess');
+                        successDiv.style.display = 'flex';
+                        successDiv.innerHTML = `
+                            <i class="fas fa-check-circle"></i>
+                            <span>Registration successful! Your registration ID is: ${data.registration_id}</span>
+                        `;
+
+                        // Reset form
+                        this.reset();
+
+                        // Hide success message and close modal after 3 seconds
+                        setTimeout(() => {
+                            successDiv.style.display = 'none';
+                            closeModal('registrationModal');
+                        }, 3000);
+                    } else {
+                        console.log('Registration failed with error:', data.message); // Debug log
+                        throw new Error(data.message || 'Registration failed. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during registration:', error); // Debug log
+
+                    // Re-enable submit button
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = '<i class="fas fa-check-circle"></i> Complete Registration';
+
+                    // Show error message
+                    const errorMessage = error.message || 'Failed to save registration. Please try again.';
+                    console.error('Showing error to user:', errorMessage); // Debug log
+                    alert('Registration failed: ' + errorMessage);
+                });
+        });
+
+        document.getElementById('addEventForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Show success message
+            document.getElementById('addEventSuccess').style.display = 'flex';
+
+            // Reset form
+            this.reset();
+
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                document.getElementById('addEventSuccess').style.display = 'none';
+                closeModal('addEventModal');
+            }, 2000);
+        });
+    });
+
+    // Function to delete event
+    window.deleteEvent = function (eventId) {
+        if (confirm('Are you sure you want to delete this event?')) {
+            const eventCard = document.querySelector(`[data-event-id="${eventId}"]`);
+            if (eventCard) {
+                eventCard.remove();
+                alert('Event deleted successfully!');
+            }
+        }
+    };
+
+    // Function to close modal
+    window.closeModal = function (modalId) {
+        document.getElementById(modalId).classList.remove('active');
+        document.body.style.overflow = 'auto';
+    };
+
+    // Close modal when clicking outside
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', function (e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    });
+
+    // Escape key to close modals
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal.active').forEach(modal => {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        }
+    });
+</script>
+{% endblock %}

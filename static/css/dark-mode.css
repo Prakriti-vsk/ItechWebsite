@@ -1,0 +1,85 @@
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.dark-mode .feature-box,
+.dark-mode .course-card,
+.dark-mode form,
+.dark-mode .success-message,
+.dark-mode .enroll-info,
+.dark-mode .contact-info,
+.dark-mode .member,
+.dark-mode .value-item,
+.dark-mode .testimonial {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode header,
+.dark-mode footer,
+.dark-mode #newsletter {
+    background-color: #1e1e1e;
+}
+
+.dark-mode .chatbot-container {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.dark-mode .chatbot-header {
+    background-color: var(--primary-color);
+}
+
+.dark-mode .bot .message-content {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+.dark-mode .chatbot-input {
+    border-top-color: #2d2d2d;
+}
+
+.dark-mode .chatbot-input input {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border-color: #3d3d3d;
+}
+
+.dark-mode ::placeholder {
+    color: #aaa;
+}
+.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.dark-mode header,
+.dark-mode footer,
+.dark-mode #newsletter {
+    background-color: #1a1a1a;
+    border-color: #333;
+}
+
+.dark-mode .feature-box,
+.dark-mode .course-card,
+.dark-mode .testimonial,
+.dark-mode .member,
+.dark-mode .value-item {
+    background-color: #1e1e1e;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode .btn {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .whatsapp-btn {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode #showcase::before {
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.9) 0%, rgba(50, 50, 50, 0.95) 100%);
+}

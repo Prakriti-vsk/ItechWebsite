@@ -1,0 +1,49 @@
+<div class="chatbot-btn" id="chatbot-btn">
+    <i class="fas fa-robot"></i>
+    <span class="notification-badge" id="chat-notification"></span>
+</div>
+
+<div class="chatbot-container" id="chatbot-container">
+    <div class="chatbot-header">
+        <div class="chatbot-title">
+            <i class="fas fa-robot"></i>
+            <h3>ITech Assistant</h3>
+        </div>
+        <button class="close-chatbot" id="close-chatbot" aria-label="Close chatbot">
+            &times;
+        </button>
+    </div>
+    <div class="chatbot-messages" id="chatbot-messages">
+        <!-- Messages will appear here -->
+    </div>
+    <div class="chatbot-input-container">
+        <div class="quick-replies" id="quick-replies">
+            <button class="quick-reply-btn" data-message="What courses do you offer?">
+                Courses
+            </button>
+            <button class="quick-reply-btn" data-message="What are the class timings?">
+                Timings
+            </button>
+            <button class="quick-reply-btn" data-message="How much are the fees?">
+                Fees
+            </button>
+            <button class="quick-reply-btn" data-message="How do I enroll?">
+                Enrollment
+            </button>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off">
+            <button id="send-btn" aria-label="Send message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- Existing chat UI -->
+<div class="chatbot-body" id="chatbot-body">
+  <div class="chat-messages" id="chat-messages"></div>
+  <div class="chat-input">
+    <input id="chat-input-box" type="text" placeholder="Type your message...">
+    <button id="chat-send-btn">Send</button>
+  </div>
+</div>

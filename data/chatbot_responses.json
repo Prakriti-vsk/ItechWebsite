@@ -1,0 +1,2926 @@
+{
+    "intents": [
+        {
+            "tag": "greeting",
+            "patterns": [
+                "Hello",
+                "Hi",
+                "Hey",
+                "Good morning",
+                "Good afternoon",
+                "Good evening",
+                "Is anyone there?",
+                "Hey there",
+                "Hi there",
+                "Hello there",
+                "Hi, is anyone available?",
+                "Good day",
+                "Greetings",
+                "Howdy",
+                "What's up?",
+                "Yo"
+            ],
+            "responses": [
+                "Hello! Welcome to iTech Computer Institute. How can I assist you today?",
+                "Hi there! How can I help you with your computer learning journey?",
+                "Greetings! What would you like to know about iTech Computer Institute?"
+            ]
+        },
+        {
+            "tag": "course_recommendation",
+            "patterns": [
+                "Can you recommend a course?",
+                "Suggest me a course",
+                "Which computer course is best for me?",
+                "I want a course suggestion",
+                "Recommend a course",
+                "Best course for my profile",
+                "What course should I take?",
+                "Course suggestion",
+                "Suggest course based on my skills",
+                "Find me a suitable course",
+                "I have completed BCS and know Python, interested in programming",
+                "I finished BCA and like design",
+                "I have done graduation in commerce, suggest a course",
+                "I am interested in programming, what should I learn?",
+                "I have skills in Photoshop, what course for me?",
+                "Which course after BCS?",
+                "What can I do after my degree?",
+                "I want to learn something new after my graduation",
+                "I am a beginner with no experience",
+                "I have basic computer knowledge",
+                "I want to switch to IT field",
+                "Looking for a career change",
+                "What course for job opportunities?",
+                "Best course for placement",
+                "High paying course recommendation",
+                "Course with good scope"
+            ],
+            "responses": [
+                "I'd be happy to recommend the perfect course for you! To give you the best suggestion, please tell me:\n\n1. Your educational background (e.g., BCA, B.Com, 12th pass, etc.)\n2. Your interests (Programming, Design, Accounting, etc.)\n3. Your current skill level (Beginner, Intermediate, Advanced)\n4. Your career goals\n\nBased on this information, I can suggest the most suitable course from our catalog.",
+                "Let me help you find the right course! Please share:\n- Your qualification\n- Areas of interest\n- Experience level\n- Career objectives\n\nThis will help me recommend the best course for your profile.",
+                "Great! I can suggest courses based on your background. Please provide:\n• Educational qualification\n• Interest areas (Tech, Design, Business, etc.)\n• Current skills\n• Future goals\n\nWith this info, I'll recommend the most suitable course for you."
+            ]
+        },
+        {
+            "tag": "course_recommendation_programming",
+            "patterns": [
+                "I'm interested in programming",
+                "Want to learn coding",
+                "Programming course suggestion",
+                "Which programming language to start with?",
+                "Best programming course for beginners",
+                "I want to become a programmer",
+                "Software development course",
+                "Coding bootcamp"
+            ],
+            "responses": [
+                "Perfect! For programming enthusiasts, I recommend:\n\n**For Beginners:**\n• Python Programming - Easy to learn, versatile\n• Basic Computer Skills (if you're completely new)\n\n**For Career Growth:**\n• Full Stack Web Development - High demand\n• Java Programming - Enterprise applications\n• C++ Programming - System programming\n\n**Advanced Options:**\n• Data Science (if you like Python + analytics)\n• Mobile App Development (Android)\n\nWhich area interests you most?"
+            ]
+        },
+        {
+            "tag": "course_recommendation_design",
+            "patterns": [
+                "I'm interested in design",
+                "Want to learn graphic design",
+                "Creative course suggestion",
+                "Design course recommendation",
+                "I like creative work",
+                "Art and design courses",
+                "Visual design learning"
+            ],
+            "responses": [
+                "Excellent choice! For design enthusiasts, I suggest:\n\n**Graphic Design:**\n• Graphic Designing - Photoshop, Illustrator, CorelDRAW\n• Diploma in Graphics & Motion Graphics\n\n**Animation:**\n• Diploma in 2D/3D Animation\n• ICAP (Animation) - Comprehensive program\n\n**Specialized Design:**\n• Diploma in VFX Compositing\n• Digital Marketing (includes design elements)\n• Web Development (includes UI/UX design)\n\nWhat type of design work appeals to you most?"
+            ]
+        },
+        {
+            "tag": "course_recommendation_business",
+            "patterns": [
+                "I'm from commerce background",
+                "Business course suggestion",
+                "Accounting course recommendation",
+                "I want to learn business skills",
+                "Commerce graduate course",
+                "Office work courses",
+                "Administrative skills"
+            ],
+            "responses": [
+                "Great! For commerce/business background, I recommend:\n\n**Accounting & Finance:**\n• Tally + GST - Most demanded\n• ICCA (Company Accountant) - Professional program\n• Advanced Excel - Data analysis\n\n**Digital Skills:**\n• Digital Marketing - Online business\n• Basic Computer Skills - Foundation\n• 4 Module Course - Complete package\n\n**Career Enhancement:**\n• Spoken English + Personality Development\n• GST (separate course)\n• Tally Prime (latest version)\n\nWhich area would help your career goals most?"
+            ]
+        },
+        {
+            "tag": "course_recommendation_beginner",
+            "patterns": [
+                "I am a complete beginner",
+                "No computer experience",
+                "Starting from scratch",
+                "Basic computer course",
+                "I don't know anything about computers",
+                "Beginner friendly course",
+                "Where should I start?"
+            ],
+            "responses": [
+                "No worries! Everyone starts somewhere. For complete beginners, I recommend:\n\n**Start Here:**\n• Basic Computer Skills - Perfect foundation\n• 4 Module Course - Comprehensive basics\n\n**Next Steps (after basics):**\n• Advanced Excel - Useful for any job\n• Spoken English - Communication skills\n• Tally - Accounting software\n\n**If you want to explore:**\n• Graphic Designing - Creative field\n• Python Programming - Easy programming start\n• Digital Marketing - Online business skills\n\nI'd suggest starting with Basic Computer Skills. What do you think?"
+            ]
+        },
+        {
+            "tag": "course_recommendation_career_change",
+            "patterns": [
+                "I want to change my career",
+                "Switch to IT field",
+                "Career transition course",
+                "Looking for new opportunities",
+                "Want to enter tech industry",
+                "Change career path",
+                "New field learning"
+            ],
+            "responses": [
+                "Career change is exciting! Based on different goals:\n\n**Quick Entry to IT:**\n• Digital Marketing - 3-4 months, good opportunities\n• Tally + GST - Immediate job market\n• Advanced Excel - Useful everywhere\n\n**Long-term IT Career:**\n• Full Stack Web Development - High demand\n• Python Programming → Data Science path\n• Ethical Hacking - Cybersecurity field\n\n**Creative Transition:**\n• Graphic Designing - Creative industry\n• Animation courses - Media field\n\n**Skills Enhancement:**\n• Spoken English + Personality Development\n\nWhat's your timeline and preferred industry?"
+            ]
+        },
+        {
+            "tag": "course_recommendation_job_focused",
+            "patterns": [
+                "Course with good job opportunities",
+                "High demand course",
+                "Best course for placement",
+                "Job oriented course",
+                "Course with salary growth",
+                "Market demand courses",
+                "Employment guarantee course"
+            ],
+            "responses": [
+                "For excellent job opportunities, consider these high-demand courses:\n\n**Immediate Job Market:**\n• Tally + GST - Every company needs (₹15K-25K starting)\n• Digital Marketing - Growing field (₹18K-30K)\n• Advanced Excel - Universal demand (₹12K-20K)\n\n**IT Industry (Higher Growth):**\n• Full Stack Web Development - (₹25K-50K)\n• Python Programming - (₹20K-40K)\n• Data Science - (₹30K-60K)\n\n**Stable Opportunities:**\n• ICCA (Company Accountant) - Professional role\n• Ethical Hacking - Cybersecurity (₹25K-45K)\n• Mobile App Development - (₹22K-40K)\n\n*Note: We provide placement assistance for all courses!\n\nWhich salary range and field interests you?"
+            ]
+        },
+        {
+            "tag": "course_recommendation_qualification_based",
+            "patterns": [
+                "I have completed BCA",
+                "I am B.Com graduate",
+                "I have done BSc",
+                "Engineering background",
+                "Arts graduate",
+                "12th pass course",
+                "MBA course suggestion",
+                "Course after graduation"
+            ],
+            "responses": [
+                "Based on different qualifications:\n\n**BCA/BSc IT/Engineering:**\n• Advanced programming (Java, C++, Python)\n• Full Stack Web Development\n• Data Science\n• Ethical Hacking\n\n**B.Com/MBA:**\n• ICCA (Company Accountant)\n• Digital Marketing\n• Advanced Excel\n• Tally Prime + GST\n\n**Arts/General Graduation:**\n• Graphic Designing\n• Digital Marketing\n• Web Development\n• Animation courses\n\n**12th Pass:**\n• Basic Computer Skills first\n• Then Tally + GST\n• Or Graphic Designing\n• Diploma courses\n\nWhat's your exact qualification? I can give more specific suggestions!"
+            ]
+        },
+        {
+            "tag": "course_duration",
+            "patterns": [
+                "How long are your courses?",
+                "Course duration?",
+                "How many weeks/months for a course?",
+                "Duration of courses?",
+                "How much time will it take to complete a course?",
+                "How long is the Python course?",
+                "Time taken to complete Java course?",
+                "Course length for C++?",
+                "Is there a fast track option?",
+                "Are night courses shorter?",
+                "Duration of full stack developer course?",
+                "Will the course take months or weeks?",
+                "How long is the training program?",
+                "What's the length of the course?",
+                "How many hours is the course?",
+                "Is it a short-term or long-term course?"
+            ],
+            "responses": [
+                "Most of our courses range from 3 to 6 months depending on the course complexity.",
+                "Courses typically last between 12 to 24 weeks, with flexible batch options available.",
+                "The duration varies by course, but many can be completed within 3 to 6 months.",
+                "Short courses like Basic Computer Skills may take 1-2 months, while comprehensive programs like Full Stack Development typically take 5-6 months."
+            ]
+        },
+        {
+            "tag": "course_fee",
+            "patterns": [
+                "What is the fee for courses?",
+                "Course fees?",
+                "How much do you charge?",
+                "Tuition fees for programming course",
+                "Fee structure for iTech courses",
+                "Cost of python course",
+                "Java class fees",
+                "Are there any discounts?",
+                "How much is the networking course?",
+                "Any installment options?",
+                "Fee for data science program?",
+                "Is there any signup fee?",
+                "What is the pricing for web development?",
+                "Course fee details",
+                "Is fee refundable?",
+                "What's the cost?",
+                "How much does it cost?",
+                "Price of courses?",
+                "Payment details?",
+                "What's the tuition?"
+            ],
+            "responses": [
+                "Course fees vary depending on the course. For example, our Python Programming course is priced at $500.",
+                "Fees range from $400 to $1200 depending on the course. Please specify which course you are interested in for exact fees.",
+                "You can get detailed fee information by contacting our admission office or visiting our website.",
+                "We offer flexible payment plans and discounts for early registration. Would you like to know about a specific course's fee?"
+            ]
+        },
+        {
+            "tag": "admission_process",
+            "patterns": [
+                "How to apply?",
+                "Admission process?",
+                "How do I enroll?",
+                "What is the registration procedure?",
+                "How to take admission in iTech?",
+                "Steps to enroll",
+                "How to join a course?",
+                "Admission guidelines",
+                "Documents needed for admission?",
+                "Is there an entrance test?",
+                "Can I register online?",
+                "How to submit application?",
+                "Is there any application fee?",
+                "What's the admission procedure?",
+                "How to get started?",
+                "What do I need to join?",
+                "Registration process?",
+                "How to sign up?"
+            ],
+            "responses": [
+                "You can apply online through our website or visit the institute to fill out the admission form.",
+                "The admission process involves submitting an application form, clearing a basic eligibility check, and paying the course fee.",
+                "To enroll, please fill out our registration form either online or at our office and submit required documents.",
+                "Our admission process is simple: 1) Choose your course 2) Fill application form 3) Submit documents 4) Pay fees 5) Start classes!"
+            ]
+        },
+        {
+            "tag": "contact_info",
+            "patterns": [
+                "What is your contact number?",
+                "How can I contact you?",
+                "Phone number of iTech",
+                "Email address?",
+                "Customer support contact?",
+                "How do I reach out?",
+                "WhatsApp contact?",
+                "Institute phone?",
+                "Support email?",
+                "Contact details?",
+                "How to get support?",
+                "Who can I call?",
+                "What's your number?",
+                "Where can I email?",
+                "How to call you?",
+                "Contact information?"
+            ],
+            "responses": [
+                "You can reach us by phone at +1 234 567 890 or email us at contact@itechinstitute.com.",
+                "Our support team is available at +1 234 567 890 or contact@itechinstitute.com.",
+                "Feel free to call us at +1 234 567 890 during working hours or email anytime.",
+                "For quick response, you can WhatsApp us at +1 234 567 890 or email contact@itechinstitute.com."
+            ]
+        },
+        {
+            "tag": "placement_assistance",
+            "patterns": [
+                "Do you provide placement assistance?",
+                "Is there job support after course completion?",
+                "Placement services?",
+                "Help in getting a job?",
+                "Do you assist in career placement?",
+                "Any job guarantees?",
+                "Do you have placement cell?",
+                "Can you help me find a job?",
+                "Post training job help?",
+                "Placement training available?",
+                "Career support?",
+                "Job placement?",
+                "Do companies hire from here?",
+                "What about job opportunities?"
+            ],
+            "responses": [
+                "Yes, we offer placement assistance and career counseling for our students.",
+                "Our placement cell connects trained students with reputed companies for internships and job opportunities.",
+                "We provide dedicated support to help students prepare for interviews and find suitable jobs.",
+                "While we don't guarantee jobs, we have strong industry connections and provide complete placement support including resume building and interview preparation."
+            ]
+        },
+        {
+            "tag": "certification",
+            "patterns": [
+                "Do I get a certificate?",
+                "Are certificates provided?",
+                "Certification details?",
+                "Is there certification after course completion?",
+                "Do you provide course completion certificates?",
+                "Are your certificates recognized?",
+                "Is it a valid certificate?",
+                "Certificate quality?",
+                "Do you have any accreditation?",
+                "Will I get a diploma?",
+                "What certification will I receive?",
+                "Is certificate provided at end?",
+                "Is the certificate industry recognized?"
+            ],
+            "responses": [
+                "Yes, every student who completes a course successfully receives an industry-recognized certificate.",
+                "You will be awarded a certificate of completion that is valued by employers.",
+                "Our certificates are designed to validate your skills and boost your resume.",
+                "We provide certificates that are widely recognized in the industry and can help you in your career growth."
+            ]
+        },
+        {
+            "tag": "batch_timing",
+            "patterns": [
+                "What are your batch timings?",
+                "When are the batches?",
+                "Batch schedules?",
+                "Are there weekend classes?",
+                "Do you have morning or evening batches?",
+                "When do new batches start?",
+                "Any night classes?",
+                "Class times?",
+                "Are batches fixed or flexible?",
+                "How to select batch time?",
+                "What time are classes?",
+                "When can I attend classes?",
+                "Flexible timings?"
+            ],
+            "responses": [
+                "We offer flexible batches including morning, evening, and weekend classes to suit your schedule.",
+                "Batch timings vary; please specify your preferred schedule, and we will recommend suitable batches.",
+                "Yes, weekend batches are available for working professionals.",
+                "Our batch timings are: Morning (9 AM-12 PM), Afternoon (2 PM-5 PM), Evening (6 PM-9 PM), and Weekend (10 AM-4 PM)."
+            ]
+        },
+        {
+            "tag": "online_courses",
+            "patterns": [
+                "Do you offer online courses?",
+                "Are classes available online?",
+                "Can I learn remotely?",
+                "Do you provide virtual classes?",
+                "Online learning options?",
+                "Is distance learning possible?",
+                "Is virtual classroom available?",
+                "Can I study from home?",
+                "Are live webinars conducted?",
+                "How are online classes held?",
+                "Can I take classes online?",
+                "Do you have e-learning?",
+                "Is there online training?"
+            ],
+            "responses": [
+                "Yes, many of our courses are available online with live interactive sessions.",
+                "You can join our online classes from anywhere with a stable internet connection.",
+                "Our online courses include recorded lectures, live Q&A, and assignments.",
+                "We offer both live online classes and self-paced learning options for most courses."
+            ]
+        },
+        {
+            "tag": "system_requirements",
+            "patterns": [
+                "What system do I need for the courses?",
+                "Minimum requirements for computer?",
+                "Hardware/software requirements?",
+                "Can I use a laptop or desktop?",
+                "Do I need any special software?",
+                "Recommended specs for courses?",
+                "Can I attend with a tablet?",
+                "Is Mac supported?",
+                "What OS do I need?",
+                "Need high speed internet?",
+                "What computer specs required?",
+                "Do I need powerful PC?",
+                "Technical requirements?"
+            ],
+            "responses": [
+                "A Windows or Mac computer with at least 4GB RAM and an internet connection is recommended.",
+                "Most courses require a laptop or desktop with internet access and basic software like browsers and code editors.",
+                "Specific software instructions are provided for each course; generally, a modern PC or Mac will suffice.",
+                "For programming courses, we recommend: 8GB RAM, i5 processor, and 256GB storage for best experience."
+            ]
+        },
+        {
+            "tag": "faculty",
+            "patterns": [
+                "Who are the trainers?",
+                "Tell me about the faculty",
+                "Are your instructors experienced?",
+                "Information about teachers?",
+                "Do you have expert trainers?",
+                "Who teaches the courses?",
+                "Are trainers industry professionals?",
+                "What is faculty qualification?",
+                "Experience of your teachers?",
+                "Are teachers certified?",
+                "About your faculty?",
+                "Who will teach me?",
+                "Trainer qualifications?"
+            ],
+            "responses": [
+                "Our faculty includes industry experts with years of experience in software development and IT training.",
+                "All trainers are certified professionals skilled in their respective fields.",
+                "You will learn from highly qualified instructors who focus on practical skills.",
+                "Our faculty members have minimum 5+ years industry experience and are passionate about teaching."
+            ]
+        },
+        {
+            "tag": "career_scope",
+            "patterns": [
+                "What career options are available after courses?",
+                "Job prospects after completion?",
+                "Will I get good job opportunities?",
+                "Career growth after training?",
+                "Future scope after learning here?",
+                "What jobs can I get?",
+                "Is IT a good career?",
+                "Do I get internships?",
+                "Are there work placements?",
+                "Can I start freelancing after course?",
+                "Career opportunities?",
+                "What after course completion?",
+                "What's the career path?"
+            ],
+            "responses": [
+                "Our courses prepare you for roles such as Software Developer, Network Engineer, Data Analyst, and more.",
+                "With our training and certification, you can expect strong job prospects in the tech industry.",
+                "Our placement assistance and skill training help you build a successful IT career.",
+                "Depending on your course, you can pursue careers as Web Developer, Data Scientist, Graphic Designer, Ethical Hacker, Accountant, or start your own business/freelancing."
+            ]
+        },
+        {
+            "tag": "technical_support",
+            "patterns": [
+                "Do you provide technical support?",
+                "Help with course software?",
+                "Support during online classes?",
+                "Who to contact for issues?",
+                "Technical assistance available?",
+                "Is help available if software issues occur?",
+                "Can I get support for installation?",
+                "How to get tech help?",
+                "Is there 24/7 support?",
+                "Contact for technical problems?",
+                "What if I face technical issues?",
+                "Support for computer problems?"
+            ],
+            "responses": [
+                "Yes, we provide full technical support throughout your learning experience.",
+                "Our support team is available to help with any technical difficulties or queries.",
+                "You can contact our support desk anytime during working hours for assistance.",
+                "For technical issues, email support@itechinstitute.com or call our helpline during office hours."
+            ]
+        },
+        {
+            "tag": "refund_policy",
+            "patterns": [
+                "What is your refund policy?",
+                "Can I get a refund?",
+                "How to cancel a course?",
+                "Refund process?",
+                "Do you offer money-back guarantee?",
+                "Is fee refundable if dissatisfied?",
+                "When can I get refund?",
+                "Are there cancellation charges?",
+                "How do I apply for refund?",
+                "Refund timeline?",
+                "What if I want to drop out?",
+                "Cancellation policy?"
+            ],
+            "responses": [
+                "We offer refunds within 7 days of course enrollment if you are not satisfied.",
+                "Refund requests are handled case-by-case; please contact our admissions team for details.",
+                "Please refer to our refund policy on the website for complete information.",
+                "Refunds are processed within 15 working days after approval, minus any applicable charges."
+            ]
+        },
+        {
+            "tag": "languages_offered",
+            "patterns": [
+                "What programming languages do you teach?",
+                "Languages available for learning?",
+                "Do you teach Java, Python?",
+                "List of programming languages?",
+                "Is C++ available here?",
+                "Do you offer JavaScript courses?",
+                "Are scripting languages included?",
+                "Can I learn Ruby?",
+                "Do you have SQL training?",
+                "Is coding part of the program?",
+                "Which coding languages?",
+                "What languages can I study?"
+            ],
+            "responses": [
+                "Our courses include Python, Java, C++, JavaScript, SQL, and more.",
+                "We offer comprehensive training in popular languages like Python, Java, C++, and web technologies.",
+                "You can learn multiple languages including Python, Java, C++, and frontend frameworks.",
+                "We teach all major programming languages: Python, Java, C++, JavaScript, PHP, SQL, and frameworks like React and Node.js."
+            ]
+        },
+        {
+            "tag": "payment_modes",
+            "patterns": [
+                "What payment methods do you accept?",
+                "Can I pay online?",
+                "Payment options?",
+                "Is EMI available?",
+                "Do you accept credit cards?",
+                "Can I pay by cash?",
+                "Is PayPal accepted?",
+                "Do you take UPI payments?",
+                "Are debit cards accepted?",
+                "Is cheque payment allowed?",
+                "How can I make payment?",
+                "What are payment choices?"
+            ],
+            "responses": [
+                "We accept payments via credit/debit cards, net banking, UPI, and cash at the center.",
+                "Online payment gateways are available for your convenience.",
+                "EMI options are available for select courses; please check with our admissions team.",
+                "You can pay through: Cash, Credit/Debit Card, Net Banking, UPI, Cheque, or EMI options."
+            ]
+        },
+        {
+            "tag": "group_courses",
+            "patterns": [
+                "Do you offer group discounts?",
+                "Can I enroll as a group?",
+                "Group training available?",
+                "Bulk enrollment discounts?",
+                "Courses for companies?",
+                "Is corporate training offered?",
+                "How can my company register?",
+                "Group pricing?",
+                "Team training sessions?",
+                "Can I bring friends for discount?",
+                "Discount for multiple enrollments?",
+                "Group rates?"
+            ],
+            "responses": [
+                "Yes, we offer special discounts for group enrollments.",
+                "Corporate and group training programs are available. Contact us for customized plans.",
+                "Enroll as a group and enjoy discounted pricing on our courses.",
+                "For groups of 5+ students, we offer 15% discount. Corporate training packages also available."
+            ]
+        },
+        {
+            "tag": "demo_classes",
+            "patterns": [
+                "Do you provide demo classes?",
+                "Can I attend a trial session?",
+                "Is there a free class before admission?",
+                "Demo or sample class available?",
+                "Try a class before enrolling?",
+                "Can I watch a class before joining?",
+                "Is there a free trial?",
+                "Can I sit in on a session?",
+                "Preview classes offered?",
+                "First class free?",
+                "Can I experience teaching first?",
+                "Test class possible?"
+            ],
+            "responses": [
+                "Yes, we offer free demo classes to help you understand our teaching methods.",
+                "You can attend trial sessions before enrolling to get a feel of the course.",
+                "Please contact us to schedule a demo class at your convenience.",
+                "We arrange free demo sessions every Saturday. Book your slot by calling us."
+            ]
+        },
+        {
+            "tag": "study_material",
+            "patterns": [
+                "Do you provide study material?",
+                "Are course materials included?",
+                "Books or notes provided?",
+                "Will I get learning resources?",
+                "Material for practice?",
+                "Is PDF material shared?",
+                "Do you provide assignments?",
+                "Are slides available?",
+                "Can I get video tutorials?",
+                "Are reference books offered?",
+                "What study resources?",
+                "Do we get notes?"
+            ],
+            "responses": [
+                "Yes, comprehensive study materials are provided as part of every course.",
+                "You will receive notes, exercises, and project guidelines to support your learning.",
+                "All necessary resources and software tutorials will be shared during the course.",
+                "We provide printed study material, video lectures, practice exercises, and access to our online learning portal."
+            ]
+        },
+        {
+            "tag": "offline_courses",
+            "patterns": [
+                "Do you have offline courses?",
+                "Are physical classes available?",
+                "Is classroom training offered?",
+                "Can I attend in-person classes?",
+                "Offline batch available?",
+                "Can I join campus classes?",
+                "How to enroll for offline classes?",
+                "Are labs available?",
+                "Is hands-on training on-site?",
+                "Do you offer face to face training?",
+                "Classroom learning option?",
+                "On-campus courses?"
+            ],
+            "responses": [
+                "Yes, we offer both offline and online training for most courses.",
+                "Classroom training sessions are conducted in our institute with all safety precautions.",
+                "You can choose to attend physical classes or learn online as per your convenience.",
+                "Our campus has well-equipped labs and classrooms for practical hands-on training."
+            ]
+        },
+        {
+            "tag": "exam_preparation",
+            "patterns": [
+                "Do you help prepare for certifications?",
+                "Do you offer course for exam preparation?",
+                "Support for IT cert exams?",
+                "Will you train for Microsoft/Oracle exams?",
+                "Certification exam coaching?",
+                "Do you have classes for certification?",
+                "Preparation for professional exams?",
+                "Is exam guidance provided?",
+                "Training for CCNA, AWS, etc.?",
+                "Are practice tests available?",
+                "Help with certification tests?",
+                "Exam training?"
+            ],
+            "responses": [
+                "We offer training programs aligned with major IT certifications to prepare you effectively.",
+                "Our courses include exam-focused modules and practice tests for certifications like Microsoft, Cisco, AWS, and more.",
+                "You will receive guidance and study plans for passing the certification exams with confidence.",
+                "We provide complete preparation including mock tests and exam strategies for popular IT certifications."
+            ]
+        },
+        {
+            "tag": "feedback_and_reviews",
+            "patterns": [
+                "How can I give feedback?",
+                "Do you have student reviews?",
+                "What do students say about your courses?",
+                "Can I see testimonials?",
+                "How do I leave a review?",
+                "Where can I find ratings?",
+                "Are there success stories?",
+                "Can I share my experience?",
+                "Do you collect course feedback?",
+                "How to submit complaints?",
+                "What's your student feedback?",
+                "Are students satisfied?"
+            ],
+            "responses": [
+                "You can provide feedback via our website feedback form or directly contact our support team.",
+                "Yes, we have many positive testimonials from our students displayed on our website.",
+                "We welcome student reviews and encourage you to share your learning experience with us.",
+                "Our Google reviews and website testimonials showcase student experiences. We maintain 4.8/5 average rating."
+            ]
+        },
+        {
+            "tag": "scholarships_and_financialaid",
+            "patterns": [
+                "Do you offer scholarships?",
+                "Are there any financial aid options?",
+                "How can I apply for a scholarship?",
+                "What are the eligibility criteria for financial aid?",
+                "Do you have any discounts for underprivileged students?",
+                "Is financial aid available?",
+                "Are student loans offered?",
+                "Do you provide fee waivers?",
+                "Any support for economically weak students?",
+                "How to get scholarship benefits?",
+                "Discount for meritorious students?",
+                "Financial help available?"
+            ],
+            "responses": [
+                "We offer limited scholarships and financial aid based on merit and need.",
+                "You can apply for scholarships during admission; please contact our office for eligibility details.",
+                "Discounts and payment plans are available for deserving students and groups.",
+                "Merit-based scholarships cover up to 50% fees for top performers in our entrance test."
+            ]
+        },
+        {
+            "tag": "course_content_and_curriculum",
+            "patterns": [
+                "What topics are covered in the Python course?",
+                "Can I see the syllabus for the web development course?",
+                "What is included in the data science curriculum?",
+                "Are there any projects in the courses?",
+                "How is the course structured?",
+                "Do you have modules outlined?",
+                "What are the main subjects taught?",
+                "Are practical sessions included?",
+                "Are there coding exercises?",
+                "How deep is the course material?",
+                "What's in the curriculum?",
+                "Detailed syllabus?"
+            ],
+            "responses": [
+                "Our courses are designed with theory, practicals, and project work for comprehensive learning.",
+                "You can find detailed syllabus outlines for each course on our website.",
+                "Practical hands-on projects are included to build real-world skills along with theory.",
+                "Each course includes: 1) Theory concepts 2) Practical labs 3) Assignments 4) Projects 5) Assessments"
+            ]
+        },
+        {
+            "tag": "learning_environment",
+            "patterns": [
+                "What is the classroom environment like?",
+                "How many students are in a class?",
+                "Is there a lab for practical sessions?",
+                "What facilities do you provide?",
+                "Are there any group activities?",
+                "Is the environment friendly?",
+                "Can I interact with other students?",
+                "Are there study groups?",
+                "What about safety measures?",
+                "Is the classroom equipped with modern tech?",
+                "How are the classes conducted?",
+                "Teaching methodology?"
+            ],
+            "responses": [
+                "Our classrooms are spacious, well-equipped with computers and projectors, and maintain a friendly learning environment.",
+                "Batches are kept small to ensure personalized attention.",
+                "Group activities and collaborative projects are part of the curriculum.",
+                "We have air-conditioned classrooms, high-speed internet, computer labs, library, and cafeteria facilities."
+            ]
+        },
+        {
+            "tag": "career_counseling",
+            "patterns": [
+                "Do you provide career counseling?",
+                "How can I get career advice?",
+                "Is there a mentor program?",
+                "Can I get help with my resume?",
+                "Do you assist with interview preparation?",
+                "Are there mock interviews?",
+                "Can I get guidance on career paths?",
+                "Is career mentorship available?",
+                "How to plan my IT career?",
+                "Do you have placement coaching?",
+                "Career guidance?",
+                "Help with career decisions?"
+            ],
+            "responses": [
+                "Yes, our career counseling team offers resume building, interview coaching, and career advice.",
+                "You can schedule sessions with our mentors for personalized guidance.",
+                "We provide interview preparation tips and mock interview sessions.",
+                "Our career services include: 1) Resume writing 2) LinkedIn profile optimization 3) Mock interviews 4) Job search strategies"
+            ]
+        },
+        {
+            "tag": "technical_skills_assessment",
+            "patterns": [
+                "Do you have a skills assessment test?",
+                "How do I know if I'm ready for a course?",
+                "Is there a prerequisite for courses?",
+                "Can I take a placement test?",
+                "What if I have no prior experience?",
+                "Will there be tests before joining?",
+                "How can I check my skills?",
+                "Is evaluation part of admission?",
+                "Do you assess students progress?",
+                "Can I upgrade skills with you?",
+                "Skill test available?",
+                "How to know my level?"
+            ],
+            "responses": [
+                "We conduct basic assessment tests to recommend suitable courses.",
+                "No prior experience is necessary for beginner courses.",
+                "Continuous assessments help track your progress and readiness.",
+                "We offer free skill assessment tests to help you choose the right course based on your current knowledge."
+            ]
+        },
+        {
+            "tag": "updates_and_news",
+            "patterns": [
+                "Do you have any upcoming events?",
+                "Are there any workshops or seminars?",
+                "How can I stay updated with news?",
+                "Do you have a newsletter?",
+                "What are the latest courses being offered?",
+                "Where do you post announcements?",
+                "Are there webinars?",
+                "How to know about new batches?",
+                "Do you organize tech talks?",
+                "Events calendar?",
+                "Any upcoming programs?",
+                "Latest institute news?"
+            ],
+            "responses": [
+                "We regularly conduct workshops, webinars, and seminars. Follow our website and social media for updates.",
+                "You can subscribe to our newsletter to get the latest news and events.",
+                "Upcoming events are announced on our official social platforms and notice boards.",
+                "Check our Events page for upcoming: 1) Free workshops 2) Guest lectures 3) Hackathons 4) Placement drives"
+            ]
+        },
+        {
+            "tag": "social_media_and_community",
+            "patterns": [
+                "Do you have a social media presence?",
+                "Where can I follow you online?",
+                "Is there a community for students?",
+                "Can I join your Facebook group?",
+                "Do you have a LinkedIn page?",
+                "Are you on Instagram?",
+                "Join student forums?",
+                "Can I connect with peers online?",
+                "Are there student clubs?",
+                "Social media links?",
+                "How to connect online?",
+                "Online student groups?"
+            ],
+            "responses": [
+                "Yes, we are active on Facebook, LinkedIn, Instagram, and Twitter.",
+                "Join our Facebook group to engage with peers and alumni.",
+                "Our social media channels keep you connected with the latest tutorials, events, and community activities.",
+                "Connect with us:\nFacebook: @iTechInstitute\nInstagram: @iTech_Official\nLinkedIn: iTech Computer Institute\nYouTube: iTech Tutorials"
+            ]
+        },
+        {
+            "tag": "class_schedule",
+            "patterns": [
+                "What is the class schedule?",
+                "When are the classes held?",
+                "How many classes per week?",
+                "Are classes daily?",
+                "What days are classes?",
+                "Is there a timetable?",
+                "Can I get a class schedule?",
+                "How often are classes?",
+                "Weekly schedule?",
+                "Class timings?"
+            ],
+            "responses": [
+                "Classes are scheduled throughout the week with flexible timings. You can choose morning, afternoon, or evening batches as per your convenience.",
+                "We offer classes from Monday to Saturday. The exact schedule depends on the course and batch you select.",
+                "You can view the detailed class schedule on our website or contact our office for the latest timetable.",
+                "Typical schedule options:\n- Weekday batches: 3 days/week (Mon-Wed-Fri or Tue-Thu-Sat)\n- Weekend batches: Sat-Sun\n- Fast-track: Daily classes"
+            ]
+        },
+        {
+            "tag": "class_size",
+            "patterns": [
+                "How many students are in a class?",
+                "What is the batch size?",
+                "Are classes crowded?",
+                "How big are the classes?",
+                "Is there a limit on students per class?",
+                "How many people per batch?",
+                "Student-teacher ratio?",
+                "Class capacity?"
+            ],
+            "responses": [
+                "We keep our batch sizes small, usually between 10 to 20 students, to ensure personalized attention.",
+                "Our classes are designed for small groups so that every student gets the support they need.",
+                "We limit the number of students per class to maintain quality learning.",
+                "Maximum batch size is 15 students for programming courses and 20 for other courses."
+            ]
+        },
+        {
+            "tag": "class_mode",
+            "patterns": [
+                "Are classes online or offline?",
+                "Can I attend classes from home?",
+                "Is there an option for classroom training?",
+                "Do you offer hybrid classes?",
+                "Can I switch between online and offline classes?",
+                "Are both online and offline classes available?",
+                "Learning modes?",
+                "Class format options?"
+            ],
+            "responses": [
+                "Yes, we offer both online and offline classes. You can choose the mode that suits you best.",
+                "You can attend classes from home or join us at our institute for in-person learning.",
+                "We also provide hybrid options for some courses. Please ask our team for details.",
+                "Choose from:\n1) Fully Online\n2) Classroom Training\n3) Hybrid (mix of both)\n4) Self-paced with mentor support"
+            ]
+        },
+        {
+            "tag": "class_language",
+            "patterns": [
+                "What language are classes conducted in?",
+                "Are classes in English?",
+                "Can I learn in Hindi?",
+                "Is there a choice of language for instruction?",
+                "Which languages are used in class?"
+            ],
+            "responses": [
+                "Most classes are conducted in English, but we also offer instruction in Hindi for select batches.",
+                "You can request your preferred language at the time of admission, and we will try to accommodate.",
+                "Please let us know your language preference, and we will guide you to the right batch.",
+                "Primary instruction is in English with Hindi explanations available for beginner courses."
+            ]
+        },
+        {
+            "tag": "class_materials",
+            "patterns": [
+                "Do I need to bring anything to class?",
+                "Are laptops required?",
+                "Will you provide study materials?",
+                "Do I need to buy books?",
+                "Is software provided for practice?",
+                "What should I bring to class?",
+                "Required materials?",
+                "What equipment needed?"
+            ],
+            "responses": [
+                "We provide all necessary study materials and software instructions for your course.",
+                "You are encouraged to bring your own laptop, but computers are also available at the institute.",
+                "No need to buy extra books; all required resources will be shared during the course.",
+                "For programming courses: Bring laptop (Windows/Mac). For other courses: Just notebook and pen."
+            ]
+        },
+        {
+            "tag": "attendance_policy",
+            "patterns": [
+                "Is attendance compulsory?",
+                "What if I miss a class?",
+                "Do you track attendance?",
+                "Can I get a makeup class?",
+                "What is your attendance policy?",
+                "What happens if I am absent?",
+                "Missed classes policy?",
+                "Attendance requirements?"
+            ],
+            "responses": [
+                "Regular attendance is recommended for best learning outcomes, but we understand emergencies.",
+                "If you miss a class, you can request a makeup session or access recorded lectures (for online batches).",
+                "Attendance is tracked, and we encourage students to inform us in advance if they need to miss a class.",
+                "Minimum 75% attendance required for certification. We provide recorded sessions and notes for missed classes."
+            ]
+        },
+        {
+            "tag": "class_demo",
+            "patterns": [
+                "Can I attend a demo class?",
+                "Is there a trial class available?",
+                "How can I experience a class before joining?",
+                "Can I sit in on a session?",
+                "Is the first class free?",
+                "Free demo?",
+                "Try before enroll?"
+            ],
+            "responses": [
+                "Yes, we offer free demo classes so you can experience our teaching style before enrolling.",
+                "You can book a trial session by contacting our office or filling out the demo request form on our website.",
+                "Feel free to attend a demo class and decide if our institute is right for you.",
+                "Free demo classes available every Wednesday at 4 PM. Call to reserve your seat."
+            ]
+        },
+        {
+            "tag": "class_facilities",
+            "patterns": [
+                "What facilities are available in the classroom?",
+                "Do you have computer labs?",
+                "Is there Wi-Fi in the institute?",
+                "Are classrooms air-conditioned?",
+                "What amenities are provided?",
+                "Is there a library or study area?",
+                "Institute infrastructure?",
+                "What facilities do you offer?"
+            ],
+            "responses": [
+                "Our classrooms are air-conditioned and equipped with modern computers, projectors, and high-speed Wi-Fi.",
+                "We have dedicated computer labs and a resource area for students to practice and study.",
+                "You will have access to all necessary facilities to support your learning.",
+                "Campus facilities include:\n- Computer labs\n- Library\n- Cafeteria\n- High-speed internet\n- Projector-equipped classrooms\n- Parking area"
+            ]
+        },
+        {
+            "tag": "class_start_date",
+            "patterns": [
+                "When does the next batch start?",
+                "What is the start date for classes?",
+                "When are new classes beginning?",
+                "Upcoming batch dates?",
+                "Next session schedule?",
+                "When can I join the next class?",
+                "New batch commencement?",
+                "Next intake date?"
+            ],
+            "responses": [
+                "New batches start every month. Please check our website or contact us for the exact start date of your preferred course.",
+                "The next batch is starting soon! Let us know your course of interest and we'll share the upcoming schedule.",
+                "You can join the next available batch. Contact our office for the latest start dates."
+            ]
+        },
+        {
+            "tag": "class_certificate_collection",
+            "patterns": [
+                "How do I collect my certificate?",
+                "When will I get my certificate?",
+                "Is the certificate given after course completion?",
+                "How to receive my diploma?",
+                "Certificate collection process?",
+                "When is certificate issued?",
+                "How to get course certificate?"
+            ],
+            "responses": [
+                "Certificates are issued after successful completion of your course and final assessment.",
+                "You can collect your certificate from the institute office or request a digital copy via email.",
+                "Please contact our admin team for certificate collection details.",
+                "Certificates are distributed during the convocation ceremony held every quarter, or can be collected from office thereafter."
+            ]
+        },
+        {
+            "tag": "class_performance_evaluation",
+            "patterns": [
+                "How is my performance evaluated?",
+                "Are there exams or tests?",
+                "How do you assess students?",
+                "Is there a final exam?",
+                "Do I get progress reports?",
+                "Evaluation method?",
+                "Grading system?"
+            ],
+            "responses": [
+                "Your performance is evaluated through assignments, quizzes, and a final assessment at the end of the course.",
+                "We provide regular feedback and progress reports to help you improve.",
+                "There are periodic tests and a final project or exam depending on the course.",
+                "Evaluation includes:\n- Weekly quizzes (20%)\n- Assignments (30%)\n- Final project (30%)\n- Attendance (20%)"
+            ]
+        },
+        {
+            "tag": "class_project_work",
+            "patterns": [
+                "Are there any projects in the course?",
+                "Will I work on real projects?",
+                "Is project work included?",
+                "Do you provide hands-on assignments?",
+                "Can I build a portfolio during the course?"
+            ],
+            "responses": [
+                "Yes, all our courses include hands-on projects and assignments to help you build practical skills.",
+                "You will work on real-world projects and can use them in your portfolio.",
+                "Project work is a key part of our curriculum to ensure you gain practical experience.",
+                "Each course includes 2-3 mini projects and 1 major capstone project for comprehensive learning."
+            ]
+        },
+        {
+            "tag": "class_makeup_policy",
+            "patterns": [
+                "What if I miss multiple classes?",
+                "Can I repeat a missed class?",
+                "Is there a way to catch up if I fall behind?",
+                "How do I cover missed topics?",
+                "Can I attend another batch for missed lessons?"
+            ],
+            "responses": [
+                "If you miss classes, you can attend makeup sessions or join another batch for the missed topics.",
+                "We provide recorded lectures and extra help to help you catch up.",
+                "Please inform your instructor if you need to repeat or cover missed lessons."
+            ]
+        },
+        {
+            "tag": "course_full_details",
+            "patterns": [
+                "Can you give me full details of your courses?",
+                "Tell me about the syllabus for each course",
+                "What topics are covered in your courses?",
+                "Course curriculum details?",
+                "What will I learn in each course?",
+                "Explain the course content",
+                "What is included in the web development course?",
+                "What is included in the Python course?",
+                "What is included in the data science course?"
+            ],
+            "responses": [
+                "Here are some of our popular courses and their main topics:\n\nWeb Development: HTML, CSS, JavaScript, Bootstrap, React, Node.js, Express, MongoDB, project work.\n\nPython Programming: Python basics, data structures, OOP, file handling, libraries like NumPy and Pandas, mini-projects.\n\nData Science: Python for data science, statistics, data visualization, machine learning basics, real-world datasets, projects.\n\nJava Programming: Java basics, OOP, GUI development, JDBC, mini-projects.\n\nC++ Programming: C++ syntax, OOP, data structures, algorithms, hands-on coding.\n\nFor a full syllabus or details about any specific course, please visit our website or ask for a particular course."
+            ]
+        },
+        {
+            "tag": "course_benefits",
+            "patterns": [
+                "What are the benefits of your courses?",
+                "Why should I join your institute?",
+                "How will these courses help me?",
+                "What do I gain from your courses?",
+                "Advantages of enrolling here?",
+                "What are the outcomes of your courses?",
+                "What skills will I get?"
+            ],
+            "responses": [
+                "Our courses offer many benefits:\n- Industry-relevant curriculum and hands-on projects\n- Experienced and certified trainers\n- Placement assistance and career counseling\n- Flexible batch timings (online/offline)\n- Certification upon completion\n- Access to study materials and practice labs\n- Doubt clearing sessions and continuous support\n- Opportunity to build a strong portfolio for jobs or higher studies"
+            ]
+        },
+        {
+            "tag": "course_details_basic_computer_skills",
+            "patterns": [
+                "What do you teach in basic computer skills?",
+                "Tell me about the basic computer course",
+                "Basic computer skills syllabus?",
+                "Topics in basic computer course",
+                "What will I learn in basic computer skills?",
+                "Content of basic computer course",
+                "Basic computer curriculum"
+            ],
+            "responses": [
+                "Our Basic Computer Skills course covers:\n- Computer fundamentals\n- Windows OS\n- MS Office (Word, Excel, PowerPoint)\n- Internet basics\n- Email\n- Safe computer practices\n- Basic troubleshooting\n- Introduction to hardware\n- File management"
+            ]
+        },
+        {
+            "tag": "course_details_web_development",
+            "patterns": [
+                "What do you teach in web development course?",
+                "Tell me about the web development course",
+                "Web development syllabus?",
+                "Topics in web development course",
+                "What will I learn in web development?",
+                "Web dev curriculum",
+                "Full stack development topics"
+            ],
+            "responses": [
+                "Our Web Development course includes:\n- HTML5 & CSS3\n- JavaScript & jQuery\n- Bootstrap\n- React.js\n- Node.js\n- Express\n- MongoDB\n- REST APIs\n- Git & GitHub\n- Deployment\n- Project work building real websites and web apps"
+            ]
+        },
+        {
+            "tag": "course_details_python_programming",
+            "patterns": [
+                "What do you teach in python programming?",
+                "Tell me about the python programming course",
+                "Python programming syllabus?",
+                "Topics in python programming course",
+                "What will I learn in python programming?",
+                "Python course content",
+                "Python curriculum"
+            ],
+            "responses": [
+                "Our Python Programming course covers:\n- Python basics\n- Data types & structures\n- Control structures\n- Functions\n- OOP concepts\n- File handling\n- Error handling\n- NumPy & Pandas\n- Matplotlib\n- Mini-projects\n- Introduction to Django"
+            ]
+        },
+        {
+            "tag": "course_details_data_science",
+            "patterns": [
+                "What do you teach in data science course?",
+                "Tell me about the data science course",
+                "Data science syllabus?",
+                "Topics in data science course",
+                "What will I learn in data science?",
+                "Data science curriculum",
+                "Data analysis course content"
+            ],
+            "responses": [
+                "Our Data Science course covers:\n- Python for data analysis\n- Statistics fundamentals\n- Data visualization\n- Pandas & NumPy\n- Matplotlib & Seaborn\n- Machine learning basics\n- Working with real datasets\n- Data cleaning\n- Feature engineering\n- Hands-on projects"
+            ]
+        },
+        {
+            "tag": "course_details_cloud_computing",
+            "patterns": [
+                "What do you teach in cloud computing course?",
+                "Tell me about the cloud computing course",
+                "Cloud computing syllabus?",
+                "Topics in cloud computing course",
+                "What will I learn in cloud computing?",
+                "Cloud course content",
+                "AWS/Azure curriculum"
+            ],
+            "responses": [
+                "Our Cloud Computing course covers:\n- Cloud fundamentals\n- Service models (IaaS, PaaS, SaaS)\n- Cloud deployment models\n- AWS/Azure basics\n- Virtualization\n- Cloud security\n- Storage solutions\n- Deployment strategies\n- Case studies"
+            ]
+        },
+        {
+            "tag": "course_details_digital_marketing",
+            "patterns": [
+                "What do you teach in digital marketing course?",
+                "Tell me about the digital marketing course",
+                "Digital marketing syllabus?",
+                "Topics in digital marketing course",
+                "What will I learn in digital marketing?",
+                "Digital marketing curriculum",
+                "Online marketing topics"
+            ],
+            "responses": [
+                "Our Digital Marketing course covers:\n- SEO (Search Engine Optimization)\n- SEM & PPC\n- Social Media Marketing\n- Content Marketing\n- Email Marketing\n- Google Ads\n- Analytics\n- Digital Strategy\n- Influencer Marketing\n- Campaign Management"
+            ]
+        },
+        {
+            "tag": "course_details_graphic_designing",
+            "patterns": [
+                "What do you teach in graphic designing course?",
+                "Tell me about the graphic designing course",
+                "Graphic designing syllabus?",
+                "Topics in graphic designing course",
+                "What will I learn in graphic designing?",
+                "Graphic design curriculum",
+                "Design course content"
+            ],
+            "responses": [
+                "Our Graphic Designing course covers:\n- Design principles\n- Color theory\n- Typography\n- Adobe Photoshop\n- Adobe Illustrator\n- CorelDRAW\n- Logo design\n- Branding\n- Print media design\n- Portfolio development"
+            ]
+        },
+        {
+            "tag": "course_details_mobile_app_development",
+            "patterns": [
+                "What do you teach in mobile app development course?",
+                "Tell me about the mobile app development course",
+                "Mobile app development syllabus?",
+                "Topics in mobile app development course",
+                "What will I learn in mobile app development?",
+                "App dev curriculum",
+                "Android development topics"
+            ],
+            "responses": [
+                "Our Mobile App Development course covers:\n- App development basics\n- UI/UX design principles\n- Android Studio\n- Java/Kotlin basics\n- Activities & Intents\n- Layouts & Views\n- Data storage\n- APIs integration\n- Publishing apps\n- Building simple Android apps"
+            ]
+        },
+        {
+            "tag": "course_details_cyber_security_fundamentals",
+            "patterns": [
+                "What do you teach in cyber security course?",
+                "Tell me about the cyber security course",
+                "Cyber security syllabus?",
+                "Topics in cyber security course",
+                "What will I learn in cyber security?",
+                "Cyber security curriculum",
+                "Ethical hacking basics"
+            ],
+            "responses": [
+                "Our Cyber Security Fundamentals course covers:\n- Security concepts\n- Types of threats\n- Safe browsing\n- Password management\n- Firewalls\n- Antivirus\n- Basic ethical hacking\n- Network security\n- Cryptography basics\n- Security best practices"
+            ]
+        },
+        {
+            "tag": "course_details_cpp_programming",
+            "patterns": [
+                "What do you teach in c++ programming course?",
+                "Tell me about the c++ programming course",
+                "C++ programming syllabus?",
+                "Topics in c++ programming course",
+                "What will I learn in c++ programming?",
+                "C++ curriculum",
+                "C++ course content"
+            ],
+            "responses": [
+                "Our C++ Programming course includes:\n- C++ syntax\n- Data types\n- Control structures\n- Functions\n- OOP concepts\n- Inheritance\n- Polymorphism\n- File handling\n- Data structures\n- Algorithms\n- Hands-on coding exercises"
+            ]
+        },
+        {
+            "tag": "course_details_java_programming",
+            "patterns": [
+                "What do you teach in java programming course?",
+                "Tell me about the java programming course",
+                "Java programming syllabus?",
+                "Topics in java programming course",
+                "What will I learn in java programming?",
+                "Java curriculum",
+                "Java course content"
+            ],
+            "responses": [
+                "Our Java Programming course covers:\n- Java basics\n- OOP concepts\n- Exception handling\n- Collections framework\n- GUI development\n- JDBC for database connectivity\n- Multithreading\n- Networking basics\n- Mini-projects"
+            ]
+        },
+        {
+            "tag": "course_details_android",
+            "patterns": [
+                "What do you teach in android course?",
+                "Tell me about the android course",
+                "Android syllabus?",
+                "Topics in android course",
+                "What will I learn in android?",
+                "Android development curriculum",
+                "Android app course content"
+            ],
+            "responses": [
+                "Our Android course covers:\n- Android Studio\n- UI design\n- Activities & Intents\n- Layouts\n- Java/Kotlin basics\n- Fragments\n- SQLite database\n- APIs integration\n- Publishing to Play Store\n- Building simple Android applications"
+            ]
+        },
+        {
+            "tag": "course_details_autocad",
+            "patterns": [
+                "What do you teach in autocad course?",
+                "Tell me about the autocad course",
+                "AutoCAD syllabus?",
+                "Topics in autocad course",
+                "What will I learn in autocad?",
+                "AutoCAD curriculum",
+                "CAD course content"
+            ],
+            "responses": [
+                "Our AutoCAD course covers:\n- 2D drafting\n- 3D modeling\n- Drawing tools\n- Layers & properties\n- Layouts & plotting\n- Dimensioning\n- Blocks & attributes\n- Practical design projects\n- Industry standards"
+            ]
+        },
+        {
+            "tag": "course_details_spoken_english",
+            "patterns": [
+                "What do you teach in spoken english course?",
+                "Tell me about the spoken english course",
+                "Spoken English syllabus?",
+                "Topics in spoken english course",
+                "What will I learn in spoken english?",
+                "English speaking curriculum",
+                "Communication skills course"
+            ],
+            "responses": [
+                "Our Spoken English course covers:\n- Grammar basics\n- Vocabulary building\n- Pronunciation\n- Conversation practice\n- Public speaking\n- Presentation skills\n- Group discussions\n- Interview preparation\n- Confidence building"
+            ]
+        },
+        {
+            "tag": "course_details_personality_development",
+            "patterns": [
+                "What do you teach in personality development course?",
+                "Tell me about the personality development course",
+                "Personality development syllabus?",
+                "Topics in personality development course",
+                "What will I learn in personality development?",
+                "Soft skills curriculum",
+                "Personality development content"
+            ],
+            "responses": [
+                "Our Personality Development course covers:\n- Communication skills\n- Body language\n- Interview skills\n- Leadership qualities\n- Time management\n- Stress management\n- Teamwork\n- Self-confidence\n- Professional etiquette"
+            ]
+        },
+        {
+            "tag": "course_details_advance_excel",
+            "patterns": [
+                "What do you teach in advance excel?",
+                "Tell me about the advance excel course",
+                "Advance excel syllabus?",
+                "Topics in advance excel course",
+                "What will I learn in advance excel?",
+                "Excel advanced curriculum",
+                "Excel course content"
+            ],
+            "responses": [
+                "Our Advance Excel course covers:\n- Advanced formulas\n- Data analysis\n- Pivot tables\n- Charts & graphs\n- Macros\n- Automation\n- Data validation\n- What-if analysis\n- Real-world business applications"
+            ]
+        },
+        {
+            "tag": "course_details_tally",
+            "patterns": [
+                "What do you teach in tally?",
+                "Tell me about the tally course",
+                "Tally syllabus?",
+                "Topics in tally course",
+                "What will I learn in tally?",
+                "Tally ERP curriculum",
+                "Accounting software course"
+            ],
+            "responses": [
+                "Our Tally course covers:\n- Accounting basics\n- Company creation\n- Ledger management\n- Vouchers\n- GST implementation\n- Inventory\n- Payroll\n- Financial reporting\n- Banking features\n- Practical accounting scenarios"
+            ]
+        },
+        {
+            "tag": "course_details_gst",
+            "patterns": [
+                "What do you teach in gst?",
+                "Tell me about the gst course",
+                "GST syllabus?",
+                "Topics in gst course",
+                "What will I learn in gst?",
+                "GST curriculum",
+                "Goods and services tax course"
+            ],
+            "responses": [
+                "Our GST course covers:\n- GST concepts\n- Registration process\n- Invoicing\n- Returns filing\n- Compliance\n- Practical application\n- Accounting software integration\n- Case studies\n- Latest updates"
+            ]
+        },
+        {
+            "tag": "course_details_4_module",
+            "patterns": [
+                "What do you teach in 4 module?",
+                "Tell me about the 4 module course",
+                "4 module syllabus?",
+                "Topics in 4 module course",
+                "What will I learn in 4 module?",
+                "Four module curriculum",
+                "Basic computer package"
+            ],
+            "responses": [
+                "The 4 Module course is a comprehensive program covering:\n1) Computer basics\n2) MS Office\n3) Internet usage\n4) Basic accounting/programming\nIdeal for beginners seeking all-round computer knowledge."
+            ]
+        },
+        {
+            "tag": "course_details_basic_advance_excel",
+            "patterns": [
+                "What do you teach in basic and advance excel?",
+                "Tell me about the basic and advance excel course",
+                "Basic and advance excel syllabus?",
+                "Topics in basic and advance excel course",
+                "What will I learn in basic and advance excel?",
+                "Complete Excel course",
+                "Excel from beginner to advanced"
+            ],
+            "responses": [
+                "Our Basic + Advance Excel course covers:\n- Spreadsheet basics\n- Formulas & functions\n- Data organization\n- Charts & graphs\n- Pivot tables\n- Data analysis\n- Macros\n- Automation\n- Business applications\nFrom beginner to expert level"
+            ]
+        },
+        {
+            "tag": "course_details_tally_gst",
+            "patterns": [
+                "What do you teach in tally and gst?",
+                "Tell me about the tally and gst course",
+                "Tally and gst syllabus?",
+                "Topics in tally and gst course",
+                "What will I learn in tally and gst?",
+                "Tally with GST curriculum",
+                "Accounting with taxation"
+            ],
+            "responses": [
+                "Our Tally + GST course combines:\n- Accounting with Tally\n- GST compliance\n- Ledger management\n- GST setup\n- Returns filing\n- Practical business scenarios\n- Financial reporting\n- Tax calculations\nComplete accounting & taxation solution"
+            ]
+        },
+        {
+            "tag": "course_details_tally_prime",
+            "patterns": [
+                "What do you teach in tally prime?",
+                "Tell me about the tally prime course",
+                "Tally prime syllabus?",
+                "Topics in tally prime course",
+                "What will I learn in tally prime?",
+                "Tally Prime curriculum",
+                "Latest Tally course"
+            ],
+            "responses": [
+                "Our Tally Prime course covers:\n- Latest features of Tally Prime\n- Advanced accounting\n- GST implementation\n- Inventory management\n- Payroll\n- Business management tools\n- Data security\n- Remote access\n- Industry-specific solutions"
+            ]
+        },
+        {
+            "tag": "course_details_icse_software",
+            "patterns": [
+                "What do you teach in icse software?",
+                "Tell me about the icse software course",
+                "ICSE software syllabus?",
+                "Topics in icse software course",
+                "What will I learn in icse software?",
+                "ICSE computer curriculum",
+                "School software course"
+            ],
+            "responses": [
+                "Our ICSE (Software) course covers:\n- Computer fundamentals\n- Programming basics\n- Software applications\n- As per ICSE curriculum\n- Practical assignments\n- Project work\n- Exam preparation\nIdeal for school students"
+            ]
+        },
+        {
+            "tag": "course_details_icap_animation",
+            "patterns": [
+                "What do you teach in icap animation?",
+                "Tell me about the icap animation course",
+                "ICAP animation syllabus?",
+                "Topics in icap animation course",
+                "What will I learn in icap animation?",
+                "Animation diploma curriculum",
+                "2D 3D animation course"
+            ],
+            "responses": [
+                "Our ICAP (Animation) course covers:\n- 2D animation principles\n- 3D modeling\n- Character design\n- Storyboarding\n- Animation software tools\n- Motion graphics\n- Visual effects\n- Portfolio development\nComprehensive animation training"
+            ]
+        },
+        {
+            "tag": "course_details_ichne_hardware_networking",
+            "patterns": [
+                "What do you teach in ichne hardware and networking?",
+                "Tell me about the ichne hardware and networking course",
+                "ICHNE hardware and networking syllabus?",
+                "Topics in ichne hardware and networking course",
+                "What will I learn in ichne hardware and networking?",
+                "Hardware networking diploma",
+                "Computer hardware course"
+            ],
+            "responses": [
+                "Our ICHNE (Hardware & Networking) course covers:\n- Computer hardware\n- Assembling\n- Troubleshooting\n- Networking basics\n- LAN/WAN setup\n- Network security\n- Server configuration\n- Wireless networking\n- Practical labs\nComplete hardware & networking training"
+            ]
+        },
+        {
+            "tag": "course_details_icca_company_accountant",
+            "patterns": [
+                "What do you teach in icca company accountant?",
+                "Tell me about the icca company accountant course",
+                "ICCA company accountant syllabus?",
+                "Topics in icca company accountant course",
+                "What will I learn in icca company accountant?",
+                "Accountant diploma",
+                "Professional accounting course"
+            ],
+            "responses": [
+                "Our ICCA (Company Accountant) course covers:\n- Advanced accounting\n- Tally Prime\n- GST implementation\n- Payroll management\n- Taxation\n- Company law basics\n- Financial reporting\n- Audit preparation\n- Business accounting\nFor aspiring professional accountants"
+            ]
+        },
+        {
+            "tag": "course_details_advance_software_engineering",
+            "patterns": [
+                "What do you teach in advance software engineering?",
+                "Tell me about the advance software engineering course",
+                "Advance software engineering syllabus?",
+                "Topics in advance software engineering course",
+                "What will I learn in advance software engineering?",
+                "Software engineering curriculum",
+                "Advanced programming course"
+            ],
+            "responses": [
+                "Our Advance Software Engineering course covers:\n- SDLC\n- Design patterns\n- Project management\n- Agile methodologies\n- Advanced programming\n- Software testing\n- Version control\n- Deployment strategies\n- Case studies\nProfessional software development training"
+            ]
+        },
+        {
+            "tag": "course_details_full_stack_web_development",
+            "patterns": [
+                "What do you teach in full stack web development?",
+                "Tell me about the full stack web development course",
+                "Full stack web development syllabus?",
+                "Topics in full stack web development course",
+                "What will I learn in full stack web development?",
+                "Full stack developer curriculum",
+                "Complete web development"
+            ],
+            "responses": [
+                "Our Full Stack Web Development course covers:\n- Frontend: HTML, CSS, JavaScript, React\n- Backend: Node.js, Express\n- Databases: MongoDB, SQL\n- REST APIs\n- Authentication\n- Deployment\n- Version control\n- Project work\nEnd-to-end web application development"
+            ]
+        },
+        {
+            "tag": "course_details_ethical_hacking",
+            "patterns": [
+                "What do you teach in ethical hacking?",
+                "Tell me about the ethical hacking course",
+                "Ethical hacking syllabus?",
+                "Topics in ethical hacking course",
+                "What will I learn in ethical hacking?",
+                "Cybersecurity curriculum",
+                "White hat hacking course"
+            ],
+            "responses": [
+                "Our Ethical Hacking course covers:\n- Penetration testing\n- Vulnerability assessment\n- Network security\n- Ethical hacking tools\n- Cyber law\n- Footprinting\n- Social engineering\n- Cryptography\n- Security best practices\nCertified ethical hacking training"
+            ]
+        },
+        {
+            "tag": "course_details_english_typing",
+            "patterns": [
+                "What do you teach in english typing?",
+                "Tell me about the english typing course",
+                "English typing syllabus?",
+                "Topics in english typing course",
+                "What will I learn in english typing?",
+                "Typing course content",
+                "Keyboard typing curriculum"
+            ],
+            "responses": [
+                "Our English Typing course covers:\n- Touch typing techniques\n- Speed building\n- Accuracy improvement\n- Typing exercises\n- Document formatting\n- Speed tests\n- Practical applications\n- Official typing standards\nProfessional typing training"
+            ]
+        },
+        {
+            "tag": "course_details_marathi_typing",
+            "patterns": [
+                "What do you teach in marathi typing?",
+                "Tell me about the marathi typing course",
+                "Marathi typing syllabus?",
+                "Topics in marathi typing course",
+                "What will I learn in marathi typing?",
+                "Marathi keyboard course",
+                "Regional language typing"
+            ],
+            "responses": [
+                "Our Marathi Typing course covers:\n- Typing in Marathi script\n- Keyboard layout\n- Speed practice\n- Accuracy training\n- Official document formatting\n- Government exam preparation\n- Practical applications\nProfessional Marathi typing training"
+            ]
+        },
+        {
+            "tag": "course_details_diploma_2d_3d_animation",
+            "patterns": [
+                "What do you teach in diploma in 2d 3d animation?",
+                "Tell me about the diploma in 2d 3d animation course",
+                "Diploma in 2d 3d animation syllabus?",
+                "Topics in diploma in 2d 3d animation course",
+                "What will I learn in diploma in 2d 3d animation?",
+                "Animation diploma details",
+                "2D 3D animation program"
+            ],
+            "responses": [
+                "Our Diploma in 2D/3D Animation covers:\n- Animation principles\n- Character design\n- Storyboarding\n- 2D animation software\n- 3D modeling\n- Texturing\n- Rigging\n- Motion graphics\n- Portfolio development\nProfessional animation training"
+            ]
+        },
+        {
+            "tag": "course_details_diploma_graphics_motion_graphics",
+            "patterns": [
+                "What do you teach in diploma in graphics and motion graphics?",
+                "Tell me about the diploma in graphics and motion graphics course",
+                "Diploma in graphics and motion graphics syllabus?",
+                "Topics in diploma in graphics and motion graphics course",
+                "What will I learn in diploma in graphics and motion graphics?",
+                "Graphics diploma curriculum",
+                "Motion graphics program"
+            ],
+            "responses": [
+                "Our Diploma in Graphics & Motion Graphics covers:\n- Graphic design principles\n- Adobe Photoshop\n- Illustrator\n- After Effects\n- Motion graphics\n- Video editing\n- Typography\n- Branding\n- Portfolio development\nProfessional design training"
+            ]
+        },
+        {
+            "tag": "course_details_diploma_mechanical_designing",
+            "patterns": [
+                "What do you teach in diploma in mechanical designing?",
+                "Tell me about the diploma in mechanical designing course",
+                "Diploma in mechanical designing syllabus?",
+                "Topics in diploma in mechanical designing course",
+                "What will I learn in diploma in mechanical designing?",
+                "Mechanical CAD diploma",
+                "Engineering design course"
+            ],
+            "responses": [
+                "Our Diploma in Mechanical Designing covers CAD software, 2D/3D modeling, mechanical drawing, design principles, and industry projects."
+            ]
+        },
+        {
+            "tag": "course_details_diploma_construction_interior_designing",
+            "patterns": [
+                "What do you teach in diploma in construction and interior designing?",
+                "Tell me about the diploma in construction and interior designing course",
+                "Diploma in construction and interior designing syllabus?",
+                "Topics in diploma in construction and interior designing course",
+                "What will I learn in diploma in construction and interior designing?",
+                "Interior design diploma",
+                "Construction design course"
+            ],
+            "responses": [
+                "Our Diploma in Construction & Interior Designing covers building design, interior decoration, CAD tools, space planning, and project management."
+            ]
+        },
+        {
+            "tag": "course_details_diploma_vfx_compositing",
+            "patterns": [
+                "What do you teach in diploma in vfx compositing?",
+                "Tell me about the diploma in vfx compositing course",
+                "Diploma in vfx compositing syllabus?",
+                "Topics in diploma in vfx compositing course",
+                "What will I learn in diploma in vfx compositing?",
+                "VFX diploma curriculum",
+                "Visual effects program"
+            ],
+            "responses": [
+                "Our Diploma in VFX Compositing covers visual effects, compositing techniques, green screen, motion tracking, and industry-standard VFX software."
+            ]
+        },
+        {
+            "tag": "placement_assistance",
+            "patterns": [
+                "Do you provide placement assistance?",
+                "What kind of job support do you offer?",
+                "How do you help with placements?",
+                "Do you have a placement cell?",
+                "Can you help me get a job after the course?",
+                "What is your placement success rate?",
+                "Do you have tie-ups with companies for placements?"
+            ],
+            "responses": [
+                "Yes, we provide placement assistance to all our students. Our dedicated placement cell works closely with industry partners to help you secure job interviews and offers.",
+                "We offer various job support services, including resume building, interview preparation, and job placement assistance.",
+                "Our placement cell actively reaches out to companies and organizes job fairs to connect students with potential employers.",
+                "Yes, we have a placement cell that assists students in finding job opportunities and preparing for interviews.",
+                "We provide guidance and support to help you find a job after completing your course, including resume reviews and interview coaching.",
+                "Our placement success rate is quite high, with many students securing jobs within months of graduation.",
+                "Yes, we have tie-ups with several companies for placements and regularly update our students about job openings."
+            ]
+
+        },
+        {
+            "tag": "institute_location",
+            "patterns": [
+                "Where is your institute located?",
+                "What is the address of your institute?",
+                "How can I reach your institute?",
+                "Institute location details",
+                "Where can I find you?",
+                "Institute address",
+                "How to get to your institute?"
+            ],
+            "responses": [
+                "Our institute is located at 123 Main Street, Cityville.",
+                "You can reach our institute by taking the subway to Central Station and then a short bus ride.",
+                "For detailed directions, please visit our website or contact our support.",
+                "We are situated in the heart of the city, easily accessible by public transport.",
+                "You can find us on Google Maps by searching for 'Itech Computer Institute'."
+            ]
+        },
+        {
+            "tag" : "branch_location",
+            "patterns": [
+                "Do you have branches in other locations?",
+                "Where are your branches located?",
+                "List of branch locations",
+                "Are there any other branches of your institute?",
+                "Branch addresses",
+                "Where can I find your branches?",
+                "Locations of your branches",
+                "how many branches do you have?",
+                "where is your branch located?"
+            ],
+            "responses": [
+                "Yes, we have branches in multiple locations. Please visit our website for the complete list.",
+                "Our branches are located in various cities. Check our website for specific addresses.",
+                "We have several branches. You can find the list of locations on our website.",
+                "Yes, we have other branches. Please refer to our website for more information.",
+                "Our branch addresses are available on our website.",
+                "You can find our branches in different locations. Visit our website for details.",
+                "We have branches in multiple cities. Check our website for the exact locations."
+            ]
+        },
+        {
+            "tag": "placements",
+            "patterns": [
+                "Do you provide placements?",
+                "What kind of job support do you offer?",
+                "How do you help with placements?",
+                "Do you have a placement cell?",
+                "Can you help me get a job after the course?",
+                "What is your placement success rate?",
+                "Do you have tie-ups with companies for placements?"
+            ],
+            "responses": [
+                "Yes, we provide placement assistance to all our students. Our dedicated placement cell works closely with industry partners to help you secure job interviews and offers.",
+                "We offer various job support services, including resume building, interview preparation, and job placement assistance.",
+                "Our placement cell actively reaches out to companies and organizes job fairs to connect students with potential employers.",
+                "Yes, we have a placement cell that assists students in finding job opportunities and preparing for interviews.",
+                "We provide guidance and support to help you find a job after completing your course, including resume reviews and interview coaching.",
+                "Our placement success rate is quite high, with many students securing jobs within months of graduation.",
+                "Yes, we have tie-ups with several companies for placements and regularly update our students about job openings."
+            ]
+        },
+        {
+            "tag": "contact_info",
+            "patterns": [
+                "How can I contact you?",
+                "What is your phone number?",
+                "Do you have an email address?",
+                "How can I reach your support team?",
+                "Contact details",
+                "How to get in touch with you?",
+                "What is your customer service number?"
+            ],
+            "responses": [
+                "You can contact us at:\n- Phone: +1-234-567-890\n- Email: info@itech.com",
+                "For support, you can reach us at:\n- Phone: +1-234-567-890\n- Email: support@itech.com",
+                "Our customer service is available during working hours. Call us at +1-234-567-890 or email info@itech.com",
+                "Feel free to reach out to us through phone, email, or visit our Contact page on the website for more ways to connect."
+            ]
+        },
+        {
+            "tag": "job_provider",
+            "patterns": [
+                "Do you provide job placement services?",
+                "Can you help me find a job?",
+                "What kind of job support do you offer?",
+                "Do you have a placement cell?",
+                "How do you assist with job placements?",
+                "Can you connect me with employers?",
+                "What is your placement success rate?"
+            ],
+            "responses": [
+                "Yes, we provide job placement services to our students through our dedicated placement cell.",
+                "We have a placement cell that assists students in finding job opportunities and connects them with potential employers.",
+                "Our job support includes resume building, interview preparation, and direct job placement assistance.",
+                "Yes, we have tie-ups with various companies to help students secure job placements in reputed organizations.",
+                "We actively connect students with potential employers through job fairs, recruitment drives, and industry partnerships.",
+                "Our placement success rate is quite high, with many students getting placed in reputable companies within months of course completion.",
+                "We provide ongoing support even after course completion to help you find suitable job opportunities in your field."
+            ]
+        },
+        {
+            "tag": "website_navigation",
+            "patterns": [
+                "How do I navigate your website?",
+                "Where can I find course information on your website?",
+                "How to use your website?",
+                "Website help",
+                "Where is the about us page?",
+                "How to find faculty information?",
+                "Where can I see your gallery?",
+                "How to access student portal?",
+                "Website menu help",
+                "Site map",
+                "Where is the contact page?",
+                "How to find course details?",
+                "Where is the events page?",
+                "How to register for events?",
+                "Where can I see projects?"
+            ],
+            "responses": [
+                "Our website is easy to navigate with the main menu at the top. You can find:\n- Home: Main page with quick access\n- About: Institute information\n- Courses: Complete course catalog\n- Events: Workshops and seminars\n- Projects: Student project gallery\n- Contact: Get in touch with us\n- Staff Login: For staff members\n- Student Portal: For enrolled students",
+                "Use the navigation menu to explore different sections. If you need help finding something specific, please let me know!",
+                "You can access the student portal and staff login from the top navigation menu of our website."
+            ]
+        },
+        {
+            "tag": "about_us",
+            "patterns": [
+                "Tell me about your institute",
+                "What is iTech Computer Institute?",
+                "About your organization",
+                "Institute history",
+                "When was your institute established?",
+                "Tell me about your mission",
+                "What is your vision?",
+                "About the founder",
+                "Institute background",
+                "Your company profile",
+                "What makes your institute special?"
+            ],
+            "responses": [
+                "iTech Computer Institute is a leading computer education center established to provide quality IT training and skill development. We focus on practical learning with industry-relevant curriculum.",
+                "Our mission is to empower students with technical skills and knowledge needed to succeed in the digital world. We offer comprehensive courses in programming, design, and professional development.",
+                "Founded with the vision of making quality computer education accessible to all, we have trained thousands of students who are now successfully placed in various IT companies.",
+                "We are committed to excellence in education, providing hands-on training with experienced faculty and modern infrastructure. Visit our About page to learn more about our journey."
+            ]
+        },
+        {
+            "tag": "gallery",
+            "patterns": [
+                "Can I see photos of your institute?",
+                "Do you have a gallery?",
+                "Show me pictures of your campus",
+                "Institute photos",
+                "Classroom images",
+                "Can I see your facilities?",
+                "Pictures of labs",
+                "Campus tour photos",
+                "Student activities photos"
+            ],
+            "responses": [
+                "Yes, you can view our gallery on the website to see photos of our campus, classrooms, labs, and student activities.",
+                "Our gallery showcases our modern facilities, computer labs, classrooms, and various events conducted at the institute.",
+                "Visit the Gallery section on our website to see images of our infrastructure and student life.",
+                "You can find photos of our campus facilities, events, and student achievements in our online gallery."
+            ]
+        },
+        {
+            "tag": "testimonials",
+            "patterns": [
+                "What do students say about your institute?",
+                "Can I read student reviews?",
+                "Do you have testimonials?",
+                "Student feedback",
+                "Success stories",
+                "Alumni reviews",
+                "Student experiences",
+                "What do graduates say?"
+            ],
+            "responses": [
+                "You can read student testimonials and reviews on our website's testimonials section. Our students share their positive experiences and success stories.",
+                "We have many success stories from our alumni who are now working in reputed companies. Visit our testimonials page to read their experiences.",
+                "Our students consistently rate us highly for our teaching quality, placement assistance, and overall learning experience.",
+                "Check out the testimonials section on our website to see what our students and alumni have to say about their learning journey with us."
+            ]
+        },
+        {
+            "tag": "news_updates",
+            "patterns": [
+                "What's new at your institute?",
+                "Latest news and updates",
+                "Recent announcements",
+                "What's happening at iTech?",
+                "New courses launched",
+                "Latest achievements",
+                "Institute news",
+                "Recent developments"
+            ],
+            "responses": [
+                "Stay updated with our latest news and announcements on our website's news section. We regularly post updates about new courses, events, and achievements.",
+                "You can find the latest news about our institute, including new course launches, placement drives, and special events on our news page.",
+                "Follow our news section for updates on workshops, seminars, student achievements, and other important announcements.",
+                "We keep our website updated with the latest happenings at our institute. Check the news section regularly for important updates."
+            ]
+        },
+        {
+            "tag": "student_portal",
+            "patterns": [
+                "How do I access the student portal?",
+                "Student login",
+                "Where is the student dashboard?",
+                "How to login as a student?",
+                "Student account access",
+                "Online student services",
+                "Student portal features",
+                "What can I do in student portal?"
+            ],
+            "responses": [
+                "You can access the student portal from our website by clicking on 'Student Login' and entering your credentials provided during admission.",
+                "The student portal allows you to view your courses, assignments, grades, attendance, and communicate with instructors.",
+                "Through the student portal, you can access study materials, submit assignments, check schedules, and track your progress.",
+                "If you're having trouble accessing the student portal, please contact our technical support team for assistance."
+            ]
+        },
+        {
+            "tag": "downloads",
+            "patterns": [
+                "Can I download study materials?",
+                "Are there any downloadable resources?",
+                "Where can I find course materials?",
+                "Download brochures",
+                "Syllabus download",
+                "Software downloads",
+                "Forms download",
+                "Resources section"
+            ],
+            "responses": [
+                "You can download course brochures, syllabus, and application forms from our downloads section on the website.",
+                "Study materials and resources are available for download through the student portal after enrollment.",
+                "Visit our downloads page to access course brochures, admission forms, and other important documents.",
+                "Software required for courses and practice materials can be downloaded from the resources section."
+            ]
+        },
+        {
+            "tag": "events_page",
+            "patterns": [
+                "Where can I see upcoming events?",
+                "How to check events page?",
+                "Event registration page",
+                "Where are workshops listed?",
+                "How to register for seminars?",
+                "Events calendar",
+                "Upcoming workshops page"
+            ],
+            "responses": [
+                "You can check all upcoming events, workshops, and seminars on our Events page. It includes details about registration, dates, and venue information.",
+                "Visit our Events page to see the latest workshops, guest lectures, and special programs. You can also register for events directly from there.",
+                "Our Events section is regularly updated with new workshops, seminars, and industry talks. Check it frequently for new opportunities!"
+            ]
+        },
+        {
+            "tag": "event_registration",
+            "patterns": [
+                "How do I register for events?",
+                "Event registration process",
+                "Can I register online for workshops?",
+                "How to book a seminar seat?",
+                "Event booking procedure",
+                "Registration for workshops",
+                "How to attend events?"
+            ],
+            "responses": [
+                "You can register for events through our Event Registration page. Simply select the event you want to attend and fill out the registration form.",
+                "Event registration is available online through our website. Visit the Events page and click on 'Register' for your preferred event.",
+                "To register for workshops or seminars, go to our Events page, select the event, and complete the online registration form. Confirmation will be sent via email."
+            ]
+        },
+        {
+            "tag": "project_viewer",
+            "patterns": [
+                "Can I see student projects?",
+                "Where are projects displayed?",
+                "Student project gallery",
+                "How to view completed projects?",
+                "Project showcase page",
+                "Examples of student work",
+                "Portfolio of students"
+            ],
+            "responses": [
+                "You can view student projects and portfolios on our Project Viewer page. It showcases the excellent work done by our students across different courses.",
+                "Our Project Viewer section displays various projects completed by students, demonstrating the practical skills they've gained during their courses.",
+                "Visit the Projects section to see impressive work by our students including web applications, mobile apps, design portfolios, and more."
+            ]
+        },
+        {
+            "tag": "staff_portal",
+            "patterns": [
+                "How do staff members access the portal?",
+                "Staff login page",
+                "Teacher portal access",
+                "Faculty login procedure",
+                "Staff dashboard access",
+                "How to login as staff?",
+                "Staff member login"
+            ],
+            "responses": [
+                "Staff members can access their portal through the Staff Login page. Use your assigned credentials to access the staff dashboard.",
+                "The staff portal is available through the Staff Login link in the main navigation. Contact the admin if you need login credentials.",
+                "Faculty members can access their dashboard, student records, and course materials through the dedicated staff portal."
+            ]
+        },
+        {
+            "tag": "contact_info",
+            "patterns": [
+                "How can I contact you?",
+                "What is your phone number?",
+                "Do you have an email address?",
+                "How can I reach your support team?",
+                "Contact details",
+                "How to get in touch with you?",
+                "What is your customer service number?"
+            ],
+            "responses": [
+                "You can contact us at:\n- Phone: +1-234-567-890\n- Email: info@itech.com",
+                "For support, you can reach us at:\n- Phone: +1-234-567-890\n- Email: support@itech.com",
+                "Our customer service is available during working hours. Call us at +1-234-567-890 or email info@itech.com",
+                "Feel free to reach out to us through phone, email, or visit our Contact page on the website for more ways to connect."
+            ]
+        },
+        {
+            "tag": "job_provider",
+            "patterns": [
+                "Do you provide job placement services?",
+                "Can you help me find a job?",
+                "What kind of job support do you offer?",
+                "Do you have a placement cell?",
+                "How do you assist with job placements?",
+                "Can you connect me with employers?",
+                "What is your placement success rate?"
+            ],
+            "responses": [
+                "Yes, we provide job placement services to our students through our dedicated placement cell.",
+                "We have a placement cell that assists students in finding job opportunities and connects them with potential employers.",
+                "Our job support includes resume building, interview preparation, and direct job placement assistance.",
+                "Yes, we have tie-ups with various companies to help students secure job placements in reputed organizations.",
+                "We actively connect students with potential employers through job fairs, recruitment drives, and industry partnerships.",
+                "Our placement success rate is quite high, with many students getting placed in reputable companies within months of course completion.",
+                "We provide ongoing support even after course completion to help you find suitable job opportunities in your field."
+            ]
+        },
+        {
+            "tag": "careers",
+            "patterns": [
+                "Do you have job openings?",
+                "Career opportunities at iTech",
+                "How to apply for a job at your institute?",
+                "Teaching positions available?",
+                "Work with you",
+                "Faculty recruitment",
+                "Job vacancies",
+                "Employment opportunities"
+            ],
+            "responses": [
+                "We occasionally have openings for teaching and administrative positions. Check our careers page for current job listings.",
+                "If you're interested in joining our team, please send your resume to careers@itechinstitute.com or visit our careers section.",
+                "We look for qualified professionals who are passionate about education and technology. Current openings are posted on our website.",
+                "For teaching positions, we prefer candidates with industry experience and teaching skills. Apply through our careers page."
+            ]
+        },
+        {
+            "tag": "partnerships",
+            "patterns": [
+                "Do you have industry partnerships?",
+                "Corporate collaborations",
+                "Industry tie-ups",
+                "Business partnerships",
+                "Company associations",
+                "Academic partnerships",
+                "Collaboration opportunities"
+            ],
+            "responses": [
+                "Yes, we have partnerships with various IT companies and organizations for placement opportunities and industry exposure.",
+                "Our industry partnerships help us provide students with internships, live projects, and job opportunities.",
+                "We collaborate with companies to ensure our curriculum stays updated with industry requirements.",
+                "If your organization is interested in partnering with us for placements or training, please contact our partnership team."
+            ]
+        },
+        {
+            "tag": "achievements",
+            "patterns": [
+                "What are your institute's achievements?",
+                "Awards and recognition",
+                "Success milestones",
+                "Institute accomplishments",
+                "Recognition received",
+                "Notable achievements",
+                "Awards won"
+            ],
+            "responses": [
+                "Our institute has received recognition for excellence in computer education and high placement rates.",
+                "We're proud of our students' achievements and their successful placements in top IT companies.",
+                "Our institute has been awarded for innovative teaching methods and industry-relevant curriculum.",
+                "Visit our achievements page to see our awards, certifications, and success stories."
+            ]
+        },
+        {
+            "tag": "alumni",
+            "patterns": [
+                "Do you have an alumni network?",
+                "Alumni association",
+                "Connect with alumni",
+                "Former students network",
+                "Alumni events",
+                "How to join alumni network?",
+                "Alumni portal"
+            ],
+            "responses": [
+                "Yes, we have an active alumni network where former students stay connected and help current students.",
+                "Our alumni association organizes regular meetups, networking events, and mentoring sessions.",
+                "You can connect with our alumni through our alumni portal and attend networking events.",
+                "Our alumni work in various prestigious companies and often return to share their experiences with current students."
+            ]
+        },
+        {
+            "tag": "infrastructure",
+            "patterns": [
+                "Tell me about your infrastructure",
+                "What facilities do you have?",
+                "Campus infrastructure",
+                "Lab facilities",
+                "Classroom setup",
+                "Technical facilities",
+                "Equipment available",
+                "Institute amenities"
+            ],
+            "responses": [
+                "Our institute has modern infrastructure including air-conditioned classrooms, computer labs with latest hardware, high-speed internet, and audio-visual equipment.",
+                "We have dedicated labs for different courses, library, cafeteria, and parking facilities for students and staff.",
+                "Our technical infrastructure includes modern computers, projectors, interactive whiteboards, and industry-standard software.",
+                "All our facilities are designed to provide a comfortable and conducive learning environment for students."
+            ]
+        },
+        {
+            "tag":"location",
+            "patterns": [
+                "Where is your institute located?",
+                "What is the address of your institute?",
+                "How can I reach your institute?",
+                "Institute location details",
+                "Where can I find you?",
+                "Institute address",
+                "How to get to your institute?"
+            ],
+            "responses": [
+                "Our institute is located at 123 Main Street, Cityville.",
+                "You can reach us by public transport or by car. We have ample parking space available.",
+                "For detailed directions, please visit our website or contact our admission office.",
+                "We are situated in the heart of the city, making it easily accessible from all major areas."
+            ]
+        },
+        {
+            "tag":"address",
+            "patterns": [
+                "What is the address of your institute?",
+                "How can I reach your institute?",
+                "Institute location details",
+                "Where can I find you?",
+                "Institute address",
+                "How to get to your institute?"
+            ],
+            "responses": [
+                "Our institute is located at 123 Main Street, Cityville.",
+                "You can reach us by public transport or by car. We have ample parking space available.",
+                "For detailed directions, please visit our website or contact our admission office.",
+                "We are situated in the heart of the city, making it easily accessible from all major areas."
+            ]
+        },
+        {
+            "tag": "contact_us",
+            "patterns": [
+                "How can I contact you?",
+                "What is your phone number?",
+                "Do you have an email address?",
+                "How can I reach your support team?",
+                "Contact details",
+                "How to get in touch with you?",
+                "What is your customer service number?"
+            ],
+            "responses": [
+                "You can contact us at:\n- Phone: +1-234-567-890\n- Email: support@institute.com"
+            ]
+        },
+        {
+            "tag": "admission_process",
+            "patterns": [
+                "How do I apply for admission?",
+                "What is the admission process?",
+                "How to enroll in courses?",
+                "Admission procedure",
+                "How to join your institute?",
+                "What documents are required for admission?",
+                "Enrollment process",
+                "How to register for courses?",
+                "Admission requirements",
+                "Application process"
+            ],
+            "responses": [
+                "Our admission process is simple:\n1. Visit our institute or website\n2. Choose your desired course\n3. Fill the application form\n4. Submit required documents\n5. Pay the course fee\n6. Start your classes!",
+                "You can apply for admission by visiting our institute directly or through our website's enrollment page.",
+                "Required documents: ID proof, educational certificates, and passport-size photographs.",
+                "For quick enrollment, visit our admission office during working hours or apply online through our website."
+            ]
+        },
+        {
+            "tag": "course_fees",
+            "patterns": [
+                "What are the course fees?",
+                "How much does the course cost?",
+                "Course pricing",
+                "Fee structure",
+                "Cost of courses",
+                "What is the fee for programming courses?",
+                "How much for web development course?",
+                "Course charges",
+                "Payment details",
+                "Affordable courses"
+            ],
+            "responses": [
+                "Our course fees are very competitive and affordable. The exact fee depends on the course duration and complexity.",
+                "We offer flexible payment options including installments. Contact our admission office for detailed fee structure.",
+                "Course fees vary from ₹5,000 to ₹25,000 depending on the course. We also offer special discounts for students.",
+                "For detailed fee information, please visit our institute or check the courses page on our website."
+            ]
+        },
+        {
+            "tag": "class_timings",
+            "patterns": [
+                "What are the class timings?",
+                "When do classes start?",
+                "Class schedule",
+                "Batch timings",
+                "What time are the classes?",
+                "Morning batch timings",
+                "Evening batch timings",
+                "Weekend classes available?",
+                "Flexible timings?",
+                "Class hours"
+            ],
+            "responses": [
+                "We offer flexible batch timings:\n- Morning: 9:00 AM - 12:00 PM\n- Afternoon: 1:00 PM - 4:00 PM\n- Evening: 5:00 PM - 8:00 PM\n- Weekend batches are also available",
+                "Our classes are scheduled to accommodate working professionals and students with flexible morning, afternoon, and evening slots.",
+                "Weekend batches are available for working professionals. Choose the timing that suits your schedule best.",
+                "Contact our admission office to know about available batch timings for your preferred course."
+            ]
+        },
+        {
+            "tag": "course_duration",
+            "patterns": [
+                "How long is the course?",
+                "What is the duration of courses?",
+                "Course length",
+                "How many months is the course?",
+                "Course period",
+                "Time to complete course",
+                "Duration of programming course",
+                "How long does it take to finish?",
+                "Course completion time",
+                "Short term courses available?"
+            ],
+            "responses": [
+                "Course duration varies based on the program:\n- Short-term courses: 1-3 months\n- Professional courses: 4-6 months\n- Diploma courses: 8-12 months\n- Advanced programs: 6-18 months",
+                "We offer both short-term and long-term courses to suit different learning needs and career goals.",
+                "Most of our popular courses like Web Development, Python, and Graphic Design are 4-6 months long.",
+                "For specific course duration, please check our courses page or contact our counselors."
+            ]
+        },
+        {
+            "tag": "online_classes",
+            "patterns": [
+                "Do you offer online classes?",
+                "Can I study online?",
+                "Remote learning available?",
+                "Virtual classes",
+                "Distance learning",
+                "Online course options",
+                "Can I attend classes from home?",
+                "E-learning facility",
+                "Online training",
+                "Digital classes"
+            ],
+            "responses": [
+                "Yes, we offer both online and offline classes to provide maximum flexibility to our students.",
+                "Our online classes feature live interactive sessions, recorded lectures, and virtual lab access.",
+                "You can choose between classroom learning, online learning, or a hybrid model based on your preference.",
+                "Online classes include the same curriculum and certification as our offline courses.",
+                "We use modern e-learning platforms to ensure quality education from the comfort of your home."
+            ]
+        },
+        {
+            "tag": "certification",
+            "patterns": [
+                "Do you provide certificates?",
+                "What kind of certificate will I get?",
+                "Course completion certificate",
+                "Industry recognized certificates?",
+                "Certificate validity",
+                "Government approved certificates?",
+                "International certification",
+                "Certificate after course completion",
+                "Diploma certificate",
+                "Professional certification"
+            ],
+            "responses": [
+                "Yes, we provide industry-recognized certificates upon successful completion of courses.",
+                "Our certificates are valued by employers and help boost your career prospects.",
+                "You will receive both course completion certificates and project-based certificates.",
+                "We also offer preparation for international certifications like Microsoft, Google, and Adobe.",
+                "All our certificates include digital verification and can be shared on professional networks like LinkedIn."
+            ]
+        },
+        {
+            "tag": "faculty_details",
+            "patterns": [
+                "Who are your teachers?",
+                "Tell me about your faculty",
+                "Instructor qualifications",
+                "Teaching staff details",
+                "Faculty experience",
+                "Who will teach me?",
+                "Trainer background",
+                "Expert instructors",
+                "Faculty credentials",
+                "Teacher profiles"
+            ],
+            "responses": [
+                "Our faculty consists of experienced industry professionals and certified trainers with 5+ years of experience.",
+                "All our instructors have real industry experience and hold relevant certifications in their domains.",
+                "Our teaching staff includes software engineers, designers, and IT professionals from top companies.",
+                "You can view detailed faculty profiles on our website's About section.",
+                "We ensure quality education through regular faculty training and industry updates."
+            ]
+        },
+        {
+            "tag": "internship_opportunities",
+            "patterns": [
+                "Do you provide internships?",
+                "Internship programs available?",
+                "Can I get work experience?",
+                "Practical training opportunities",
+                "Industry exposure",
+                "Real project work",
+                "Internship assistance",
+                "Work placement during course",
+                "Hands-on experience",
+                "Live project training"
+            ],
+            "responses": [
+                "Yes, we provide internship opportunities with our industry partners for practical experience.",
+                "Our courses include live project work and internship assistance to give you real industry exposure.",
+                "Students work on actual company projects during their training to build a strong portfolio.",
+                "We have tie-ups with various companies that offer internship positions to our students.",
+                "Internship programs help bridge the gap between academic learning and industry requirements."
+            ]
+        },
+        {
+            "tag": "lab_facilities",
+            "patterns": [
+                "What lab facilities do you have?",
+                "Computer lab details",
+                "Technical infrastructure",
+                "Software available in labs",
+                "Hardware specifications",
+                "Lab equipment",
+                "Practice facilities",
+                "Technical resources",
+                "Lab access hours",
+                "Modern facilities"
+            ],
+            "responses": [
+                "Our institute has state-of-the-art computer labs with latest hardware and software.",
+                "Lab facilities include:\n- High-speed internet\n- Latest computers\n- Industry-standard software\n- Air-conditioned environment\n- 24/7 lab access for students",
+                "We have separate labs for programming, design, networking, and hardware courses.",
+                "All software licenses are up-to-date including Adobe Creative Suite, Microsoft Office, development tools, and specialized software.",
+                "Students get dedicated practice time and can access labs even after class hours for project work."
+            ]
+        },
+        {
+            "tag": "course_comparison",
+            "patterns": [
+                "Which course is best for me?",
+                "Help me choose a course",
+                "Course recommendation",
+                "What should I study?",
+                "Beginner friendly courses",
+                "Career oriented courses",
+                "Most popular courses",
+                "Course selection guidance",
+                "Which course has better scope?",
+                "Suggest me a course"
+            ],
+            "responses": [
+                "Course selection depends on your interests and career goals. Our counselors can help you choose the right course.",
+                "Popular choices for beginners: Basic Computer, Web Development, Python Programming, and Graphic Design.",
+                "For career growth: Data Science, Full Stack Development, Digital Marketing, and Cloud Computing are in high demand.",
+                "We offer free counseling sessions to understand your goals and recommend the most suitable course.",
+                "Consider factors like your background, interests, market demand, and career aspirations when choosing a course."
+            ]
+        },
+        {
+            "tag": "student_support",
+            "patterns": [
+                "What support do you provide to students?",
+                "Student assistance services",
+                "Help for students",
+                "Academic support",
+                "Learning assistance",
+                "Student care services",
+                "Doubt clearing sessions",
+                "Student mentorship",
+                "Academic guidance",
+                "Student helpdesk"
+            ],
+            "responses": [
+                "We provide comprehensive student support including doubt clearing sessions, mentorship, and academic guidance.",
+                "Our support services include:\n- Regular doubt-clearing sessions\n- Personal mentorship\n- Career counseling\n- Project guidance\n- Technical support\n- Placement assistance",
+                "Students can approach faculty and support staff anytime for academic or career-related queries.",
+                "We have a dedicated student helpdesk to address all your concerns and provide necessary assistance.",
+                "Regular feedback sessions help us understand student needs and improve our support services."
+            ]
+        },
+        {
+            "tag": "course_updates",
+            "patterns": [
+                "Do you update your courses?",
+                "Latest curriculum",
+                "Updated course content",
+                "Modern syllabus",
+                "Industry relevant courses",
+                "Current technology courses",
+                "Course revision",
+                "Updated training material",
+                "Latest industry trends",
+                "Modern course structure"
+            ],
+            "responses": [
+                "Yes, we regularly update our courses to match current industry requirements and latest technologies.",
+                "Our curriculum is reviewed and updated every 6 months to include the latest industry trends and technologies.",
+                "We ensure our course content reflects current market demands and emerging technologies.",
+                "Industry experts and alumni feedback helps us keep our courses relevant and up-to-date.",
+                "Students learn the most current tools, technologies, and best practices used in the industry."
+            ]
+        },
+        {
+            "tag": "demo_classes",
+            "patterns": [
+                "Can I attend a demo class?",
+                "Free trial class available?",
+                "Demo session",
+                "Trial class",
+                "Can I try before enrolling?",
+                "Free sample class",
+                "Preview class",
+                "Test class",
+                "Trial period",
+                "Demo before admission"
+            ],
+            "responses": [
+                "Yes, we offer free demo classes so you can experience our teaching methodology before enrollment.",
+                "Demo classes are available for all courses. You can book a demo session through our website or by visiting our institute.",
+                "Our demo classes give you a preview of the course content, teaching style, and learning environment.",
+                "To book a free demo class, contact our admission office or register online through our website.",
+                "Demo sessions help you make an informed decision about course selection and our institute."
+            ]
+        },
+        {
+            "tag": "career_guidance",
+            "patterns": [
+                "Do you provide career guidance?",
+                "Career counseling services",
+                "Job market advice",
+                "Career planning help",
+                "Professional guidance",
+                "Career roadmap",
+                "Industry insights",
+                "Career development support",
+                "Future prospects in IT",
+                "Career opportunities after course"
+            ],
+            "responses": [
+                "Yes, we provide comprehensive career guidance and counseling to help students plan their professional journey.",
+                "Our career services include:\n- Individual counseling sessions\n- Industry insights\n- Career roadmap planning\n- Job market analysis\n- Skill gap identification\n- Professional development advice",
+                "Experienced counselors help students understand various career paths and opportunities in their chosen field.",
+                "We regularly organize career guidance seminars and workshops with industry experts.",
+                "Our goal is to ensure students make informed career decisions and achieve their professional aspirations."
+            ]
+        },
+        {
+            "tag": "scholarship_programs",
+            "patterns": [
+                "Do you offer scholarships?",
+                "Financial assistance available?",
+                "Scholarship programs",
+                "Fee concession",
+                "Educational loans help",
+                "Merit scholarships",
+                "Need-based assistance",
+                "Student financial aid",
+                "Discount schemes",
+                "Financial support for students"
+            ],
+            "responses": [
+                "Yes, we offer various scholarship programs for deserving and meritorious students.",
+                "Scholarship options include:\n- Merit-based scholarships\n- Need-based financial assistance\n- Early bird discounts\n- Referral bonuses\n- Group enrollment discounts",
+                "We also assist students in applying for educational loans and government scholarship schemes.",
+                "Contact our admission office to learn about current scholarship programs and eligibility criteria.",
+                "Our goal is to make quality education accessible to all deserving students regardless of their financial background."
+            ]
+        },
+        {
+            "tag": "practical_training",
+            "patterns": [
+                "Do you provide practical training?",
+                "Hands-on learning",
+                "Project-based learning",
+                "Real-world experience",
+                "Practical sessions",
+                "Lab work",
+                "Live projects",
+                "Industry projects",
+                "Practical assignments",
+                "Workshop sessions"
+            ],
+            "responses": [
+                "Yes, our courses are heavily focused on practical training with hands-on learning approach.",
+                "We believe in learning by doing. Each course includes:\n- Practical lab sessions\n- Live project work\n- Real industry assignments\n- Workshop activities\n- Portfolio development",
+                "Students work on actual projects that simulate real workplace scenarios.",
+                "Our practical training approach ensures students gain job-ready skills and confidence.",
+                "Project-based learning helps students build a strong portfolio that impresses employers."
+            ]
+        },
+        {
+            "tag": "student_projects",
+            "patterns": [
+                "Can I see student projects?",
+                "Examples of student work",
+                "Project portfolio",
+                "Student achievements",
+                "Work samples",
+                "Project gallery",
+                "Student success stories",
+                "Completed projects",
+                "Project showcase",
+                "Student work examples"
+            ],
+            "responses": [
+                "You can view our students' excellent projects on our website's Project Gallery section.",
+                "Our students have created impressive projects including:\n- Web applications\n- Mobile apps\n- Design portfolios\n- Business automation systems\n- E-commerce websites\n- Data analysis projects",
+                "Visit our Project Viewer page to see detailed showcases of student work across different courses.",
+                "These projects demonstrate the practical skills and creativity our students develop during their training.",
+                "Many of our student projects have been appreciated by industry professionals and have helped students secure jobs."
+            ]
+        },
+        {
+            "tag": "industry_connections",
+            "patterns": [
+                "Do you have industry connections?",
+                "Industry partnerships",
+                "Company tie-ups",
+                "Corporate connections",
+                "Industry network",
+                "Business relationships",
+                "Professional connections",
+                "Industry collaborations",
+                "Company associations",
+                "Professional networks"
+            ],
+            "responses": [
+                "Yes, we have strong connections with leading companies and industry professionals.",
+                "Our industry partnerships include:\n- IT companies for placements\n- Tech startups for internships\n- Professional networks for mentorship\n- Industry experts as guest lecturers\n- Corporate training partnerships",
+                "These connections help us provide better placement opportunities and industry insights to our students.",
+                "Regular industry interactions keep us updated with market trends and employer expectations.",
+                "Our industry network helps students get direct access to job opportunities and professional guidance."
+            ]
+        },
+        {
+            "tag": "hello_greeting",
+            "patterns": [
+                "Hello",
+                "Hi",
+                "Hey",
+                "Greetings",
+                "Good morning",
+                "Good afternoon",
+                "Good evening",
+                "Namaste",
+                "Hola"
+            ],
+            "responses": [
+                "Hello! Welcome to iTech Computer Institute. How can I help you today?",
+                "Hi there! I'm here to assist you with information about our courses and services.",
+                "Greetings! Thank you for your interest in iTech Computer Institute. What would you like to know?",
+                "Hello! Feel free to ask me anything about our courses, admissions, or facilities."
+            ]
+        },
+        {
+            "tag": "courses_single",
+            "patterns": [
+                "Courses",
+                "Programs",
+                "Classes",
+                "Training",
+                "Study",
+                "Learn",
+                "Curriculum"
+            ],
+            "responses": [
+                "We offer a wide range of IT courses including:\n- Programming (Python, Java, C++)\n- Web Development\n- Data Science\n- Digital Marketing\n- Graphic Design\n- Cloud Computing\n- Cyber Security\n- Mobile App Development\n- Accounting (Tally, GST)\n- Basic Computer Skills",
+                "Our popular programs include both short-term and diploma courses in various IT domains.",
+                "Visit our courses page to see detailed curriculum for each program we offer."
+            ]
+        },
+        {
+            "tag": "fees_single",
+            "patterns": [
+                "Fees",
+                "Cost",
+                "Price",
+                "Charges",
+                "Payment",
+                "Money",
+                "Amount"
+            ],
+            "responses": [
+                "Our course fees are very affordable, ranging from ₹5,000 to ₹25,000 depending on the course.",
+                "We offer flexible payment options including installments to make education accessible.",
+                "For exact fee details of any specific course, please contact our admission office.",
+                "Special discounts are available for early enrollment and students."
+            ]
+        },
+        {
+            "tag": "admission_single",
+            "patterns": [
+                "Admission",
+                "Enroll",
+                "Join",
+                "Register",
+                "Apply",
+                "Enrollment"
+            ],
+            "responses": [
+                "Admissions are open throughout the year! You can apply online or visit our institute directly.",
+                "The admission process is simple - choose your course, fill the form, submit documents, and start learning!",
+                "Required documents: ID proof, educational certificates, and photographs.",
+                "Contact our admission office for immediate enrollment assistance."
+            ]
+        },
+        {
+            "tag": "placement_single",
+            "patterns": [
+                "Placement",
+                "Jobs",
+                "Career",
+                "Employment",
+                "Work",
+                "Hiring"
+            ],
+            "responses": [
+                "Yes! We provide 100% placement assistance through our dedicated placement cell.",
+                "Our placement services include resume building, interview preparation, and job connections.",
+                "We have tie-ups with 200+ companies for student placements.",
+                "Our placement success rate is over 85% with students getting placed in top IT companies."
+            ]
+        },
+        {
+            "tag": "location_single",
+            "patterns": [
+                "Location",
+                "Address",
+                "Where",
+                "Direction",
+                "Map",
+                "Find"
+            ],
+            "responses": [
+                "We are located at 123 Main Street, Cityville - easily accessible by public transport.",
+                "Our institute is situated in the heart of the city with ample parking facilities.",
+                "You can find us on Google Maps by searching 'iTech Computer Institute'.",
+                "Visit our Contact page for detailed directions and branch locations."
+            ]
+        },
+        {
+            "tag": "contact_single",
+            "patterns": [
+                "Contact",
+                "Phone",
+                "Call",
+                "Email",
+                "Reach",
+                "Connect"
+            ],
+            "responses": [
+                "Contact us at:\n📞 Phone: +1-234-567-890\n📧 Email: info@itech.com",
+                "You can reach our support team during working hours for any assistance.",
+                "Feel free to call, email, or visit us directly for immediate help.",
+                "Our customer service team is always ready to assist you!"
+            ]
+        },
+        {
+            "tag": "timing_single",
+            "patterns": [
+                "Timing",
+                "Schedule",
+                "Time",
+                "Hours",
+                "When",
+                "Batch"
+            ],
+            "responses": [
+                "We offer flexible batch timings:\n🌅 Morning: 9:00 AM - 12:00 PM\n🌆 Afternoon: 1:00 PM - 4:00 PM\n🌃 Evening: 5:00 PM - 8:00 PM\n📅 Weekend batches also available",
+                "Choose the timing that suits your schedule - we accommodate working professionals and students.",
+                "Contact us to know available batch timings for your preferred course."
+            ]
+        },
+        {
+            "tag": "duration_single",
+            "patterns": [
+                "Duration",
+                "Period",
+                "Length",
+                "Months",
+                "Days",
+                "Timeline"
+            ],
+            "responses": [
+                "Course duration varies:\n⚡ Short-term: 1-3 months\n💼 Professional: 4-6 months\n🎓 Diploma: 8-12 months\n🚀 Advanced: 6-18 months",
+                "Most popular courses are 4-6 months long with practical training.",
+                "We offer both intensive short courses and comprehensive long-term programs."
+            ]
+        },
+        {
+            "tag": "certificate_single",
+            "patterns": [
+                "Certificate",
+                "Certification",
+                "Diploma",
+                "Degree",
+                "Award"
+            ],
+            "responses": [
+                "Yes! We provide industry-recognized certificates upon course completion.",
+                "Our certificates are valued by employers and help boost your career prospects.",
+                "You'll receive both course completion and project-based certificates.",
+                "We also prepare students for international certifications like Microsoft, Google, and Adobe."
+            ]
+        },
+        {
+            "tag": "online_single",
+            "patterns": [
+                "Online",
+                "Virtual",
+                "Remote",
+                "Digital",
+                "E-learning"
+            ],
+            "responses": [
+                "Yes! We offer both online and offline classes for maximum flexibility.",
+                "Our online classes feature live sessions, recorded lectures, and virtual lab access.",
+                "You can choose classroom, online, or hybrid learning based on your preference.",
+                "Online courses include the same curriculum and certification as offline courses."
+            ]
+        },
+        {
+            "tag": "faculty_single",
+            "patterns": [
+                "Faculty",
+                "Teachers",
+                "Instructors",
+                "Trainers",
+                "Staff"
+            ],
+            "responses": [
+                "Our faculty consists of experienced industry professionals with 5+ years of experience.",
+                "All instructors have real industry experience and relevant certifications.",
+                "Our teaching staff includes software engineers, designers, and IT professionals from top companies.",
+                "View detailed faculty profiles on our website's About section."
+            ]
+        },
+        {
+            "tag": "lab_single",
+            "patterns": [
+                "Lab",
+                "Laboratory",
+                "Facilities",
+                "Infrastructure",
+                "Equipment"
+            ],
+            "responses": [
+                "We have state-of-the-art computer labs with latest hardware and software.",
+                "Lab facilities include high-speed internet, modern computers, and industry-standard software.",
+                "Students get 24/7 lab access for practice and project work.",
+                "Separate labs are available for programming, design, networking, and hardware courses."
+            ]
+        },
+        {
+            "tag": "project_single",
+            "patterns": [
+                "Projects",
+                "Portfolio",
+                "Work",
+                "Assignment",
+                "Practice"
+            ],
+            "responses": [
+                "Students work on live projects during training to build a strong portfolio.",
+                "View our impressive student projects on the Project Gallery section of our website.",
+                "Project-based learning ensures you gain practical, job-ready skills.",
+                "Students create web apps, mobile apps, design portfolios, and business solutions."
+            ]
+        },
+        {
+            "tag": "internship_single",
+            "patterns": [
+                "Internship",
+                "Experience",
+                "Training",
+                "Practice",
+                "Exposure"
+            ],
+            "responses": [
+                "Yes! We provide internship opportunities with our industry partners.",
+                "Students get hands-on experience through live projects and company internships.",
+                "Internship programs help bridge the gap between learning and industry requirements.",
+                "We have tie-ups with various companies offering internship positions."
+            ]
+        },
+        {
+            "tag": "demo_single",
+            "patterns": [
+                "Demo",
+                "Trial",
+                "Preview",
+                "Sample",
+                "Test"
+            ],
+            "responses": [
+                "Yes! We offer free demo classes for all courses.",
+                "Book a demo session to experience our teaching methodology before enrollment.",
+                "Demo classes help you make an informed decision about course selection.",
+                "Contact us or visit our website to schedule your free demo class."
+            ]
+        },
+        {
+            "tag": "scholarship_single",
+            "patterns": [
+                "Scholarship",
+                "Discount",
+                "Concession",
+                "Financial",
+                "Support"
+            ],
+            "responses": [
+                "Yes! We offer various scholarship programs for deserving students.",
+                "Scholarships include merit-based, need-based, and early bird discounts.",
+                "We also assist with educational loans and government scholarship schemes.",
+                "Contact our admission office to learn about current scholarship eligibility."
+            ]
+        },
+        {
+            "tag": "branch_single",
+            "patterns": [
+                "Branch",
+                "Branches",
+                "Centers",
+                "Locations"
+            ],
+            "responses": [
+                "Yes, we have multiple branches in various locations across the city.",
+                "Visit our website's Branches page for complete list of locations and addresses.",
+                "Choose the branch nearest to you for easy accessibility.",
+                "All branches offer the same quality education and facilities."
+            ]
+        },
+        {
+            "tag": "website_single",
+            "patterns": [
+                "Website",
+                "Portal",
+                "Online",
+                "Site"
+            ],
+            "responses": [
+                "Visit our website for complete information about courses, admissions, and facilities.",
+                "Our website features easy navigation with sections for Courses, About, Events, Projects, and Contact.",
+                "Students can access the Student Portal and staff can use Staff Login from our website.",
+                "The website is regularly updated with latest news, events, and course information."
+            ]
+        },
+        {
+            "tag": "thank_you",
+            "patterns": [
+                "Thanks",
+                "Thank",
+                "Thankyou",
+                "Appreciate",
+                "Grateful"
+            ],
+            "responses": [
+                "You're welcome! Happy to help you with information about iTech Computer Institute.",
+                "Thank you for your interest in our institute. Feel free to ask if you need more information!",
+                "Glad I could assist you! Don't hesitate to reach out for any other queries.",
+                "You're most welcome! We look forward to seeing you at iTech Computer Institute."
+            ]
+        },
+        {
+            "tag": "goodbye",
+            "patterns": [
+                "Bye",
+                "Goodbye",
+                "Exit",
+                "Quit",
+                "Leave",
+                "End"
+            ],
+            "responses": [
+                "Goodbye! Thank you for visiting iTech Computer Institute. Have a great day!",
+                "Bye! Feel free to contact us anytime for admission or course information.",
+                "Thank you for your time! We hope to see you soon at our institute.",
+                "Goodbye! Don't forget to check out our courses and visit us soon!"
+            ]
+        },
+        {
+            "tag": "yes_no",
+            "patterns": [
+                "Yes",
+                "No",
+                "Maybe",
+                "Sure",
+                "Okay",
+                "Ok"
+            ],
+            "responses": [
+                "Great! How can I assist you further with information about our institute?",
+                "Is there anything specific you'd like to know about our courses or services?",
+                "I'm here to help! What would you like to learn about iTech Computer Institute?",
+                "Perfect! Feel free to ask me anything about admissions, courses, or facilities."
+            ]
+        }
+        
+    ]
+}

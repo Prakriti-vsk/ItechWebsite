@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="contact-hero">
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you! Reach out with any questions or visit our institute.</p>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="contact-content">
+            <div class="contact-info">
+                <h2 class="section-title">Get In Touch</h2>
+                
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h3>Address</h3>
+                        <p>Shop no. 12,14 & 28, Civic Center, Station Rd, opp. Panchmukhi Hanuman Temple Building, Apna Nagar, Sriprastha, Nalasopara West, Maharashtra 401203</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h3>Phone</h3>
+                        <p>+91 9876543210</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h3>Email</h3>
+                        <p>info@itechinstitute.com</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h3>Working Hours</h3>
+                        <p>Monday - Saturday: 9:00 AM - 7:00 PM</p>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://www.facebook.com/itechcomputeredu/" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://x.com/itecheducations" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/itecheducation.official/?hl=en" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/919876543210" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h2 class="section-title">Send Us a Message</h2>
+                <form method="post">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" name="subject" placeholder="Subject">
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Your Message" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="map-section">
+    <div class="container">
+        <h2 class="section-title">Find Us</h2>
+        <div class="map-container">
+            <iframe
+                src="https://www.google.com/maps?q=Shop+no.+12%2C14+%26+28%2C+Civic+Center%2C+Station+Rd%2C+Opp.+Panchmukhi+Hanuman+Temple%2C+Apna+Nagar%2C+Sriprastha%2C+Nalasopara+West%2C+401203&output=embed" 
+                width="100%"
+                height="350"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+</section>
+{% endblock %}

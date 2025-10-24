@@ -1,0 +1,1662 @@
+{% extends "base.html" %}
+
+{% block title %}Student Projects - ITech Computer Institute{% endblock %}
+
+{% block extra_css %}
+<style>
+    .project-hero {
+        background: linear-gradient(135deg, rgba(52, 152, 219, 0.9), rgba(142, 68, 173, 0.9));
+        color: white;
+        padding: 6rem 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .project-hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: 800;
+        text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        animation: fadeInUp 1s ease-out;
+    }
+
+    .project-hero p {
+        font-size: 1.4rem;
+        max-width: 600px;
+        margin: 0 auto;
+        opacity: 0.95;
+        animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .projects-section {
+        padding: 5rem 0;
+        background: var(--background-color);
+    }
+
+    .upload-section {
+        padding: 4rem 0;
+        background: var(--light-color);
+    }
+
+    .upload-card {
+        background: var(--glass-bg);
+        border-radius: var(--border-radius);
+        padding: 3rem;
+        box-shadow: var(--shadow);
+        backdrop-filter: var(--glass-blur);
+        border: 1px solid rgba(44,62,80,0.06);
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .upload-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--gradient);
+    }
+
+    .upload-card h2 {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 2rem;
+        font-size: 2.2rem;
+        font-weight: 700;
+    }
+
+    .upload-form {
+        display: grid;
+        gap: 2rem;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    .file-upload-area {
+        border: 2px dashed var(--primary-color);
+        border-radius: var(--border-radius);
+        padding: 3rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        background: linear-gradient(135deg, rgba(52, 152, 219, 0.05), rgba(142, 68, 173, 0.05));
+    }
+
+    .file-upload-area:hover {
+        border-color: var(--accent-color);
+        background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(142, 68, 173, 0.1));
+        transform: translateY(-2px);
+    }
+
+    .file-upload-area.drag-over {
+        border-color: var(--accent-color);
+        background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(142, 68, 173, 0.1));
+        transform: scale(1.02);
+    }
+
+    .upload-icon {
+        font-size: 3rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-10px);
+        }
+        60% {
+            transform: translateY(-5px);
+        }
+    }
+
+    .upload-text {
+        font-size: 1.2rem;
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .upload-subtext {
+        font-size: 0.9rem;
+        color: var(--text-color);
+        opacity: 0.7;
+    }
+
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2.5rem;
+        margin-top: 3rem;
+    }
+
+    .project-card {
+        background: var(--glass-bg);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+        backdrop-filter: var(--glass-blur);
+        border: 1px solid rgba(44,62,80,0.06);
+        position: relative;
+    }
+
+    .project-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(44,62,80,0.15);
+    }
+
+    .project-image {
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 4rem;
+    }
+
+    .project-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(52, 152, 219, 0.8), rgba(142, 68, 173, 0.8));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .project-card:hover .project-overlay {
+        opacity: 1;
+    }
+
+    .project-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .view-project-btn {
+        background: rgba(52, 152, 219, 0.9);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .view-project-btn:hover {
+        background: rgba(52, 152, 219, 1);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+    }
+
+    .delete-project-btn {
+        background: rgba(231, 76, 60, 0.9);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        border: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .delete-project-btn:hover {
+        background: rgba(231, 76, 60, 1);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+    }
+
+    .share-project-btn {
+        background: rgba(39, 174, 96, 0.9);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        border: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .share-project-btn:hover {
+        background: rgba(39, 174, 96, 1);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+    }
+
+    /* Project Info Section */
+    .project-info {
+        padding: 1.5rem;
+    }
+
+    .project-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.8rem;
+        line-height: 1.3;
+    }
+
+    .project-description {
+        color: var(--text-color);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        opacity: 0.9;
+    }
+
+    .project-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(44,62,80,0.1);
+    }
+
+    .project-author {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .author-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 0.9rem;
+    }
+
+    .author-info h4 {
+        margin: 0;
+        color: var(--primary-color);
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    .author-info p {
+        margin: 0;
+        color: var(--text-color);
+        font-size: 0.8rem;
+        opacity: 0.8;
+    }
+
+    .project-date {
+        color: var(--text-color);
+        font-size: 0.8rem;
+        opacity: 0.8;
+    }
+
+    .project-tags {
+        margin-bottom: 1rem;
+    }
+
+    .tag {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: white;
+        background: var(--gradient);
+        margin-right: 0.5rem;
+    }
+
+    .tag.web {
+        background: linear-gradient(135deg, #3498db, #2980b9);
+    }
+
+    .tag.mobile {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+    }
+
+    .tag.desktop {
+        background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    }
+
+    .tag.ai {
+        background: linear-gradient(135deg, #f39c12, #e67e22);
+    }
+
+    .tag.data {
+        background: linear-gradient(135deg, #27ae60, #2ecc71);
+    }
+
+    .tag.game {
+        background: linear-gradient(135deg, #e67e22, #d35400);
+    }
+
+    .project-stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .stat {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        color: var(--text-color);
+        font-size: 0.8rem;
+        opacity: 0.8;
+    }
+
+    .stat i {
+        color: var(--primary-color);
+        font-size: 0.9rem;
+    }
+
+    /* Success message */
+    .success-upload {
+        background: linear-gradient(135deg, #27ae60, #2ecc71);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 2rem;
+        text-align: center;
+        font-weight: 600;
+        display: none;
+    }
+
+    .success-upload.show {
+        display: block;
+        animation: fadeInUp 0.5s ease-out;
+    }
+
+    .success-upload i {
+        margin-right: 0.5rem;
+        font-size: 1.2rem;
+    }
+
+    /* Modal styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+        background-color: var(--glass-bg);
+        margin: 15% auto;
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        width: 90%;
+        max-width: 500px;
+        backdrop-filter: var(--glass-blur);
+        border: 1px solid rgba(44,62,80,0.1);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        text-align: center;
+    }
+
+    .modal-content h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .modal-content p {
+        color: var(--text-color);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .modal-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .modal-btn {
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .modal-btn.cancel {
+        background: var(--glass-bg);
+        color: var(--text-color);
+        border: 1px solid rgba(44,62,80,0.2);
+    }
+
+    .modal-btn.cancel:hover {
+        background: rgba(44,62,80,0.1);
+    }
+
+    .modal-btn.confirm {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        color: white;
+    }
+
+    .modal-btn.confirm:hover {
+        background: linear-gradient(135deg, #c0392b, #a93226);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+    }
+
+    .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 1rem 1.5rem;
+        border-radius: 5px;
+        color: white;
+        font-weight: 600;
+        z-index: 1001;
+        animation: slideIn 0.3s ease-out;
+        max-width: 300px;
+    }
+
+    .notification.success {
+        background: linear-gradient(135deg, #27ae60, #2ecc71);
+    }
+
+    .notification.error {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    /* Enhanced Filter tabs styling */
+    .filter-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+        padding: 1rem;
+        background: var(--glass-bg);
+        border-radius: 50px;
+        backdrop-filter: var(--glass-blur);
+        border: 1px solid rgba(44,62,80,0.1);
+        max-width: 800px;
+        margin: 0 auto 3rem auto;
+    }
+
+    .filter-tab {
+        background: transparent;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        color: var(--text-color);
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        white-space: nowrap;
+    }
+
+    .filter-tab i {
+        font-size: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .filter-tab::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+    }
+
+    .filter-tab:hover {
+        transform: translateY(-2px);
+        color: white;
+    }
+
+    .filter-tab:hover::before {
+        opacity: 0.8;
+    }
+
+    .filter-tab:hover i {
+        transform: scale(1.1);
+    }
+
+    .filter-tab.active {
+        background: var(--gradient);
+        color: white;
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .filter-tab.active::before {
+        opacity: 1;
+    }
+
+    .filter-tab.active i {
+        transform: scale(1.1);
+    }
+
+    /* Filter tab count badges */
+    .filter-tab .count {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 0.2rem 0.5rem;
+        border-radius: 10px;
+        font-size: 0.8rem;
+        margin-left: 0.5rem;
+        font-weight: 700;
+    }
+
+    .filter-tab:not(.active) .count {
+        background: rgba(44, 62, 80, 0.1);
+        color: var(--text-color);
+    }
+
+    .like-stat {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 0.5rem;
+        border-radius: 5px;
+    }
+
+    .like-stat:hover {
+        background: rgba(231, 76, 60, 0.1);
+        transform: scale(1.05);
+    }
+
+    .like-stat .fas.liked {
+        color: #e74c3c !important;
+        animation: heartBeat 0.5s ease-in-out;
+    }
+
+    @keyframes heartBeat {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.3); }
+        100% { transform: scale(1); }
+    }
+
+    .like-stat:hover .fas {
+        color: #e74c3c;
+    }
+
+    /* Password validation styling */
+    .form-group input[type="password"] {
+        position: relative;
+    }
+
+    .password-strength {
+        height: 3px;
+        background: linear-gradient(to right, #e74c3c, #f39c12, #27ae60);
+        border-radius: 2px;
+        margin-top: 0.5rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .password-strength.show {
+        opacity: 1;
+    }
+
+    .security-tag {
+        background: linear-gradient(135deg, #27ae60, #2ecc71) !important;
+        animation: securityGlow 2s infinite alternate;
+    }
+
+    @keyframes securityGlow {
+        0% { box-shadow: 0 0 5px rgba(39, 174, 96, 0.3); }
+        100% { box-shadow: 0 0 15px rgba(39, 174, 96, 0.6); }
+    }
+
+    .password-validation-error {
+        color: #e74c3c !important;
+        font-weight: 600;
+    }
+
+    .password-validation-success {
+        color: #27ae60 !important;
+        font-weight: 600;
+    }
+
+    /* Enhanced modal styling for password input */
+    .modal-content input[type="password"] {
+        padding: 0.8rem;
+        border: 2px solid rgba(44,62,80,0.2);
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .modal-content input[type="password"]:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+
+    .protected-indicator {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(39, 174, 96, 0.9);
+        color: white;
+        padding: 0.3rem 0.6rem;
+        border-radius: 15px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        backdrop-filter: blur(5px);
+    }
+
+    /* Share Modal Styles */
+    .share-modal-content {
+        background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,249,250,0.95));
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(52, 152, 219, 0.2);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+    }
+
+    .share-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .share-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        border-radius: 12px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        background: rgba(255,255,255,0.7);
+        cursor: pointer;
+    }
+
+    .share-option:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        border-color: var(--primary-color);
+    }
+
+    .share-option i {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .share-option span {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-color);
+    }
+
+    .share-option.whatsapp { color: #25D366; }
+    .share-option.whatsapp:hover { background: rgba(37, 211, 102, 0.1); }
+
+    .share-option.facebook { color: #1877F2; }
+    .share-option.facebook:hover { background: rgba(24, 119, 242, 0.1); }
+
+    .share-option.twitter { color: #1DA1F2; }
+    .share-option.twitter:hover { background: rgba(29, 161, 242, 0.1); }
+
+    .share-option.linkedin { color: #0A66C2; }
+    .share-option.linkedin:hover { background: rgba(10, 102, 194, 0.1); }
+
+    .share-option.telegram { color: #0088CC; }
+    .share-option.telegram:hover { background: rgba(0, 136, 204, 0.1); }
+
+    .share-option.copy { color: var(--primary-color); }
+    .share-option.copy:hover { background: rgba(52, 152, 219, 0.1); }
+
+    .share-url-container {
+        background: rgba(248,249,250,0.8);
+        border: 2px solid rgba(52, 152, 219, 0.2);
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .share-url-container input {
+        flex: 1;
+        border: none;
+        background: transparent;
+        font-size: 0.9rem;
+        color: var(--text-color);
+        outline: none;
+    }
+
+    .copy-btn {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .copy-btn:hover {
+        background: var(--accent-color);
+        transform: scale(1.05);
+    }
+
+    .copy-btn.copied {
+        background: #27ae60;
+    }
+
+    @media (max-width: 768px) {
+        .project-hero h1 {
+            font-size: 2.5rem;
+        }
+        
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+        
+        .projects-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .upload-card {
+            padding: 2rem;
+        }
+        
+        .filter-tabs {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .project-stats {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+    }
+
+    @media (max-width: 968px) {
+        .filter-tabs {
+            gap: 0.5rem;
+            padding: 0.5rem;
+        }
+        
+        .filter-tab {
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .filter-tab span {
+            display: none;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .filter-tabs {
+            flex-direction: column;
+            align-items: center;
+            border-radius: 15px;
+        }
+        
+        .filter-tab {
+            width: 100%;
+            max-width: 200px;
+            justify-content: center;
+        }
+        
+        .filter-tab span {
+            display: inline;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="project-hero">
+    <div class="container">
+        <h1><i class="fas fa-rocket"></i> Student Projects</h1>
+        <p>Showcase your creativity and innovation. Upload your projects and get inspired by others!</p>
+    </div>
+</div>
+
+<div class="upload-section">
+    <div class="container">
+        <div class="upload-card">
+            <h2><i class="fas fa-upload"></i> Upload Your Project</h2>
+            {% if success %}
+            <div class="success-upload show">
+                <i class="fas fa-check-circle"></i> Project uploaded successfully! It will be reviewed and published soon.
+            </div>
+            {% endif %}
+            <form class="upload-form" method="POST" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="studentName">Student Name</label>
+                        <input type="text" id="studentName" name="studentName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="course">Course</label>
+                        <select id="course" name="course" required>
+                            <option value="">Select Course</option>
+                            <option value="web-development">Web Development</option>
+                            <option value="mobile-app">Mobile App Development</option>
+                            <option value="desktop-app">Desktop Application</option>
+                            <option value="ai-ml">AI/Machine Learning</option>
+                            <option value="data-science">Data Science</option>
+                            <option value="cybersecurity">Cybersecurity</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="projectTitle">Project Title</label>
+                        <input type="text" id="projectTitle" name="projectTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectCategory">Category</label>
+                        <select id="projectCategory" name="projectCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="web">Web Application</option>
+                            <option value="mobile">Mobile App</option>
+                            <option value="desktop">Desktop Software</option>
+                            <option value="ai">AI/ML Project</option>
+                            <option value="data">Data Analysis</option>
+                            <option value="game">Game Development</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="projectDescription">Project Description</label>
+                    <textarea id="projectDescription" name="projectDescription" rows="4" placeholder="Describe your project, technologies used, and key features..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="projectUrl">Project URL (Optional)</label>
+                    <input type="url" id="projectUrl" name="projectUrl" placeholder="https://your-live-project.com OR leave blank to upload files">
+                    <small style="color: var(--text-color); opacity: 0.7; display: block; margin-top: 0.5rem;">
+                        💡 For local projects: Leave this blank and upload your HTML files below
+                    </small>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="projectPassword">Project Password (Optional)</label>
+                        <input type="password" id="projectPassword" name="projectPassword" placeholder="Set a password to protect your project">
+                        <small style="color: var(--text-color); opacity: 0.7; display: block; margin-top: 0.5rem;">
+                            🔒 Only you will be able to delete your project with this password
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password">
+                        <small id="passwordMatch" style="color: var(--text-color); opacity: 0.7; display: block; margin-top: 0.5rem;">
+                            Leave blank if you don't want password protection
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Project Files (HTML, CSS, JS, ZIP, etc.)</label>
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="upload-text">Drag & drop your project files here</div>
+                        <div class="upload-subtext">or click to browse (HTML, CSS, JS, ZIP, Images up to 10MB each)</div>
+                        <input type="file" id="projectFiles" name="projectFiles" multiple accept=".html,.css,.js,.png,.jpg,.jpeg,.gif,.zip,.rar" style="display: none;">
+                    </div>
+                </div>
+
+                <!-- Add instructions for ZIP uploads -->
+                <div class="upload-instructions" style="background: var(--glass-bg); padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 4px solid var(--primary-color);">
+                    <h4 style="margin: 0 0 0.5rem 0; color: var(--primary-color);">
+                        <i class="fas fa-info-circle"></i> Upload Instructions
+                    </h4>
+                    <ul style="margin: 0; padding-left: 1.5rem; color: var(--text-color);">
+                        <li><strong>Individual Files:</strong> Upload HTML, CSS, JS, and image files separately</li>
+                        <li><strong>ZIP Archive:</strong> Upload a ZIP file containing your entire project</li>
+                        <li><strong>Main File:</strong> Ensure your main HTML file is named 'index.html' or includes 'index' in the name</li>
+                        <li><strong>File Size:</strong> Maximum 10MB per file</li>
+                    </ul>
+                </div>
+
+                <button type="submit" class="btn" style="justify-self: center; margin-top: 1rem;">
+                    <i class="fas fa-rocket"></i> Upload Project
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="projects-section">
+    <div class="container">
+        <h2 class="section-title">Featured Student Projects</h2>
+        
+        <div class="filter-tabs">
+            <div class="filter-tab active" data-category="all">
+                <i class="fas fa-th-large"></i> 
+                <span>All Projects</span>
+                <span class="count">{{ projects|length }}</span>
+            </div>
+            <div class="filter-tab" data-category="web">
+                <i class="fas fa-globe"></i> 
+                <span>Web Apps</span>
+                <span class="count">{{ projects|selectattr('4', 'equalto', 'web')|list|length }}</span>
+            </div>
+            <div class="filter-tab" data-category="mobile">
+                <i class="fas fa-mobile-alt"></i> 
+                <span>Mobile Apps</span>
+                <span class="count">{{ projects|selectattr('4', 'equalto', 'mobile')|list|length }}</span>
+            </div>
+            <div class="filter-tab" data-category="desktop">
+                <i class="fas fa-desktop"></i> 
+                <span>Desktop Apps</span>
+                <span class="count">{{ projects|selectattr('4', 'equalto', 'desktop')|list|length }}</span>
+            </div>
+            <div class="filter-tab" data-category="ai">
+                <i class="fas fa-robot"></i> 
+                <span>AI/ML</span>
+                <span class="count">{{ projects|selectattr('4', 'equalto', 'ai')|list|length }}</span>
+            </div>
+            <div class="filter-tab" data-category="data">
+                <i class="fas fa-chart-line"></i> 
+                <span>Data Science</span>
+                <span class="count">{{ projects|selectattr('4', 'equalto', 'data')|list|length }}</span>
+            </div>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid">
+            {% if projects %}
+                {% for project in projects %}
+                <div class="project-card" data-category="{{ project[4] }}">
+                    {% if project|length > 11 and project[11] %}
+                    <div class="protected-indicator">
+                        <i class="fas fa-shield-alt"></i> Protected
+                    </div>
+                    {% endif %}
+                    <div class="project-image">
+                        <i class="fas fa-{% if project[4] == 'web' %}globe{% elif project[4] == 'mobile' %}mobile-alt{% elif project[4] == 'desktop' %}desktop{% elif project[4] == 'ai' %}robot{% elif project[4] == 'data' %}chart-line{% else %}code{% endif %}"></i>
+                        <div class="project-overlay">
+                            <div class="project-buttons">
+                                <a href="{{ url_for('view_project', project_id=project[0]) }}" class="view-project-btn">
+                                    <i class="fas fa-info-circle"></i> View Details
+                                </a>
+                                
+                                {% if project[6] %}
+                                    {% if project[6].startswith('/static/uploads/projects/') or project[6].startswith('static/uploads/projects/') %}
+                                        <!-- Uploaded HTML file -->
+                                        <a href="{{ url_for('view_uploaded_project', project_id=project[0]) }}" target="_blank" class="view-project-btn">
+                                            <i class="fas fa-external-link-alt"></i> View Project
+                                        </a>
+                                    {% elif project[6].startswith('http://') or project[6].startswith('https://') %}
+                                        <!-- External URL -->
+                                        <a href="{{ project[6] }}" target="_blank" class="view-project-btn">
+                                            <i class="fas fa-external-link-alt"></i> View Project
+                                        </a>
+                                    {% else %}
+                                        <!-- Local file or other format -->
+                                        <a href="{{ project[6] }}" target="_blank" class="view-project-btn">
+                                            <i class="fas fa-external-link-alt"></i> View Project
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+                                
+                                <button class="share-project-btn" data-project-id="{{ project[0] }}" data-project-title="{{ project[3] }}" data-project-author="{{ project[1] }}" data-project-description="{{ project[5][:100] }}...">
+                                    <i class="fas fa-share-alt"></i> Share
+                                </button>
+                                
+                                <button class="delete-project-btn" data-project-id="{{ project[0] }}" data-project-title="{{ project[3] }}" data-has-password="{{ 'true' if project|length > 11 and project[11] else 'false' }}">
+                                    <i class="fas fa-{% if project|length > 11 and project[11] %}lock{% else %}trash{% endif %}"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">{{ project[3] }}</h3>
+                        <p class="project-description">{{ project[5][:100] }}{% if project[5]|length > 100 %}...{% endif %}</p>
+                        <div class="project-meta">
+                            <div class="project-author">
+                                <div class="author-avatar">{{ project[1][0:2].upper() }}</div>
+                                <div class="author-info">
+                                    <h4>{{ project[1] }}</h4>
+                                    <p>{{ project[2] }}</p>
+                                </div>
+                            </div>
+                            <div class="project-date">
+                                {% if project[7] %}
+                                    {{ project[7].strftime('%b %Y') }}
+                                {% else %}
+                                    Recently
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="project-tags">
+                            <span class="tag {{ project[4] }}">{{ project[4].title() }}</span>
+                            {% if project|length > 11 and project[11] %}
+                            <span class="tag security-tag" style="background: linear-gradient(135deg, #27ae60, #2ecc71);">
+                                <i class="fas fa-shield-alt"></i> Protected
+                            </span>
+                            {% endif %}
+                        </div>
+                        <div class="project-stats">
+                            <div class="stat">
+                                <i class="fas fa-eye"></i>
+                                <span>{{ project[8] or 0 }} views</span>
+                            </div>
+                            <div class="stat like-stat" data-project-id="{{ project[0] }}">
+                                <i class="fas fa-heart"></i>
+                                <span class="like-count">{{ project[9] or 0 }}</span> likes
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-share-alt"></i>
+                                <span>{{ project[10] or 0 }} shares</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                    <h3>No projects uploaded yet!</h3>
+                    <p>Be the first to showcase your amazing project.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Password validation for upload form
+    const projectPassword = document.getElementById('projectPassword');
+    const confirmPassword = document.getElementById('confirmPassword');
+    const passwordMatch = document.getElementById('passwordMatch');
+    const uploadForm = document.querySelector('.upload-form');
+
+    function validatePasswords() {
+        const password = projectPassword ? projectPassword.value : '';
+        const confirm = confirmPassword ? confirmPassword.value : '';
+        
+        if (password || confirm) {
+            if (password !== confirm) {
+                if (passwordMatch) {
+                    passwordMatch.style.color = '#e74c3c';
+                    passwordMatch.innerHTML = '<i class="fas fa-times-circle"></i> Passwords do not match';
+                }
+                return false;
+            } else if (password.length < 6) {
+                if (passwordMatch) {
+                    passwordMatch.style.color = '#e74c3c';
+                    passwordMatch.innerHTML = '<i class="fas fa-times-circle"></i> Password must be at least 6 characters';
+                }
+                return false;
+            } else {
+                if (passwordMatch) {
+                    passwordMatch.style.color = '#27ae60';
+                    passwordMatch.innerHTML = '<i class="fas fa-check-circle"></i> Passwords match';
+                }
+                return true;
+            }
+        } else {
+            if (passwordMatch) {
+                passwordMatch.style.color = 'var(--text-color)';
+                passwordMatch.innerHTML = 'Leave blank if you don\'t want password protection';
+            }
+            return true;
+        }
+    }
+
+    if (projectPassword) projectPassword.addEventListener('input', validatePasswords);
+    if (confirmPassword) confirmPassword.addEventListener('input', validatePasswords);
+
+    // Form submission validation
+    if (uploadForm) {
+        uploadForm.addEventListener('submit', function(e) {
+            if (!validatePasswords()) {
+                e.preventDefault();
+                showNotification('Please fix password validation errors', 'error');
+                return false;
+            }
+        });
+    }
+
+    // File upload functionality
+    const fileUploadArea = document.getElementById('fileUploadArea');
+    const fileInput = document.getElementById('projectFiles');
+
+    if (fileUploadArea && fileInput) {
+        // File upload drag and drop
+        fileUploadArea.addEventListener('click', () => fileInput.click());
+        fileUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileUploadArea.classList.add('drag-over');
+        });
+        fileUploadArea.addEventListener('dragleave', () => {
+            fileUploadArea.classList.remove('drag-over');
+        });
+        fileUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileUploadArea.classList.remove('drag-over');
+            const files = e.dataTransfer.files;
+            fileInput.files = files;
+            updateFileUploadDisplay(files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            updateFileUploadDisplay(e.target.files);
+        });
+    }
+
+    function updateFileUploadDisplay(files) {
+        const fileUploadArea = document.getElementById('fileUploadArea');
+        if (files.length > 0) {
+            const fileTypes = [];
+            const fileNames = [];
+            
+            Array.from(files).forEach(file => {
+                fileNames.push(file.name);
+                const ext = file.name.split('.').pop().toLowerCase();
+                if (!fileTypes.includes(ext)) {
+                    fileTypes.push(ext);
+                }
+            });
+            
+            const isZip = fileTypes.includes('zip');
+            const icon = isZip ? 'fa-file-archive' : 'fa-check-circle';
+            const message = isZip ? 'ZIP archive selected' : `${files.length} file(s) selected`;
+            
+            fileUploadArea.innerHTML = `
+                <div class="upload-icon">
+                    <i class="fas ${icon}"></i>
+                </div>
+                <div class="upload-text">${message}</div>
+                <div class="upload-subtext">${fileNames.join(', ')}</div>
+            `;
+        }
+    }
+
+    // Filter functionality
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const category = tab.getAttribute('data-category');
+            
+            // Update active tab
+            filterTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            
+            // Filter projects
+            projectCards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                if (category === 'all' || cardCategory === category) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeInUp 0.5s ease-out';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // Delete project functionality - THIS IS THE KEY FUNCTIONALITY
+    const deleteButtons = document.querySelectorAll('.delete-project-btn');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const projectId = this.getAttribute('data-project-id');
+            const projectTitle = this.getAttribute('data-project-title');
+            const hasPassword = this.getAttribute('data-has-password') === 'true';
+            
+            showDeleteConfirmation(projectId, projectTitle, hasPassword);
+        });
+    });
+
+    // Share project functionality
+    const shareButtons = document.querySelectorAll('.share-project-btn');
+    shareButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const projectId = this.getAttribute('data-project-id');
+            const projectTitle = this.getAttribute('data-project-title');
+            const projectAuthor = this.getAttribute('data-project-author');
+            const projectDescription = this.getAttribute('data-project-description');
+            
+            if (projectId && projectTitle && projectAuthor) {
+                showShareModal(projectId, projectTitle, projectAuthor, projectDescription);
+            }
+        });
+    });
+
+    // Like button functionality
+    const likeButtons = document.querySelectorAll('.like-stat');
+    likeButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const projectId = this.getAttribute('data-project-id');
+            const likeCountElement = this.querySelector('.like-count');
+            const heartIcon = this.querySelector('.fas');
+            
+            // Disable button temporarily to prevent double clicks
+            this.style.pointerEvents = 'none';
+            
+            fetch(`/like-project/${projectId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update like count
+                    const currentLikes = parseInt(likeCountElement.textContent);
+                    likeCountElement.textContent = currentLikes + 1;
+                    
+                    // Add visual feedback
+                    heartIcon.classList.add('liked');
+                    heartIcon.style.color = '#e74c3c';
+                    
+                    // Show success message
+                    showNotification('Project liked! ❤️', 'success');
+                } else {
+                    showNotification('Error liking project', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('Error liking project', 'error');
+            })
+            .finally(() => {
+                // Re-enable button after 2 seconds
+                setTimeout(() => {
+                    this.style.pointerEvents = 'auto';
+                }, 2000);
+            });
+        });
+    });
+
+    // MODAL FUNCTIONS
+    function showDeleteConfirmation(projectId, projectTitle, hasPassword) {
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        
+        const passwordInput = hasPassword ? `
+            <div class="form-group" style="margin: 1.5rem 0;">
+                <label for="deletePassword" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--primary-color);">
+                    <i class="fas fa-lock"></i> Enter Project Password:
+                </label>
+                <input type="password" id="deletePassword" placeholder="Enter your project password" 
+                       style="width: 100%; padding: 0.8rem; border: 2px solid rgba(44,62,80,0.2); border-radius: 8px; font-size: 1rem;"
+                       required>
+            </div>
+        ` : '';
+        
+        modal.innerHTML = `
+            <div class="modal-content">
+                <h3><i class="fas fa-exclamation-triangle"></i> Delete Project</h3>
+                <p>Are you sure you want to delete the project "<strong>${projectTitle}</strong>"?</p>
+                ${hasPassword ? '<p style="font-size: 0.9rem; color: var(--primary-color);"><i class="fas fa-shield-alt"></i> This project is password protected.</p>' : ''}
+                <p style="font-size: 0.9rem; opacity: 0.8;">This action cannot be undone and will permanently delete all project files.</p>
+                ${passwordInput}
+                <div class="modal-buttons">
+                    <button class="modal-btn cancel" onclick="closeModal()">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button class="modal-btn confirm" onclick="confirmDelete(${projectId}, ${hasPassword})">
+                        <i class="fas fa-trash"></i> Delete Project
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        modal.style.display = 'block';
+        
+        // Focus on password input if password is required
+        if (hasPassword) {
+            const passwordInput = modal.querySelector('#deletePassword');
+            setTimeout(() => passwordInput.focus(), 100);
+        }
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    }
+
+    function showShareModal(projectId, projectTitle, projectAuthor, projectDescription) {
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        
+        const projectUrl = `${window.location.origin}/project/${projectId}`;
+        const shareText = `Check out this amazing project: "${projectTitle}" by ${projectAuthor} - ${projectDescription}`;
+        
+        modal.innerHTML = `
+            <div class="modal-content share-modal-content">
+                <h3><i class="fas fa-share-alt"></i> Share Project</h3>
+                <p>Share "${projectTitle}" with your friends and colleagues!</p>
+                
+                <div class="share-url-container">
+                    <input type="text" id="shareUrl" value="${projectUrl}" readonly>
+                    <button class="copy-btn" onclick="copyToClipboard()">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+                
+                <div class="share-options">
+                    <a href="https://wa.me/?text=${encodeURIComponent(shareText + ' ' + projectUrl)}" 
+                       target="_blank" class="share-option whatsapp" onclick="incrementShareCount(${projectId})">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                    
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(projectUrl)}&quote=${encodeURIComponent(shareText)}" 
+                       target="_blank" class="share-option facebook" onclick="incrementShareCount(${projectId})">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                    </a>
+                    
+                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(projectUrl)}" 
+                       target="_blank" class="share-option twitter" onclick="incrementShareCount(${projectId})">
+                        <i class="fab fa-twitter"></i>
+                        <span>Twitter</span>
+                    </a>
+                    
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(projectUrl)}" 
+                       target="_blank" class="share-option linkedin" onclick="incrementShareCount(${projectId})">
+                        <i class="fab fa-linkedin-in"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    
+                    <a href="https://t.me/share/url?url=${encodeURIComponent(projectUrl)}&text=${encodeURIComponent(shareText)}" 
+                       target="_blank" class="share-option telegram" onclick="incrementShareCount(${projectId})">
+                        <i class="fab fa-telegram-plane"></i>
+                        <span>Telegram</span>
+                    </a>
+                    
+                    <div class="share-option copy" onclick="copyToClipboard()">
+                        <i class="fas fa-link"></i>
+                        <span>Copy Link</span>
+                    </div>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button class="modal-btn cancel" onclick="closeModal()">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        modal.style.display = 'block';
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    }
+
+    function showNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i>
+            ${message}
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.remove();
+        }, 5000);
+    }
+
+    function updateFilterCounts() {
+        const projectCards = document.querySelectorAll('.project-card');
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        
+        filterTabs.forEach(tab => {
+            const category = tab.getAttribute('data-category');
+            const countElement = tab.querySelector('.count');
+            
+            if (category === 'all') {
+                countElement.textContent = projectCards.length;
+            } else {
+                const categoryCount = Array.from(projectCards).filter(card => 
+                    card.getAttribute('data-category') === category
+                ).length;
+                countElement.textContent = categoryCount;
+            }
+        });
+    }
+
+    // Make functions global for onclick handlers
+    window.showDeleteConfirmation = showDeleteConfirmation;
+    window.showShareModal = showShareModal;
+    window.showNotification = showNotification;
+    window.updateFilterCounts = updateFilterCounts;
+});
+
+// GLOBAL FUNCTIONS (for onclick handlers)
+window.closeModal = function() {
+    const modal = document.querySelector('.modal');
+    if (modal) {
+        modal.remove();
+    }
+};
+
+window.confirmDelete = function(projectId, hasPassword) {
+    const confirmBtn = document.querySelector('.modal-btn.confirm');
+    const passwordInput = document.querySelector('#deletePassword');
+    
+    // Get password if required
+    let password = '';
+    if (hasPassword) {
+        password = passwordInput ? passwordInput.value.trim() : '';
+        if (!password) {
+            window.showNotification('Please enter the project password', 'error');
+            return;
+        }
+    }
+    
+    confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
+    confirmBtn.disabled = true;
+    
+    // Prepare request data
+    const requestData = hasPassword && password ? { password: password } : {};
+    
+    fetch(`/delete-project/${projectId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        window.closeModal();
+        
+        if (data.success) {
+            window.showNotification('Project deleted successfully!', 'success');
+            // Remove project card from DOM
+            const projectCard = document.querySelector(`[data-project-id="${projectId}"]`).closest('.project-card');
+            if (projectCard) {
+                projectCard.style.animation = 'fadeOut 0.5s ease-out';
+                setTimeout(() => {
+                    projectCard.remove();
+                    window.updateFilterCounts();
+                }, 500);
+            }
+        } else {
+            window.showNotification('Error: ' + data.error, 'error');
+        }
+    })
+    .catch(error => {
+        window.closeModal();
+        window.showNotification('Error deleting project. Please try again.', 'error');
+        console.error('Error:', error);
+    });
+};
+
+window.copyToClipboard = function() {
+    const shareUrl = document.getElementById('shareUrl');
+    shareUrl.select();
+    shareUrl.setSelectionRange(0, 99999);
+    
+    navigator.clipboard.writeText(shareUrl.value).then(function() {
+        const copyBtns = document.querySelectorAll('.copy-btn');
+        copyBtns.forEach(btn => {
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            btn.classList.add('copied');
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.remove('copied');
+            }, 2000);
+        });
+        
+        window.showNotification('Project link copied to clipboard!', 'success');
+    }).catch(function(err) {
+        // Fallback for older browsers
+        try {
+            document.execCommand('copy');
+            window.showNotification('Project link copied to clipboard!', 'success');
+        } catch (e) {
+            window.showNotification('Unable to copy link. Please copy manually.', 'error');
+        }
+    });
+};
+
+window.incrementShareCount = function(projectId) {
+    fetch(`/share-project/${projectId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Update share count in the UI
+            const projectCard = document.querySelector(`[data-project-id="${projectId}"]`).closest('.project-card');
+            const shareCount = projectCard.querySelector('.stat:nth-child(3) span');
+            if (shareCount) {
+                const currentText = shareCount.textContent;
+                const currentCount = parseInt(currentText.split(' ')[0]);
+                shareCount.textContent = `${currentCount + 1} shares`;
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Error incrementing share count:', error);
+    });
+};
+
+// Add fadeOut animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+            transform: scale(1);
+        }
+        to {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+    }
+`;
+document.head.appendChild(style);
+</script>
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

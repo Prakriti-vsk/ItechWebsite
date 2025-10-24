@@ -1,0 +1,8 @@
+flask
+flask-sqlalchemy
+pyodbc
+python-dotenv
+Flask
+scikit-learn
+pandas
+joblib
