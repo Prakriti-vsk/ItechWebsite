@@ -11,40 +11,41 @@ from config import Config
 from datetime import datetime
 import hashlib
 
+
 class Database:
     def __init__(self):
         self.connection = None
         self.cursor = None
+        self._is_sqlite = False
 
-        # Try to use pyodbc (SQL Server) when configured and available
-        if Config.SQL_CONNECTION_STRING and _has_pyodbc:
+        # Attempt SQL Server connection if a connection string is provided and pyodbc is available
+        if getattr(Config, 'SQL_CONNECTION_STRING', None) and _has_pyodbc:
             try:
                 self.connection = pyodbc.connect(Config.SQL_CONNECTION_STRING)
                 self.cursor = self.connection.cursor()
+                self._is_sqlite = False
                 print("Database connection (pyodbc) successful!")
             except Exception as e:
                 print("pyodbc connection failed:", e)
                 self.connection = None
                 self.cursor = None
 
-        # Fallback to local SQLite file if pyodbc is not available or connection failed
+        # Fallback to local SQLite file
         if not self.connection:
             try:
-                # Use existing SQLite DB file if present, else create one
-                sqlite_db = os.path.join(os.path.dirname(__file__), '..', 'itech_institute.db')
-                # Normalize path
-                sqlite_db = os.path.abspath(sqlite_db)
-                self.connection = sqlite3.connect(sqlite_db, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
-                # Return rows as tuples (compatible with existing code that uses indexes)
-                self.connection.row_factory = None
+                db_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'itech_institute.db'))
+                os.makedirs(os.path.dirname(db_path), exist_ok=True)
+                self.connection = sqlite3.connect(db_path, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
+                # Use default row behaviour (tuples) to match existing indexing by ordinal
                 self.cursor = self.connection.cursor()
-                print(f"SQLite fallback database connected: {sqlite_db}")
+                self._is_sqlite = True
+                print(f"SQLite fallback database connected: {db_path}")
             except Exception as e:
                 print("SQLite fallback connection failed:", e)
                 self.connection = None
                 self.cursor = None
 
-        # If we have a connection, try to create necessary tables/indexes where appropriate
+        # If connected, ensure tables and indexes exist
         if self.connection:
             try:
                 self.create_tables()
